@@ -12,14 +12,14 @@
         }
         
         :root {
-            --primary-dark: #0E0E0E; /* Rich Black */
+            --primary-dark: #1F1F1F; /* Dark Hero/Footer Background */
             --primary-gold: #D6AE7B; /* Champagne Gold */
-            --text-primary: #FDF6EC; /* Ivory */
-            --text-secondary: #A5A5A5; /* Soft Gray */
-            --bg-dark: #0E0E0E;
-            --bg-card: #1B1B1B;
-            --cta-bg: #F5F5F5;
-            --border-light: #3a3a3a;
+            --text-primary: #2A2A2A; /* Dark Charcoal Text */
+            --text-secondary: #6B7280; /* Medium Gray */
+            --bg-light: #F5F0E6; /* Pale Cream Background */
+            --bg-card: #FFFFFF; /* White for cards */
+            --cta-bg: #D6AE7B; /* Gold for buttons */
+            --border-light: #E5E7EB; /* Light gray for borders */
         }
         
         * {
@@ -48,9 +48,8 @@
         }
         
         .glass-effect {
-            /* backdrop-filter: blur(20px); */
             background: var(--bg-card);
-            border: 1px solid var(--border-light); /* Updated for dark theme */
+            border: 1px solid var(--border-light);
         }
         
         .ticket-shimmer {
@@ -99,7 +98,7 @@
         
         .luxury-input {
             border: 1px solid var(--border-light);
-            background: var(--bg-dark);
+            background: #FFFFFF;
             transition: all 0.3s ease;
         }
         
@@ -110,7 +109,7 @@
         }
         
         .elegant-button {
-            background: var(--cta-bg);
+            background: var(--cta-bg); /* This is now gold */
             border: none;
             color: white;
             font-weight: 600;
@@ -125,7 +124,7 @@
 
         .ticket-option.selected {
             border-color: var(--primary-gold);
-            background-color: #2a2a2a; /* Darker accent for selection */
+            background-color: #FDF6EC; /* Ivory accent for selection */
             transform: translateY(-4px);
         }
     </style>
@@ -160,18 +159,18 @@
         });
     </script>
 </head>
-<body class="min-h-full font-['Inter']" style="background-color: var(--bg-dark); color: var(--text-primary);">
+<body class="min-h-full font-['Inter']" style="background-color: var(--bg-light); color: var(--text-primary);">
     <div class="min-h-full font-['Inter']">
         <!-- Header -->
         <!-- Header can be simplified or removed if the hero is strong enough -->
         <header class="py-6 px-8 flex justify-center items-center">
-             <h1 class="text-2xl font-['Playfair_Display'] font-light tracking-[0.2em] text-white">La Maison</h1>
+             <h1 class="text-2xl font-['Playfair_Display'] font-light tracking-[0.2em]" style="color: var(--text-primary);">La Maison</h1>
         </header>
 
         <!-- Main Content -->
         <main class="max-w-6xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
             <!-- REFINED Hero Section -->
-            <section class="relative text-center py-24 md:py-40 px-6 flex flex-col items-center justify-center rounded-2xl overflow-hidden mb-24">
+            <section class="dark-hero relative text-center py-24 md:py-40 px-6 flex flex-col items-center justify-center rounded-2xl overflow-hidden mb-24" style="background-color: var(--primary-dark);">
                 <!-- Background Image & Overlay -->
                 <div class="absolute inset-0">
                     <img src="https://loveluxury.co.uk/shop/wp-content/uploads/2025/10/Hermes-Birkin-25-Noir-Black-Togo-Gold-Hardware-2021-5440-1-900x600.jpg" alt="Hermes Birkin Bag" class="w-full h-full object-cover">
@@ -181,7 +180,7 @@
                 <!-- Content -->
                 <div class="relative z-10">
                     <h1 class="text-4xl md:text-6xl font-['Playfair_Display'] font-semibold text-white leading-tight mb-4">Own a Hermès Birkin</h1>
-                    <p class="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">One Winner. One Chance. Unlimited Luxury.</p>
+                    <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">One Winner. One Chance. Unlimited Luxury.</p>
                     <a href="#entryForm" class="inline-block bg-gold-accent text-black font-bold py-4 px-12 rounded-md text-lg hover:opacity-90 transition-opacity">
                         Secure My Entry
                     </a>
@@ -197,7 +196,7 @@
                             <span id="ticketsSoldCount">4,247 / 5,000 Entries Sold</span>
                             <span class="text-gold font-semibold" id="progressPercentage">84.9%</span>
                         </div>
-                        <div class="bg-gray-700 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-gray-200 rounded-full h-2.5 overflow-hidden">
                             <div class="gold-accent h-full rounded-full transition-all duration-700 progress-glow" style="width: 84.9%"></div>
                         </div>
                         <p class="text-center text-xs mt-3" style="color: var(--text-secondary);">The draw is automatically triggered once 100% of entries are sold.</p>
@@ -232,21 +231,21 @@
                 </h3>
                 <div class="grid md:grid-cols-3 gap-12">
                     <div class="text-center group">
-                        <div class="w-20 h-20 border border-amber-600/50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
+                        <div class="w-20 h-20 border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
                             <span class="text-3xl text-gold">🎫</span>
                         </div>
                         <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">Choose Your Entry</h4>
                         <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">Select your preferred entry package to begin.</p>
                     </div>
                     <div class="text-center group">
-                        <div class="w-20 h-20 border border-amber-600/50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
+                        <div class="w-20 h-20 border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
                             <span class="text-3xl text-gold">⏰</span>
                         </div>
                         <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">Await the Draw</h4>
                         <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">A winner is selected via a verified random draw once all entries are sold.</p>
                     </div>
                     <div class="text-center group">
-                        <div class="w-20 h-20 border border-amber-600/50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
+                        <div class="w-20 h-20 border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
                             <span class="text-3xl text-gold">🏆</span>
                         </div>
                         <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">We Deliver Luxury</h4>
@@ -295,7 +294,7 @@
                     <div class="flex flex-col">
                         <h4 class="text-xl font-medium mb-8" style="color: var(--text-primary);">Select Your Entry</h4>
                         <div class="space-y-4">
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-gray-900/50" onclick="selectTicket(this, 1, 5, 'Solo Entry')">
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white" onclick="selectTicket(this, 1, 5, 'Solo Entry')">
                                 <div class="flex justify-between items-center">
                                     <div>
                                         <div class="font-semibold text-lg mb-1" style="color: var(--text-primary);">Solo Entry</div>
@@ -305,7 +304,7 @@
                                 </div>
                             </div>
                             
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-gray-900/50" onclick="selectTicket(this, 2, 10, 'Double Chance')">
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white" onclick="selectTicket(this, 2, 10, 'Double Chance')">
                                 <div class="flex justify-between items-center">
                                     <div>
                                         <div class="font-semibold text-lg mb-1" style="color: var(--text-primary);">Double Chance</div>
@@ -315,7 +314,7 @@
                                 </div>
                             </div>
                             
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-gray-900/50 relative" onclick="selectTicket(this, 5, 25, 'Collector’s Pack')">
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative" onclick="selectTicket(this, 5, 25, 'Collector’s Pack')">
                                 <div class="absolute -top-3 right-4 bg-gold-accent text-black text-xs font-bold uppercase px-3 py-1 rounded-full">Best Value</div>
                                 <div class="flex justify-between items-center">
                                     <div>
@@ -372,12 +371,12 @@
 
             <!-- Checkout Form (Hidden Initially) -->
             <div id="checkoutForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 fade-in hidden">
-                <div class="bg-red-900/30 border border-red-500/50 rounded-2xl p-6 mb-8">
+                <div class="bg-red-100 border border-red-200 rounded-2xl p-6 mb-8">
                     <div class="flex items-center">
-                        <div class="text-red-600 mr-3">⚠️</div>
-                        <div class="text-red-800 font-semibold tracking-wide">DEMO CHECKOUT - NOT FUNCTIONAL</div>
+                        <div class="text-red-500 mr-3">⚠️</div>
+                        <div class="text-red-700 font-semibold tracking-wide">DEMO CHECKOUT - NOT FUNCTIONAL</div>
                     </div>
-                    <div class="text-red-700 text-sm mt-2">This is a demonstration only. No actual payments will be processed.</div>
+                    <div class="text-red-600 text-sm mt-2">This is a demonstration only. No actual payments will be processed.</div>
                 </div>
                 
                 <h3 class="text-3xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary);">
@@ -410,7 +409,7 @@
                     <!-- Payment Information (Demo) -->
                     <div class="border-t pt-8" style="border-color: var(--border-light);">
                         <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Payment Information</h4>
-                        <div class="bg-gray-800/50 rounded-2xl p-6 mb-6">
+                        <div class="bg-gray-100 rounded-2xl p-6 mb-6">
                             <div class="text-sm mb-2" style="color: var(--text-secondary);">Demo payment details - do not enter real information</div>
                             <div class="text-xs" style="color: var(--text-secondary);">Card: 4242 4242 4242 4242 | Exp: 12/25 | CVV: 123</div>
                         </div>
@@ -418,15 +417,15 @@
                         <div class="grid md:grid-cols-2 gap-8">
                             <div class="md:col-span-2">
                                 <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Card Number</label>
-                                <input type="text" placeholder="4242 4242 4242 4242" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-900" readonly>
+                                <input type="text" placeholder="4242 4242 4242 4242" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-50" readonly>
                             </div>
                             <div>
                                 <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Expiry Date</label>
-                                <input type="text" placeholder="12/25" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-900" readonly>
+                                <input type="text" placeholder="12/25" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-50" readonly>
                             </div>
                             <div>
                                 <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">CVV</label>
-                                <input type="text" placeholder="123" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-900" readonly>
+                                <input type="text" placeholder="123" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-50" readonly>
                             </div>
                         </div>
                     </div>
@@ -434,7 +433,7 @@
                     <!-- Order Summary -->
                     <div class="border-t pt-8" style="border-color: var(--border-light);">
                         <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Order Summary</h4>
-                        <div id="orderSummary" class="bg-gray-900/50 rounded-2xl p-6">
+                        <div id="orderSummary" class="bg-gray-50 rounded-2xl p-6">
                             <!-- Will be populated by JavaScript -->
                         </div>
                     </div>
@@ -510,7 +509,7 @@
                 </div>
             `;
             selectedTicketDiv.classList.remove('border-dashed');
-            selectedTicketDiv.style.backgroundColor = '#2a2a2a';
+            selectedTicketDiv.style.backgroundColor = '#FDF6EC'; /* Ivory */
             
             // Enable proceed button
             document.getElementById('proceedBtn').disabled = false;
