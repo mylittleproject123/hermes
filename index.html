@@ -129,44 +129,63 @@
             transform: translateY(-4px);
         }
     </style>
+    <script>
+        // Simple countdown timer logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const countdownElement = document.getElementById('countdown');
+            if (!countdownElement) return;
+
+            // Set a future date (e.g., 10 days from now)
+            const countdownDate = new Date().getTime() + 10 * 24 * 60 * 60 * 1000;
+
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+                countdownElement.innerHTML = `
+                    <div><span class="text-2xl md:text-3xl font-semibold">${days}</span><span class="text-xs uppercase tracking-wider">Days</span></div>
+                    <div><span class="text-2xl md:text-3xl font-semibold">${hours}</span><span class="text-xs uppercase tracking-wider">Hours</span></div>
+                    <div><span class="text-2xl md:text-3xl font-semibold">${minutes}</span><span class="text-xs uppercase tracking-wider">Mins</span></div>
+                `;
+
+                if (distance < 0) {
+                    clearInterval(interval);
+                    countdownElement.innerHTML = "DRAW CLOSED";
+                }
+            }, 1000);
+        });
+    </script>
 </head>
 <body class="min-h-full font-['Inter']" style="background-color: var(--bg-dark); color: var(--text-primary);">
     <div class="min-h-full font-['Inter']">
         <!-- Header -->
-        <header class="luxury-gradient text-white py-8 luxury-shadow relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
-            <div class="max-w-7xl mx-auto px-8 relative">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 gold-accent rounded-full flex items-center justify-center">
-                            <span class="text-white font-bold text-xl">L</span>
-                        </div>
-                        <h1 class="text-4xl font-['Playfair_Display'] font-light tracking-[0.2em] text-white">La Maison</h1>
-                    </div>
-                    <div class="text-sm font-light text-white/80 tracking-wide">Win a Hermès Birkin. No Ordinary Raffle.</div>
-                </div>
-            </div>
+        <!-- Header can be simplified or removed if the hero is strong enough -->
+        <header class="py-6 px-8 flex justify-center items-center">
+             <h1 class="text-2xl font-['Playfair_Display'] font-light tracking-[0.2em] text-white">La Maison</h1>
         </header>
 
         <!-- Main Content -->
-        <main class="max-w-6xl mx-auto px-4 sm:px-8 py-16 sm:py-24">
-            <!-- NEW Hero Section -->
-            <section style="background-color: #0E0E0E; padding: 100px 20px; color: #FDF6EC; text-align: center; font-family: 'Playfair Display', serif;" class="mb-16">
-              <h1 style="font-size: 3rem; margin-bottom: 20px;">Win the Iconic Hermès Birkin</h1>
-              <p style="font-family: 'Inter', sans-serif; font-size: 1.2rem; margin-bottom: 40px; color: #A5A5A5;">
-                An invitation-only draw. One winner. One Birkin. Limited to 5,000 exclusive entries.
-              </p>
-              <a href="#entryForm" style="background-color: #FDF6EC; color: #0E0E0E; padding: 15px 40px; text-decoration: none; font-weight: 600; font-family: 'Inter', sans-serif; border-radius: 5px;" class="hover:opacity-90 transition-opacity">
-                Secure My Entry
-              </a>
-            </section>
-
-            <!-- NEW Trust Section -->
-            <section style="background-color: #1B1B1B; color: #FDF6EC; padding: 60px 20px; text-align: center;" class="mb-24 md:mb-32 rounded-2xl">
-              <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 20px;">Your Entry is Secure</h2>
-              <p style="font-family: 'Inter', sans-serif; color: #A5A5A5; margin-bottom: 30px;">256-bit SSL encryption. Verified draw. Worldwide delivery included.</p>
-              <img src="https://i.imgur.com/g2yX3tD.png" alt="PCI Compliance" width="120" style="margin: 10px; display: inline-block; filter: invert(1) grayscale(1) brightness(1.5);">
-              <img src="https://i.imgur.com/pA8OJjA.png" alt="Secure Lock" width="50" style="margin: 10px; display: inline-block; filter: invert(1) grayscale(1) brightness(1.5);">
+        <main class="max-w-6xl mx-auto px-4 sm:px-8 py-8 sm:py-12">
+            <!-- REFINED Hero Section -->
+            <section class="relative text-center py-24 md:py-40 px-6 flex flex-col items-center justify-center rounded-2xl overflow-hidden mb-24">
+                <!-- Background Image & Overlay -->
+                <div class="absolute inset-0">
+                    <img src="https://loveluxury.co.uk/shop/wp-content/uploads/2025/10/Hermes-Birkin-25-Noir-Black-Togo-Gold-Hardware-2021-5440-1-900x600.jpg" alt="Hermes Birkin Bag" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/50"></div>
+                </div>
+                
+                <!-- Content -->
+                <div class="relative z-10">
+                    <h1 class="text-4xl md:text-6xl font-['Playfair_Display'] font-semibold text-white leading-tight mb-4">Own a Hermès Birkin</h1>
+                    <p class="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto">One Winner. One Chance. Unlimited Luxury.</p>
+                    <a href="#entryForm" class="inline-block bg-gold-accent text-black font-bold py-4 px-12 rounded-md text-lg hover:opacity-90 transition-opacity">
+                        Secure My Entry
+                    </a>
+                </div>
             </section>
 
             <!-- Trust Metrics -->
@@ -183,6 +202,11 @@
                         </div>
                         <p class="text-center text-xs mt-3" style="color: var(--text-secondary);">The draw is automatically triggered once 100% of entries are sold.</p>
                     </div>
+                    <!-- Countdown Timer -->
+                    <div class="flex justify-center space-x-8 md:space-x-12 text-center mb-12" id="countdown">
+                        <!-- Countdown will be injected by JS -->
+                    </div>
+
                     <!-- Stats -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div class="glass-effect rounded-2xl p-8 card-shadow text-center">
@@ -208,22 +232,22 @@
                 </h3>
                 <div class="grid md:grid-cols-3 gap-12">
                     <div class="text-center group">
-                        <div class="w-20 h-20 border border-amber-600/50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <span class="text-3xl text-gold">1</span>
+                        <div class="w-20 h-20 border border-amber-600/50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
+                            <span class="text-3xl text-gold">🎫</span>
                         </div>
                         <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">Choose Your Entry</h4>
-                        <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">Select from our curated entry packages to begin.</p>
+                        <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">Select your preferred entry package to begin.</p>
                     </div>
                     <div class="text-center group">
-                        <div class="w-20 h-20 border border-amber-600/50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <span class="text-3xl text-gold">2</span>
+                        <div class="w-20 h-20 border border-amber-600/50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
+                            <span class="text-3xl text-gold">⏰</span>
                         </div>
                         <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">Await the Draw</h4>
                         <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">A winner is selected via a verified random draw once all entries are sold.</p>
                     </div>
                     <div class="text-center group">
-                        <div class="w-20 h-20 border border-amber-600/50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <span class="text-3xl text-gold">3</span>
+                        <div class="w-20 h-20 border border-amber-600/50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
+                            <span class="text-3xl text-gold">🏆</span>
                         </div>
                         <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">We Deliver Luxury</h4>
                         <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">The iconic Birkin is authenticated and delivered to your doorstep, worldwide.</p>
@@ -249,7 +273,7 @@
                         <h3 class="text-4xl font-['Playfair_Display'] font-light mb-6" style="color: var(--text-primary);">The Prize Details</h3>
                         <h4 class="text-2xl font-['Playfair_Display'] font-medium mb-2" style="color: var(--text-primary);">Hermès Birkin 25 Noir</h4>
                         <p class="font-medium mb-4" style="color: var(--text-primary);">Black Togo Leather • Gold Hardware • Stamp Z (2021)</p>
-                        <div class="space-y-3 text-md mb-6" style="color: var(--text-secondary);">
+                        <div class="space-y-3 text-md mb-6" style="color: var(--text-primary);">
                             <p><span class="font-semibold text-gold">Condition:</span> Excellent Pre-Owned</p>
                             <p><span class="font-semibold text-gold">Includes:</span> Box, dust bag, lock, keys, clochette, and receipt.</p>
                             <p><span class="font-semibold text-gold">Authenticity:</span> Guaranteed. Verified by our luxury experts.</p>
@@ -261,61 +285,90 @@
             </section>
 
             <!-- Lottery Entry Form -->
-            <div id="entryForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-16 fade-in">
+            <div id="entryForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in">
                 <h3 class="text-4xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary);">
                     Secure Your Chance
                 </h3>
                 
                 <div class="grid lg:grid-cols-2 gap-12">
                     <!-- Ticket Selection -->
-                    <div>
+                    <div class="flex flex-col">
                         <h4 class="text-xl font-medium mb-8" style="color: var(--text-primary);">Select Your Entry</h4>
                         <div class="space-y-4">
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300" onclick="selectTicket(this, 1, 5, 'Solo Entry')">
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-gray-900/50" onclick="selectTicket(this, 1, 5, 'Solo Entry')">
                                 <div class="flex justify-between items-center">
                                     <div>
                                         <div class="font-semibold text-lg mb-1" style="color: var(--text-primary);">Solo Entry</div>
-                                        <div class="text-sm" style="color: var(--text-secondary);">1 entry • Great start</div>
+                                        <div class="text-sm" style="color: var(--text-secondary);">1 Entry</div>
                                     </div>
                                     <div class="text-2xl font-light text-gold">$5</div>
                                 </div>
                             </div>
                             
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300" onclick="selectTicket(this, 2, 10, 'Double Chance')">
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-gray-900/50" onclick="selectTicket(this, 2, 10, 'Double Chance')">
                                 <div class="flex justify-between items-center">
                                     <div>
                                         <div class="font-semibold text-lg mb-1" style="color: var(--text-primary);">Double Chance</div>
-                                        <div class="text-sm" style="color: var(--text-secondary);">2 entries • Double your odds</div>
+                                        <div class="text-sm" style="color: var(--text-secondary);">2 Entries</div>
                                     </div>
                                     <div class="text-2xl font-light text-gold">$10</div>
                                 </div>
                             </div>
                             
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300" onclick="selectTicket(this, 5, 25, 'Collector’s Pack')">
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-gray-900/50 relative" onclick="selectTicket(this, 5, 25, 'Collector’s Pack')">
+                                <div class="absolute -top-3 right-4 bg-gold-accent text-black text-xs font-bold uppercase px-3 py-1 rounded-full">Best Value</div>
                                 <div class="flex justify-between items-center">
                                     <div>
                                         <div class="font-semibold text-lg mb-1" style="color: var(--text-primary);">Collector’s Pack</div>
-                                        <div class="text-sm" style="color: var(--text-secondary);">5 entries • Maximum chances</div>
+                                        <div class="text-sm" style="color: var(--text-secondary);">5 Entries</div>
                                     </div>
                                     <div class="text-2xl font-light text-gold">$25</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
                     <!-- Selected Ticket Display -->
-                    <div>
+                    <div class="flex flex-col">
                         <h4 class="text-xl font-medium mb-8" style="color: var(--text-primary);">Your Selection</h4>
-                        <div id="selectedTicket" class="ticket-shimmer luxury-border border-dashed rounded-2xl p-8 text-center mb-8">
+                        <div id="selectedTicket" class="luxury-border border-dashed rounded-2xl p-8 text-center mb-8 flex-grow flex items-center justify-center">
                             <div style="color: var(--text-secondary);">Select a ticket package to continue</div>
                         </div>
                         
-                        <button id="proceedBtn" class="w-full elegant-button py-4 px-8 rounded-md text-lg font-medium tracking-wide disabled:opacity-50 disabled:cursor-not-allowed" style="color: var(--primary-dark);" disabled onclick="showCheckout()">
+                        <button id="proceedBtn" class="w-full bg-gold-accent text-black font-bold py-4 px-8 rounded-md text-lg tracking-wide disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="showCheckout()">
                             Join the Draw
                         </button>
                     </div>
                 </div>
             </div>
+
+            <!-- Trust & Legitimacy Section -->
+            <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in">
+                <h3 class="text-3xl font-['Playfair_Display'] font-light text-center mb-10" style="color: var(--text-primary);">
+                    Secure & Transparent Entry
+                </h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                    <div class="space-y-3">
+                        <div class="text-4xl text-gold">🔒</div>
+                        <h4 class="font-semibold" style="color: var(--text-primary);">256-bit SSL Encryption</h4>
+                        <p class="text-sm" style="color: var(--text-secondary);">All payment information is fully encrypted and secure.</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="text-4xl text-gold">🛡️</div>
+                        <h4 class="font-semibold" style="color: var(--text-primary);">Verified Fair Draw</h4>
+                        <p class="text-sm" style="color: var(--text-secondary);">The winner is chosen via a recorded, independent random draw.</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="text-4xl text-gold">📜</div>
+                        <h4 class="font-semibold" style="color: var(--text-primary);">Authenticity Guaranteed</h4>
+                        <p class="text-sm" style="color: var(--text-secondary);">The prize includes its original authenticity certificate.</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="text-4xl text-gold">🌍</div>
+                        <h4 class="font-semibold" style="color: var(--text-primary);">Worldwide Insured Shipping</h4>
+                        <p class="text-sm" style="color: var(--text-secondary);">We deliver your prize safely to your doorstep, anywhere in the world.</p>
+                    </div>
+                </div>
+            </section>
 
             <!-- Checkout Form (Hidden Initially) -->
             <div id="checkoutForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 fade-in hidden">
@@ -386,7 +439,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="w-full elegant-button py-5 px-8 rounded-2xl text-lg font-medium tracking-wide mt-8">
+                    <button type="submit" class="w-full bg-gold-accent text-black font-bold py-4 px-8 rounded-md text-lg tracking-wide mt-8">
                         Complete Purchase
                     </button>
                 </form>
@@ -406,7 +459,7 @@
                     Thank you for your purchase. You will receive a confirmation email shortly with your entry details.
                     We will notify the winner once the draw is complete. Good luck!
                 </p>
-                <button onclick="resetForm()" class="elegant-button py-4 px-10 rounded-md font-medium tracking-wide" style="color: var(--primary-dark);">
+                <button onclick="resetForm()" class="bg-gold-accent text-black font-bold py-4 px-10 rounded-md tracking-wide">
                     START NEW ENTRY
                 </button>
             </div>
@@ -415,12 +468,14 @@
         <!-- Footer -->
         <footer class="luxury-gradient text-white py-12 mt-20">
             <div class="max-w-6xl mx-auto px-8 text-center">
-                <div class="flex justify-center space-x-6 mb-6">
+                <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6">
                     <a href="#" class="text-sm text-white/70 hover:text-white">Terms & Conditions</a>
                     <a href="#" class="text-sm text-white/70 hover:text-white">Privacy Policy</a>
                     <a href="#" class="text-sm text-white/70 hover:text-white">Contact Us</a>
+                    <a href="#" class="text-sm text-white/70 hover:text-white">FAQs</a>
+                    <a href="#" class="text-sm text-white/70 hover:text-white">Fair Draw Info</a>
                 </div>
-                <p class="mb-3 font-light tracking-wide text-sm">© 2024 La Maison. All rights reserved.</p>
+                <p class="mb-3 font-light tracking-wide text-sm">© 2025 La Maison. All rights reserved.</p>
                 <p class="text-xs text-white/60">This is a demonstration website for portfolio purposes. No actual lottery or sales are conducted.</p>
             </div>
         </footer>
@@ -454,7 +509,6 @@
                     <div class="text-3xl font-light text-gold mt-3">$${price}</div>
                 </div>
             `;
-            selectedTicketDiv.classList.remove('ticket-shimmer');
             selectedTicketDiv.classList.remove('border-dashed');
             selectedTicketDiv.style.backgroundColor = '#2a2a2a';
             
@@ -541,7 +595,7 @@
             });
             
             const selectedTicketDiv = document.getElementById('selectedTicket');
-            selectedTicketDiv.innerHTML = '<div style="color: var(--text-secondary);">Select a ticket package to continue</div>';
+            selectedTicketDiv.innerHTML = '<div style="color: var(--text-secondary);" class="flex items-center justify-center h-full">Select a ticket package to continue</div>';
             selectedTicketDiv.classList.add('border-dashed');
             selectedTicketDiv.style.backgroundColor = 'transparent';
             
