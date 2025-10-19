@@ -5,21 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LaMaison - Birkin Bag Luxury Lottery</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
         body {
             box-sizing: border-box;
         }
         
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Crimson+Text:wght@400;600;700&display=swap');
-        
         :root {
-            --primary-dark: #1D1D1F;
-            --primary-gold: #B9975B;
-            --text-primary: #333333;
-            --text-secondary: #888888;
-            --bg-cream: #F9F6F2;
-            --accent-cream: #F1EBE4;
-            --border-light: #D1CFC9;
+            --primary-dark: #0E0E0E; /* Rich Black */
+            --primary-gold: #D6AE7B; /* Champagne Gold */
+            --text-primary: #FDF6EC; /* Ivory */
+            --text-secondary: #A5A5A5; /* Soft Gray */
+            --bg-dark: #0E0E0E;
+            --bg-card: #1B1B1B;
+            --cta-bg: #F5F5F5;
+            --border-light: #3a3a3a;
         }
         
         * {
@@ -28,7 +28,7 @@
         }
         
         .luxury-gradient {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, #2c2c2c 100%);
+            background: var(--primary-dark);
         }
         
         .gold-accent {
@@ -48,9 +48,9 @@
         }
         
         .glass-effect {
-            backdrop-filter: blur(20px);
-            background: rgba(249, 246, 242, 0.7); /* bg-cream with transparency */
-            border: 1px solid var(--border-light);
+            /* backdrop-filter: blur(20px); */
+            background: var(--bg-card);
+            border: 1px solid var(--border-light); /* Updated for dark theme */
         }
         
         .ticket-shimmer {
@@ -99,7 +99,7 @@
         
         .luxury-input {
             border: 1px solid var(--border-light);
-            background: var(--bg-cream);
+            background: var(--bg-dark);
             transition: all 0.3s ease;
         }
         
@@ -110,7 +110,7 @@
         }
         
         .elegant-button {
-            background: var(--primary-gold);
+            background: var(--cta-bg);
             border: none;
             color: white;
             font-weight: 600;
@@ -119,18 +119,18 @@
         }
         
         .elegant-button:hover {
+            opacity: 0.9;
             transform: translateY(-2px);
-            box-shadow: 0 12px 24px rgba(185, 151, 91, 0.2);
         }
 
         .ticket-option.selected {
             border-color: var(--primary-gold);
-            background-color: var(--accent-cream);
+            background-color: #2a2a2a; /* Darker accent for selection */
             transform: translateY(-4px);
         }
     </style>
 </head>
-<body class="min-h-full bg-gradient-to-br from-stone-50 via-neutral-50 to-stone-100 font-['Inter']" style="background-color: var(--bg-cream);">
+<body class="min-h-full font-['Inter']" style="background-color: var(--bg-dark); color: var(--text-primary);">
     <div class="min-h-full font-['Inter']">
         <!-- Header -->
         <header class="luxury-gradient text-white py-8 luxury-shadow relative overflow-hidden">
@@ -143,33 +143,30 @@
                         </div>
                         <h1 class="text-4xl font-['Playfair_Display'] font-light tracking-[0.2em] text-white">La Maison</h1>
                     </div>
-                    <div class="text-sm font-light text-white/80 tracking-wide">An Invitation to Own an Icon</div>
+                    <div class="text-sm font-light text-white/80 tracking-wide">Win a Hermès Birkin. No Ordinary Raffle.</div>
                 </div>
             </div>
         </header>
 
         <!-- Main Content -->
         <main class="max-w-6xl mx-auto px-4 sm:px-8 py-16 sm:py-24">
-            <!-- Hero Section -->
-            <section class="text-center mb-24 md:mb-32 fade-in">
-                <h2 class="text-5xl md:text-7xl font-['Playfair_Display'] font-medium leading-tight mb-6" style="color: var(--text-primary);">
-                    The Ultimate Prize: An <span class="text-gold">Hermès Birkin</span>
-                </h2>
-                <p class="text-lg md:text-xl leading-relaxed mb-10 max-w-3xl mx-auto font-light" style="color: var(--text-secondary);">
-                    This is your exclusive invitation to own a coveted Hermès Birkin 25—the ultimate symbol of luxury and craftsmanship. Purchase an entry for your chance to win.
-                </p>
-                <div class="relative max-w-2xl mx-auto mb-10">
-                    <div class="rounded-3xl card-shadow hover-lift overflow-hidden">
-                        <img src="https://loveluxury.co.uk/shop/wp-content/uploads/2025/10/Hermes-Birkin-25-Noir-Black-Togo-Gold-Hardware-2021-5440-1-900x600.jpg" 
-                             alt="Hermès Birkin 25 Noir Black Togo Gold Hardware" 
-                             class="w-full h-auto object-cover"
-                             loading="lazy"
-                             onerror="this.src=''; this.alt='Image failed to load'; this.style.display='none';">
-                    </div>
-                </div>
-                <a href="#entryForm" class="elegant-button py-4 px-12 rounded-full text-lg font-medium tracking-wide">
-                    Purchase Entry
-                </a>
+            <!-- NEW Hero Section -->
+            <section style="background-color: #0E0E0E; padding: 100px 20px; color: #FDF6EC; text-align: center; font-family: 'Playfair Display', serif;" class="mb-16">
+              <h1 style="font-size: 3rem; margin-bottom: 20px;">Win the Iconic Hermès Birkin</h1>
+              <p style="font-family: 'Inter', sans-serif; font-size: 1.2rem; margin-bottom: 40px; color: #A5A5A5;">
+                An invitation-only draw. One winner. One Birkin. Limited to 5,000 exclusive entries.
+              </p>
+              <a href="#entryForm" style="background-color: #FDF6EC; color: #0E0E0E; padding: 15px 40px; text-decoration: none; font-weight: 600; font-family: 'Inter', sans-serif; border-radius: 5px;" class="hover:opacity-90 transition-opacity">
+                Secure My Entry
+              </a>
+            </section>
+
+            <!-- NEW Trust Section -->
+            <section style="background-color: #1B1B1B; color: #FDF6EC; padding: 60px 20px; text-align: center;" class="mb-24 md:mb-32 rounded-2xl">
+              <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 20px;">Your Entry is Secure</h2>
+              <p style="font-family: 'Inter', sans-serif; color: #A5A5A5; margin-bottom: 30px;">256-bit SSL encryption. Verified draw. Worldwide delivery included.</p>
+              <img src="https://i.imgur.com/g2yX3tD.png" alt="PCI Compliance" width="120" style="margin: 10px; display: inline-block; filter: invert(1) grayscale(1) brightness(1.5);">
+              <img src="https://i.imgur.com/pA8OJjA.png" alt="Secure Lock" width="50" style="margin: 10px; display: inline-block; filter: invert(1) grayscale(1) brightness(1.5);">
             </section>
 
             <!-- Trust Metrics -->
@@ -181,22 +178,22 @@
                             <span id="ticketsSoldCount">4,247 / 5,000 Entries Sold</span>
                             <span class="text-gold font-semibold" id="progressPercentage">84.9%</span>
                         </div>
-                        <div class="bg-stone-200 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-gray-700 rounded-full h-2.5 overflow-hidden">
                             <div class="gold-accent h-full rounded-full transition-all duration-700 progress-glow" style="width: 84.9%"></div>
                         </div>
                         <p class="text-center text-xs mt-3" style="color: var(--text-secondary);">The draw is automatically triggered once 100% of entries are sold.</p>
                     </div>
                     <!-- Stats -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="bg-white/50 rounded-2xl p-8 card-shadow text-center">
+                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center">
                             <div class="text-4xl font-light text-gold mb-2" id="ticketsSold">4,247</div>
                             <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Entries Sold</div>
                         </div>
-                        <div class="bg-white/50 rounded-2xl p-8 card-shadow text-center">
+                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center">
                             <div class="text-4xl font-light text-gold mb-2">5,000</div>
                             <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Goal</div>
                         </div>
-                        <div class="bg-white/50 rounded-2xl p-8 card-shadow text-center">
+                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center">
                             <div class="text-4xl font-light text-gold mb-2" id="ticketsRemaining">753</div>
                             <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Remaining</div>
                         </div>
@@ -205,31 +202,31 @@
             </section>
 
             <!-- How it Works -->
-            <section class="bg-white/50 rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in">
+            <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in">
                 <h3 class="text-4xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary);">
                     Your Path to Ownership
                 </h3>
                 <div class="grid md:grid-cols-3 gap-12">
                     <div class="text-center group">
-                        <div class="w-20 h-20 gold-accent rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <span class="text-3xl">🎫</span>
+                        <div class="w-20 h-20 border border-amber-600/50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <span class="text-3xl text-gold">1</span>
                         </div>
-                        <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">1. Purchase an Entry</h4>
-                        <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">Select your preferred entry package. More entries increase your chance of winning.</p>
+                        <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">Choose Your Entry</h4>
+                        <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">Select from our curated entry packages to begin.</p>
                     </div>
                     <div class="text-center group">
-                        <div class="w-20 h-20 gold-accent rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <span class="text-3xl">⏰</span>
+                        <div class="w-20 h-20 border border-amber-600/50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <span class="text-3xl text-gold">2</span>
                         </div>
-                        <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">2. Await the Draw</h4>
-                        <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">Once all 5,000 entries are sold, the draw is held automatically and a winner is selected at random.</p>
+                        <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">Await the Draw</h4>
+                        <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">A winner is selected via a verified random draw once all entries are sold.</p>
                     </div>
                     <div class="text-center group">
-                        <div class="w-20 h-20 gold-accent rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                            <span class="text-3xl">🏆</span>
+                        <div class="w-20 h-20 border border-amber-600/50 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                            <span class="text-3xl text-gold">3</span>
                         </div>
-                        <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">3. Receive Your Prize</h4>
-                        <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">The winner is notified via email and we arrange for secure, insured worldwide shipping.</p>
+                        <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">We Deliver Luxury</h4>
+                        <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">The iconic Birkin is authenticated and delivered to your doorstep, worldwide.</p>
                     </div>
                 </div>
             </section>
@@ -264,7 +261,7 @@
             </section>
 
             <!-- Lottery Entry Form -->
-            <div id="entryForm" class="bg-white/50 rounded-3xl card-shadow p-8 sm:p-12 mb-16 fade-in">
+            <div id="entryForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-16 fade-in">
                 <h3 class="text-4xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary);">
                     Secure Your Chance
                 </h3>
@@ -272,32 +269,32 @@
                 <div class="grid lg:grid-cols-2 gap-12">
                     <!-- Ticket Selection -->
                     <div>
-                        <h4 class="text-xl font-medium mb-8" style="color: var(--text-primary);">Select Your Tickets</h4>
+                        <h4 class="text-xl font-medium mb-8" style="color: var(--text-primary);">Select Your Entry</h4>
                         <div class="space-y-4">
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300" onclick="selectTicket(this, 1, 5, 'The Classic')">
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300" onclick="selectTicket(this, 1, 5, 'Solo Entry')">
                                 <div class="flex justify-between items-center">
                                     <div>
-                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-primary);">The Classic</div>
+                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-primary);">Solo Entry</div>
                                         <div class="text-sm" style="color: var(--text-secondary);">1 entry • Great start</div>
                                     </div>
                                     <div class="text-2xl font-light text-gold">$5</div>
                                 </div>
                             </div>
                             
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300" onclick="selectTicket(this, 2, 10, 'The Aficionado')">
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300" onclick="selectTicket(this, 2, 10, 'Double Chance')">
                                 <div class="flex justify-between items-center">
                                     <div>
-                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-primary);">The Aficionado</div>
+                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-primary);">Double Chance</div>
                                         <div class="text-sm" style="color: var(--text-secondary);">2 entries • Double your odds</div>
                                     </div>
                                     <div class="text-2xl font-light text-gold">$10</div>
                                 </div>
                             </div>
                             
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300" onclick="selectTicket(this, 5, 25, 'The Connoisseur')">
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300" onclick="selectTicket(this, 5, 25, 'Collector’s Pack')">
                                 <div class="flex justify-between items-center">
                                     <div>
-                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-primary);">The Connoisseur</div>
+                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-primary);">Collector’s Pack</div>
                                         <div class="text-sm" style="color: var(--text-secondary);">5 entries • Maximum chances</div>
                                     </div>
                                     <div class="text-2xl font-light text-gold">$25</div>
@@ -313,16 +310,16 @@
                             <div style="color: var(--text-secondary);">Select a ticket package to continue</div>
                         </div>
                         
-                        <button id="proceedBtn" class="w-full elegant-button py-4 px-8 rounded-full text-lg font-medium tracking-wide disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="showCheckout()">
-                            Purchase Entry
+                        <button id="proceedBtn" class="w-full elegant-button py-4 px-8 rounded-md text-lg font-medium tracking-wide disabled:opacity-50 disabled:cursor-not-allowed" style="color: var(--primary-dark);" disabled onclick="showCheckout()">
+                            Join the Draw
                         </button>
                     </div>
                 </div>
             </div>
 
             <!-- Checkout Form (Hidden Initially) -->
-            <div id="checkoutForm" class="bg-white/50 rounded-3xl card-shadow p-8 sm:p-12 fade-in hidden">
-                <div class="bg-red-50/80 border border-red-200 rounded-2xl p-6 mb-8">
+            <div id="checkoutForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 fade-in hidden">
+                <div class="bg-red-900/30 border border-red-500/50 rounded-2xl p-6 mb-8">
                     <div class="flex items-center">
                         <div class="text-red-600 mr-3">⚠️</div>
                         <div class="text-red-800 font-semibold tracking-wide">DEMO CHECKOUT - NOT FUNCTIONAL</div>
@@ -359,24 +356,24 @@
 
                     <!-- Payment Information (Demo) -->
                     <div class="border-t pt-8" style="border-color: var(--border-light);">
-                        <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Payment Information (DEMO)</h4>
-                        <div class="bg-stone-100/50 rounded-2xl p-6 mb-6">
+                        <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Payment Information</h4>
+                        <div class="bg-gray-800/50 rounded-2xl p-6 mb-6">
                             <div class="text-sm mb-2" style="color: var(--text-secondary);">Demo payment details - do not enter real information</div>
                             <div class="text-xs" style="color: var(--text-secondary);">Card: 4242 4242 4242 4242 | Exp: 12/25 | CVV: 123</div>
                         </div>
                         
                         <div class="grid md:grid-cols-2 gap-8">
                             <div class="md:col-span-2">
-                                <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Card Number (Demo)</label>
-                                <input type="text" placeholder="4242 4242 4242 4242" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-stone-50" readonly>
+                                <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Card Number</label>
+                                <input type="text" placeholder="4242 4242 4242 4242" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-900" readonly>
                             </div>
                             <div>
                                 <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Expiry Date</label>
-                                <input type="text" placeholder="12/25" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-stone-50" readonly>
+                                <input type="text" placeholder="12/25" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-900" readonly>
                             </div>
                             <div>
                                 <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">CVV</label>
-                                <input type="text" placeholder="123" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-stone-50" readonly>
+                                <input type="text" placeholder="123" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-900" readonly>
                             </div>
                         </div>
                     </div>
@@ -384,7 +381,7 @@
                     <!-- Order Summary -->
                     <div class="border-t pt-8" style="border-color: var(--border-light);">
                         <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Order Summary</h4>
-                        <div id="orderSummary" class="bg-stone-50/50 rounded-2xl p-6">
+                        <div id="orderSummary" class="bg-gray-900/50 rounded-2xl p-6">
                             <!-- Will be populated by JavaScript -->
                         </div>
                     </div>
@@ -394,7 +391,7 @@
                     </button>
                 </form>
                 
-                <button onclick="backToEntry()" class="w-full mt-6 luxury-border py-4 px-8 rounded-2xl font-medium tracking-wide hover-lift transition-all" style="color: var(--text-primary);">
+                <button onclick="backToEntry()" class="w-full mt-6 luxury-border py-4 px-8 rounded-md font-medium tracking-wide hover-lift transition-all" style="color: var(--text-primary);">
                     ← Back to Entry Selection
                 </button>
             </div>
@@ -409,7 +406,7 @@
                     Thank you for your purchase. You will receive a confirmation email shortly with your entry details.
                     We will notify the winner once the draw is complete. Good luck!
                 </p>
-                <button onclick="resetForm()" class="elegant-button py-4 px-10 rounded-full font-medium tracking-wide">
+                <button onclick="resetForm()" class="elegant-button py-4 px-10 rounded-md font-medium tracking-wide" style="color: var(--primary-dark);">
                     START NEW ENTRY
                 </button>
             </div>
@@ -459,7 +456,7 @@
             `;
             selectedTicketDiv.classList.remove('ticket-shimmer');
             selectedTicketDiv.classList.remove('border-dashed');
-            selectedTicketDiv.style.backgroundColor = 'var(--accent-cream)';
+            selectedTicketDiv.style.backgroundColor = '#2a2a2a';
             
             // Enable proceed button
             document.getElementById('proceedBtn').disabled = false;
@@ -500,7 +497,7 @@
                 <div class="flex justify-between items-center text-sm mb-3" style="color: var(--text-secondary);">
                     <span>${selectedTickets} ${selectedTickets === 1 ? 'lottery entry' : 'lottery entries'}</span>
                 </div>
-                <div class="border-t border-amber-200 pt-2">
+                <div class="border-t pt-2" style="border-color: var(--border-light);">
                     <div class="flex justify-between items-center font-semibold text-lg">
                         <span>Total</span>
                         <span>$${selectedPrice}</span>
@@ -545,7 +542,7 @@
             
             const selectedTicketDiv = document.getElementById('selectedTicket');
             selectedTicketDiv.innerHTML = '<div style="color: var(--text-secondary);">Select a ticket package to continue</div>';
-            selectedTicketDiv.classList.add('ticket-shimmer', 'border-dashed');
+            selectedTicketDiv.classList.add('border-dashed');
             selectedTicketDiv.style.backgroundColor = 'transparent';
             
             document.getElementById('proceedBtn').disabled = true;
@@ -555,5 +552,4 @@
             document.getElementById('entryForm').classList.remove('hidden');
         }
     </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'98ce1f8447d16e90',t:'MTc2MDE4MzI1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
