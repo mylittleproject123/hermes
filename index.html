@@ -14,13 +14,13 @@
         :root {
             --bg: #F7F6F5;
             --text-primary: #111111;
-            --text-body: #222222;
+            --text-body: #333333;
             --text-secondary: #6B7280;
             --accent-gold: #C59A6B;
-            --accent-secondary: #0A1D3F;
-            --button-text: #FFFFFF;
+            --cta-bg: #C59A6B;
             --border-light: #E8E7E5;
             --dark-accent-bg: #1B1B1B;
+            --bg-card: rgba(255, 255, 255, 0.7);
         }
         
         * {
@@ -29,19 +29,11 @@
         }
         
         .luxury-gradient {
-            background: var(--dark-accent-bg);
+            background: var(--dark-accent-bg); /* Dark charcoal for footer */
         }
         
         .gold-accent {
-            background: var(--accent-gold);
-        }
-        
-        .text-gold {
-            color: var(--primary-gold);
-        }
-        
-        .luxury-shadow {
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            background: var(--cta-bg);
         }
         
         .card-shadow {
@@ -50,6 +42,7 @@
         
         .glass-effect {
             background: var(--bg-card);
+            backdrop-filter: blur(10px);
             border: 1px solid var(--border-light);
         }
         
@@ -90,7 +83,7 @@
         }
         
         .progress-glow {
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 20px rgba(197, 154, 107, 0.4);
         }
         
         .luxury-border {
@@ -105,14 +98,13 @@
         
         .luxury-input:focus {
             border-color: var(--accent-gold);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+            box-shadow: 0 0 0 3px rgba(197, 154, 107, 0.15);
             outline: none;
         }
         
         .elegant-button {
             background: var(--cta-bg); /* This is now gold */
-            border: none;
-            color: white;
+            color: #FFFFFF;
             font-weight: 600;
             letter-spacing: 0.5px;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -120,6 +112,7 @@
         
         .elegant-button:hover {
             opacity: 0.9;
+            box-shadow: 0 10px 20px -5px rgba(197, 154, 107, 0.3);
             transform: translateY(-2px);
         }
 
@@ -165,29 +158,28 @@
         <header class="py-8 px-8 flex justify-center items-center">
             <h1 class="text-4xl md:text-5xl font-['Playfair_Display'] font-light tracking-[0.2em]" style="color: var(--text-body);">La Maison</h1>
        </header>
-       
         <!-- Main Content -->
         <main class="max-w-6xl mx-auto px-4 sm:px-8">
             <!-- REFINED Hero Section -->
-            <section class="dark-hero relative text-center pt-16 pb-8 md:pb-12 px-6 flex flex-col items-center justify-end rounded-2xl overflow-hidden mb-24" style="background-color: var(--primary-dark); min-height: 60vh;">
+            <section class="relative text-center pt-16 pb-8 md:pb-12 px-6 flex flex-col items-center justify-end rounded-2xl overflow-hidden mb-24" style="background-color: var(--dark-accent-bg); min-height: 60vh;">
                 <!-- Background Image & Overlay -->
                 <div class="absolute inset-0">
                     <img src="https://loveluxury.co.uk/shop/wp-content/uploads/2025/10/Hermes-Birkin-25-Noir-Black-Togo-Gold-Hardware-2021-5440-1-900x600.jpg" alt="Hermes Birkin Bag" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/50"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
                 </div>
                 
                 <!-- Content -->
-                <div class="relative z-10 flex flex-col items-center w-full pt-24">
-                    <h2 class="text-4xl md:text-6xl font-['Playfair_Display'] font-semibold text-white leading-tight mb-4" style="font-size: 3.5rem; line-height: 1.1;">Own a Hermès Birkin</h2>
-                    <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto uppercase tracking-widest" style="font-size: 1.125rem;">One Winner. One Chance. Unlimited Luxury.</p>
-                    <a href="#entryForm" class="inline-block bg-gold-accent text-white font-bold py-4 px-12 rounded-md text-lg hover:opacity-90 transition-opacity">
+                <div class="relative z-10 flex flex-col items-center w-full pt-24 fade-in">
+                    <h2 class="text-4xl md:text-6xl font-['Playfair_Display'] font-semibold text-white leading-tight mb-4" style="font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Own a Hermès Birkin</h2>
+                    <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto uppercase tracking-widest" style="font-size: clamp(0.9rem, 2vw, 1.125rem); text-shadow: 0 1px 5px rgba(0,0,0,0.4);">One Winner. One Chance. Unlimited Luxury.</p>
+                    <a href="#entryForm" class="elegant-button inline-block py-4 px-12 rounded-md text-lg">
                         Secure My Entry
                     </a>
                 </div>
             </section>
 
             <!-- Trust Metrics -->
-            <section class="mb-24 md:mb-32 fade-in" style="padding-top: 4rem; padding-bottom: 4rem;">
+            <section class="mb-24 md:mb-32 fade-in" style="animation-delay: 200ms;">
                 <div class="max-w-4xl mx-auto">
                     <!-- Progress Bar -->
                     <div class="mb-12">
@@ -195,7 +187,7 @@
                             <span id="ticketsSoldCount">4,247 / 5,000 Entries Sold</span>
                             <span class="text-gold font-semibold" id="progressPercentage">84.9%</span>
                         </div>
-                        <div class="bg-gray-200 rounded-full h-2.5 overflow-hidden">
+                        <div class="bg-gray-200 rounded-full h-2.5 overflow-hidden luxury-border">
                             <div class="gold-accent h-full rounded-full transition-all duration-700 progress-glow" style="width: 84.9%"></div>
                         </div>
                         <p class="text-center text-xs mt-3" style="color: var(--text-secondary);">The draw is automatically triggered once 100% of entries are sold.</p>
@@ -207,16 +199,16 @@
 
                     <!-- Stats -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center">
-                            <div class="text-4xl font-light text-gold mb-2" id="ticketsSold">4,247</div>
+                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center hover-lift">
+                            <div class="text-4xl font-light mb-2" id="ticketsSold" style="color: var(--accent-gold);">4,247</div>
                             <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Entries Sold</div>
                         </div>
-                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center">
-                            <div class="text-4xl font-light text-gold mb-2">5,000</div>
+                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center hover-lift">
+                            <div class="text-4xl font-light mb-2" style="color: var(--accent-gold);">5,000</div>
                             <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Goal</div>
                         </div>
-                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center">
-                            <div class="text-4xl font-light text-gold mb-2" id="ticketsRemaining">753</div>
+                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center hover-lift">
+                            <div class="text-4xl font-light mb-2" id="ticketsRemaining" style="color: var(--accent-gold);">753</div>
                             <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Remaining</div>
                         </div>
                     </div>
@@ -224,28 +216,28 @@
             </section>
 
             <!-- How it Works -->
-            <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in" style="padding-top: 4rem; padding-bottom: 4rem;">
+            <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in" style="animation-delay: 400ms;">
                 <h2 class="text-4xl font-['Playfair_Display'] font-light text-center mb-16" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2;">
                     Your Path to Ownership
                 </h2>
                 <div class="grid md:grid-cols-3 gap-12">
                     <div class="text-center group">
-                        <div class="w-20 h-20 border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
-                            <span class="text-3xl text-gold">🎫</span>
+                        <div class="w-20 h-20 luxury-border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
+                            <span class="text-3xl" style="color: var(--accent-gold);">🎫</span>
                         </div>
                         <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">Choose Your Entry</h4>
                         <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">Select your preferred entry package to begin.</p>
                     </div>
                     <div class="text-center group">
                         <div class="w-20 h-20 border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
-                            <span class="text-3xl text-gold">⏰</span>
+                            <span class="text-3xl" style="color: var(--accent-gold);">⏰</span>
                         </div>
                         <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">Await the Draw</h4>
                         <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">A winner is selected via a verified random draw once all entries are sold.</p>
                     </div>
                     <div class="text-center group">
                         <div class="w-20 h-20 border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
-                            <span class="text-3xl text-gold">🏆</span>
+                            <span class="text-3xl" style="color: var(--accent-gold);">🏆</span>
                         </div>
                         <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">We Deliver Luxury</h4>
                         <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">The iconic Birkin is authenticated and delivered to your doorstep, worldwide.</p>
@@ -254,7 +246,7 @@
             </section>
 
             <!-- Prize Details -->
-            <section class="mb-24 md:mb-32 fade-in" style="padding-top: 4rem; padding-bottom: 4rem;">
+            <section class="mb-24 md:mb-32 fade-in" style="animation-delay: 600ms;">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="col-span-2 rounded-2xl overflow-hidden card-shadow hover-lift">
@@ -271,11 +263,11 @@
                         <h2 class="text-4xl font-['Playfair_Display'] font-light mb-6" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2;">The Prize Details</h2>
                         <h3 class="text-2xl font-['Playfair_Display'] font-medium mb-2" style="color: var(--text-primary); font-size: 1.75rem; line-height: 1.3;">Hermès Birkin 25 Noir</h3>
                         <p class="font-medium mb-4" style="color: var(--text-body);">Black Togo Leather • Gold Hardware • Stamp Z (2021)</p>
-                        <div class="space-y-3 text-base mb-6" style="color: var(--text-body);">
-                            <p><span class="font-semibold text-gold">Condition:</span> Excellent Pre-Owned</p>
-                            <p><span class="font-semibold text-gold">Includes:</span> Box, dust bag, lock, keys, clochette, and receipt.</p>
-                            <p><span class="font-semibold text-gold">Authenticity:</span> Guaranteed. Verified by our luxury experts.</p>
-                            <p><span class="font-semibold text-gold">Retail Value:</span> Approx. $25,000 USD</p>
+                        <div class="space-y-3 text-base mb-6" style="color: var(--text-body); border-left: 2px solid var(--accent-gold); padding-left: 1.5rem;">
+                            <p><span class="font-semibold" style="color: var(--accent-gold);">Condition:</span> Excellent Pre-Owned</p>
+                            <p><span class="font-semibold" style="color: var(--accent-gold);">Includes:</span> Box, dust bag, lock, keys, clochette, and receipt.</p>
+                            <p><span class="font-semibold" style="color: var(--accent-gold);">Authenticity:</span> Guaranteed. Verified by our luxury experts.</p>
+                            <p><span class="font-semibold" style="color: var(--accent-gold);">Retail Value:</span> Approx. $25,000 USD</p>
                         </div>
                         <p class="text-sm font-medium" style="color: var(--text-secondary);">🌍 Free, Insured Worldwide Shipping Included</p>
                     </div>
@@ -283,7 +275,7 @@
             </section>
 
             <!-- Lottery Entry Form -->
-            <div id="entryForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in" style="padding-top: 4rem; padding-bottom: 4rem;">
+            <div id="entryForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in" style="animation-delay: 800ms;">
                 <h2 class="text-4xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2;">
                     Secure Your Chance
                 </h2>
@@ -300,7 +292,7 @@
                                         <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Solo Entry</div>
                                         <div class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">Buy 1, Get 1 Free (2 Entries)</div>
                                     </div>
-                                    <div class="text-2xl font-bold text-gold" style="font-size: 1.25rem;">$5</div>
+                                    <div class="text-2xl font-bold" style="font-size: 1.25rem; color: var(--accent-gold);">$5</div>
                                 </div>
                             </div>
                             
@@ -311,7 +303,7 @@
                                         <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Double Chance</div>
                                         <div class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">Buy 2, Get 2 Free (4 Entries)</div>
                                     </div>
-                                    <div class="text-2xl font-bold text-gold" style="font-size: 1.25rem;">$10</div>
+                                    <div class="text-2xl font-bold" style="font-size: 1.25rem; color: var(--accent-gold);">$10</div>
                                 </div>
                             </div>
                             
@@ -323,7 +315,7 @@
                                         <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Collector’s Pack</div>
                                         <div class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">Buy 5, Get 5 Free (10 Entries)</div>
                                     </div>
-                                    <div class="text-2xl font-bold text-gold" style="font-size: 1.25rem;">$25</div>
+                                    <div class="text-2xl font-bold" style="font-size: 1.25rem; color: var(--accent-gold);">$25</div>
                                 </div>
                             </div>
                         </div>
@@ -335,7 +327,7 @@
                             <div style="color: var(--text-secondary);">Select a ticket package to continue</div>
                         </div>
                         
-                        <button id="proceedBtn" class="w-full bg-gold-accent text-white font-bold py-4 px-8 rounded-md text-lg tracking-wide disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="showCheckout()">
+                        <button id="proceedBtn" class="elegant-button w-full py-4 px-8 rounded-md text-lg tracking-wide disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="showCheckout()">
                             Join the Draw
                         </button>
                     </div>
@@ -343,18 +335,18 @@
             </div>
 
             <!-- Trust & Legitimacy Section -->
-            <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in" style="padding-top: 4rem; padding-bottom: 4rem;">
+            <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in" style="animation-delay: 1000ms;">
                 <h2 class="text-3xl font-['Playfair_Display'] font-light text-center mb-10" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2;">
                     Secure & Transparent Entry
                 </h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
                     <div class="space-y-3">
-                        <div class="text-4xl text-gold">🔒</div>
+                        <div class="text-4xl" style="color: var(--accent-gold);">🔒</div>
                         <h4 class="font-semibold" style="color: var(--text-body);">256-bit SSL Encryption</h4>
                         <p class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">All payment information is fully encrypted and secure.</p>
                     </div>
                     <div class="space-y-3">
-                        <div class="text-4xl text-gold">🛡️</div>
+                        <div class="text-4xl" style="color: var(--accent-gold);">🛡️</div>
                         <h4 class="font-semibold" style="color: var(--text-body);">Verified Fair Draw</h4>
                         <p class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">The winner is chosen via a recorded, independent random draw.</p>
                     </div>
@@ -364,7 +356,7 @@
                         <p class="text-sm" style="color: var(--text-secondary);">The prize includes its original authenticity certificate.</p>
                     </div>
                     <div class="space-y-3">
-                        <div class="text-4xl text-gold">🌍</div>
+                        <div class="text-4xl" style="color: var(--accent-gold);">🌍</div>
                         <h4 class="font-semibold" style="color: var(--text-body);">Worldwide Insured Shipping</h4>
                         <p class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">We deliver your prize safely to your doorstep, anywhere in the world.</p>
                     </div>
@@ -460,7 +452,7 @@
                     Thank you for your purchase. You will receive a confirmation email shortly with your entry details.
                     We will notify the winner once the draw is complete. Good luck!
                 </p>
-                <button onclick="resetForm()" class="bg-gold-accent text-white font-bold py-4 px-10 rounded-md tracking-wide">
+                <button onclick="resetForm()" class="elegant-button py-4 px-10 rounded-md tracking-wide">
                     START NEW ENTRY
                 </button>
             </div>
@@ -469,14 +461,14 @@
         <!-- Footer -->
         <footer class="luxury-gradient text-white py-12 mt-20">
             <div class="max-w-6xl mx-auto px-8 text-center">
-                <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6">
-                    <a href="#" class="text-sm text-white/70 hover:text-white" style="color: var(--accent-secondary); text-decoration: none;">Terms & Conditions</a>
-                    <a href="#" class="text-sm text-white/70 hover:text-white" style="color: var(--accent-secondary); text-decoration: none;">Privacy Policy</a>
-                    <a href="#" class="text-sm text-white/70 hover:text-white" style="color: var(--accent-secondary); text-decoration: none;">Contact Us</a>
-                    <a href="#" class="text-sm text-white/70 hover:text-white" style="color: var(--accent-secondary); text-decoration: none;">FAQs</a>
-                    <a href="#" class="text-sm text-white/70 hover:text-white" style="color: var(--accent-secondary); text-decoration: none;">Fair Draw Info</a>
+                <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 text-white/70">
+                    <a href="#" class="hover:text-white transition-colors">Terms & Conditions</a>
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Contact Us</a>
+                    <a href="#" class="hover:text-white transition-colors">FAQs</a>
+                    <a href="#" class="hover:text-white transition-colors">Fair Draw Info</a>
                 </div>
-                <p class="mb-3 font-light tracking-wide text-sm">© 2025 La Maison. All rights reserved.</p>
+                <p class="mb-3 font-light tracking-wide text-sm text-white/90">© 2025 La Maison. All rights reserved.</p>
                 <p class="text-xs text-white/60">This is a demonstration website for portfolio purposes. No actual lottery or sales are conducted.</p>
             </div>
         </footer>
@@ -510,7 +502,7 @@
                     <div class="text-2xl font-semibold mb-3">${selectedPackage}</div>
                     <div class="text-base mb-2">Buy ${purchasedTickets}, Get ${purchasedTickets} Free</div>
                     <div class="text-lg font-medium mb-2">${tickets} Total Entries</div>
-                    <div class="text-3xl font-bold text-gold mt-3" style="font-size: 1.75rem;">$${price}</div>
+                <div class="text-3xl font-bold mt-3" style="font-size: 1.75rem; color: var(--accent-gold);">$${price}</div>
                 </div>
             `;
             selectedTicketDiv.classList.remove('border-dashed');
