@@ -610,5 +610,25 @@
             document.getElementById('successMessage').classList.add('hidden');
             document.getElementById('entryForm').classList.remove('hidden');
         }
+
+        // Live ticket sales simulation
+        document.addEventListener('DOMContentLoaded', () => {
+             const totalGoal = 5000;
+             let currentSold = parseInt(document.getElementById('ticketsSold').textContent.replace(',', ''));
+ 
+             const ticketSimulationInterval = setInterval(() => {
+                 // Decrease remaining by 1 (i.e., increase sold by 1)
+                 const newTickets = 1;
+                 
+                 if (currentSold + newTickets < totalGoal) {
+                     currentSold += newTickets;
+                     updateTicketCounters(currentSold);
+                 } else {
+                     // If we would exceed the goal, set it to the goal and stop the timer.
+                     updateTicketCounters(totalGoal);
+                     clearInterval(ticketSimulationInterval);
+                 }
+             }, 1200000); // Run every 20 minutes (20 * 60 * 1000 ms)
+        });
     </script>
 </html>
