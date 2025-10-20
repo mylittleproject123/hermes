@@ -624,9 +624,13 @@
                      currentSold += newTickets;
                      updateTicketCounters(currentSold);
                  } else {
-                     // If we would exceed the goal, set it to the goal and stop the timer.
+                     // If we reach the goal, show it's complete, then reset after a delay.
                      updateTicketCounters(totalGoal);
-                     clearInterval(ticketSimulationInterval);
+                     
+                     setTimeout(() => {
+                        currentSold = 4200;
+                        updateTicketCounters(currentSold);
+                     }, 10000); // Wait 10 seconds before resetting
                  }
              }, 1200000); // Run every 20 minutes (20 * 60 * 1000 ms)
         });
