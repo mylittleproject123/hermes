@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Information - La Maison</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Palette from index.html */
+            --bg: #F7F6F5;
+            --text-primary: #111111;
+            --text-body: #333333;
+            --text-secondary: #6B7280;
+            --accent-gold: #B99566;
+            --border-light: #E8E7E5;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            box-sizing: border-box;
+            background-color: var(--bg);
+            color: var(--text-body);
+            line-height: 1.7;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .luxury-gradient {
+            background: #000000;
+        }
+
+        .legal-section {
+            padding-top: 5rem; /* Offset for anchor links */
+            margin-top: -4rem;
+            margin-bottom: 4rem;
+        }
+
+        .legal-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .legal-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .legal-section p, .legal-section li {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .legal-section ul {
+            list-style-position: inside;
+            padding-left: 1rem;
+        }
+
+        .legal-section a {
+            color: var(--accent-gold);
+            text-decoration: underline;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col">
+        <header class="py-8 px-8 flex justify-center items-center">
+            <a href="index.html" class="text-3xl md:text-4xl font-['Playfair_Display'] font-light tracking-[0.25em] uppercase" style="color: var(--text-primary);">La Maison</a>
+       </header>
+
+        <!-- Main Content -->
+        <main class="max-w-4xl mx-auto px-4 sm:px-8 flex-grow">
+            
+            <!-- Terms & Conditions -->
+            <section id="terms" class="legal-section">
+                <h2>Terms & Conditions</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <h3>1. Eligibility</h3>
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <h3>2. How to Enter</h3>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            </section>
+
+            <!-- Privacy Policy -->
+            <section id="privacy" class="legal-section">
+                <h2>Privacy Policy</h2>
+                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                <h3>Information We Collect</h3>
+                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+            </section>
+
+            <!-- Contact Us -->
+            <section id="contact" class="legal-section">
+                <h2>Contact Us</h2>
+                <p>If you have any questions, concerns, or require assistance, please do not hesitate to reach out to our dedicated support team.</p>
+                <ul>
+                    <li><strong>Email:</strong> <a href="mailto:support@lamaison.demo">support@lamaison.demo</a></li>
+                    <li><strong>Hours:</strong> Monday - Friday, 9:00 AM - 5:00 PM (GMT)</li>
+                </ul>
+            </section>
+
+            <!-- FAQs -->
+            <section id="faq" class="legal-section">
+                <h2>Frequently Asked Questions</h2>
+                <h3>Is this a legitimate draw?</h3>
+                <p>Yes. This is a demonstration website, but in a real-world scenario, we would be a legally registered entity operating under all applicable laws for prize competitions. All draws are conducted fairly and transparently.</p>
+                <h3>How is the winner selected?</h3>
+                <p>The winner is selected using a third-party, independently verified random number generator to ensure complete fairness. The draw is recorded and can be made available upon request.</p>
+                <h3>What if I win?</h3>
+                <p>If you are the lucky winner, our team will contact you directly via the email and phone number you provided during checkout. We will then arrange for the secure, insured delivery of your prize to your address, anywhere in the world.</p>
+            </section>
+
+            <!-- Fair Draw Info -->
+            <section id="fair-draw" class="legal-section">
+                <h2>Fair Draw Information</h2>
+                <p>We are committed to 100% transparency and fairness. Our draws are conducted under the following principles:</p>
+                <ul>
+                    <li><strong>Limited Entries:</strong> Each draw has a fixed number of entries. Once the maximum is reached, the draw is closed and scheduled.</li>
+                    <li><strong>Verified Random Selection:</strong> We use a certified third-party service (like Random.org) to generate the winning entry number. This process is automated and tamper-proof.</li>
+                    <li><strong>Public Announcement:</strong> The winner will be announced on our website and social media channels after they have been successfully contacted and have confirmed their prize.</li>
+                </ul>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="luxury-gradient text-white py-12 mt-20">
+            <div class="max-w-6xl mx-auto px-8 text-center">
+                <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 text-white/70 text-sm">
+                    <a href="legal.html#terms" class="hover:text-white transition-colors">Terms & Conditions</a>
+                    <a href="legal.html#privacy" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="legal.html#contact" class="hover:text-white transition-colors">Contact Us</a>
+                    <a href="legal.html#faq" class="hover:text-white transition-colors">FAQs</a>
+                    <a href="legal.html#fair-draw" class="hover:text-white transition-colors">Fair Draw Info</a>
+                </div>
+                <p class="mb-3 font-light tracking-wide text-sm text-white/90 uppercase">© 2025 La Maison. All rights reserved.</p>
+                <p class="text-xs text-white/60">This is a demonstration website for portfolio purposes. No actual lottery or sales are conducted.</p>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
