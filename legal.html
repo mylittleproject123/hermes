@@ -3,30 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Information - La Maison</title>
+    <title>LaMaison - Birkin Bag Luxury Lottery</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Palette from index.html */
+            /* Refined Palette */
             --bg: #F7F6F5;
             --text-primary: #111111;
             --text-body: #333333;
             --text-secondary: #6B7280;
-            --accent-gold: #B99566;
+            --accent-gold: #B99566; /* A slightly more muted, sophisticated gold */
+            --cta-bg: var(--accent-gold);
             --border-light: #E8E7E5;
-        }
-
-        html {
-            scroll-behavior: smooth;
+            --dark-accent-bg: #1B1B1B;
+            --bg-card: rgba(255, 255, 255, 0.6); /* Slightly less opaque for a softer glass effect */
         }
 
         body {
             box-sizing: border-box;
-            background-color: var(--bg);
-            color: var(--text-body);
-            line-height: 1.7;
-            font-family: 'Inter', sans-serif;
         }
         
         * {
@@ -35,138 +30,465 @@
         }
         
         .luxury-gradient {
-            background: #000000;
+            background: #000000; /* Simple black footer */
         }
-
-        .legal-section {
-            padding-top: 5rem; /* Offset for anchor links */
-            margin-top: -4rem;
-            margin-bottom: 4rem;
+        
+        .gold-accent {
+            background: var(--cta-bg);
         }
-
-        .legal-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-light);
-            padding-bottom: 1rem;
-            letter-spacing: 0.05em;
+        
+        .card-shadow {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.04);
         }
-
-        .legal-section h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            margin-top: 2rem;
-            margin-bottom: 1rem;
+        
+        .glass-effect {
+            background: var(--bg-card); /* Using the new variable */
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border-light);
         }
-
-        .legal-section p, .legal-section li {
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
+        
+        .ticket-shimmer {
+            background: linear-gradient(135deg, #fefcf8 0%, #f8f6f0 50%, #fefcf8 100%);
+            background-size: 200% 200%;
+            animation: shimmer 4s ease-in-out infinite;
         }
-
-        .legal-section ul {
-            list-style-position: inside;
-            padding-left: 1rem;
+        
+        @keyframes shimmer {
+            0% { background-position: -200% -200%; }
+            50% { background-position: 200% 200%; }
+            100% { background-position: -200% -200%; }
         }
-
-        .legal-section a {
-            color: var(--accent-gold);
-            text-decoration: underline;
+        
+        .fade-in {
+            animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        @keyframes fadeIn {
+            from { 
+                opacity: 0; 
+                transform: translateY(40px) scale(0.95);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .hover-lift {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.12);
+        }
+        
+        .progress-glow {
+            box-shadow: 0 0 15px rgba(185, 149, 102, 0.5); /* Matching the new gold */
+        }
+        
+        .luxury-border {
+            border: 1px solid var(--border-light);
+        }
+        
+        .luxury-input {
+            border: 1px solid var(--border-light);
+            background: #FFFFFF;
+            transition: all 0.3s ease;
+        }
+        
+        .luxury-input:focus {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(185, 149, 102, 0.2);
+            outline: none;
+        }
+        
+        .btn {
+            background-color: #000;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 30px;
             font-weight: 500;
+            transition: background 0.3s ease;
+            display: inline-block; /* Ensure it behaves like a block for padding */
+        }
+
+        .btn:hover {
+            background-color: #333;
+        }
+
+        .btn-cta {
+            background-color: #000;
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .btn-cta:hover:not(:disabled) { background-color: #d4af37; color: #000; transform: scale(1.05); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3); }
+        .ticket-option.selected {
+            border-color: var(--accent-gold);
+            background-color: #FAF6F0; /* A softer, more elegant ivory */
+            transform: translateY(-4px);
         }
     </style>
+    <script>
+        // Simple countdown timer logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const countdownElement = document.getElementById('countdown');
+            if (!countdownElement) return;
+
+            // Set a future date (e.g., 10 days from now)
+            const countdownDate = new Date().getTime() + 10 * 24 * 60 * 60 * 1000;
+
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+
+                countdownElement.innerHTML = `
+                    <div><span class="text-2xl md:text-3xl font-semibold">${days}</span><span class="text-xs uppercase tracking-wider">Days</span></div>
+                    <div><span class="text-2xl md:text-3xl font-semibold">${hours}</span><span class="text-xs uppercase tracking-wider">Hours</span></div>
+                    <div><span class="text-2xl md:text-3xl font-semibold">${minutes}</span><span class="text-xs uppercase tracking-wider">Mins</span></div>
+                `;
+
+                if (distance < 0) {
+                    clearInterval(interval);
+                    countdownElement.innerHTML = "DRAW CLOSED";
+                }
+            }, 1000);
+        });
+    </script>
 </head>
-<body>
-    <div class="min-h-screen flex flex-col">
+<body class="min-h-full font-['Inter'] text-base" style="background-color: var(--bg); color: var(--text-body); line-height: 1.6;">
+    <div class="min-h-full font-['Inter']">
         <header class="py-8 px-8 flex justify-center items-center">
-            <a href="index.html" class="text-3xl md:text-4xl font-['Playfair_Display'] font-light tracking-[0.25em] uppercase" style="color: var(--text-primary);">La Maison</a>
+            <h1 class="text-3xl md:text-4xl font-['Playfair_Display'] font-light tracking-[0.25em] uppercase" style="color: var(--text-primary);">La Maison</h1>
        </header>
-
         <!-- Main Content -->
-        <main class="max-w-4xl mx-auto px-4 sm:px-8 flex-grow">
-            
-            <!-- Terms & Conditions -->
-            <section id="terms" class="legal-section">
-                <h2>Terms & Conditions</h2>
-                <p>Welcome to La Maison. By accessing our website and participating in our draws, you agree to be bound by the following terms and conditions. Please read them carefully. This website is for demonstration purposes only; no real transactions or draws are conducted.</p>
+        <main class="max-w-6xl mx-auto px-4 sm:px-8">
+            <!-- REFINED Hero Section -->
+            <section class="relative text-center px-6 flex flex-col items-center justify-center rounded-2xl overflow-hidden mb-16 md:mb-24" style="background-color: var(--dark-accent-bg); min-height: 60vh;">
+                <!-- Background Image & Overlay -->
+                <div class="absolute inset-0">
+                    <img src="https://s30964.pcdn.co/introspective-magazine/wp-content/uploads/2024/09/HB_Hero-1.jpg" alt="Hermes Birkin Bag" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/40"></div>
+                </div>
                 
-                <h3>1. Eligibility</h3>
-                <p>Participants must be at least 18 years of age or the age of majority in their jurisdiction, whichever is greater. This draw is open to participants worldwide, subject to compliance with local laws and regulations regarding online prize competitions. It is the participant's responsibility to ensure their participation is legal in their country of residence.</p>
+                <!-- Content -->
+                <div class="relative z-10 flex flex-col items-center w-full pt-24 fade-in">
+                    <h2 class="text-4xl md:text-6xl font-['Playfair_Display'] font-semibold text-white leading-tight mb-4" style="font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; text-shadow: 0 2px 15px rgba(0,0,0,0.5);">Own a Hermès Birkin</h2>
+                    <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto uppercase tracking-widest" style="font-size: clamp(0.9rem, 2vw, 1.125rem); text-shadow: 0 1px 8px rgba(0,0,0,0.4);">One Winner. One Chance. Unlimited Luxury.</p>
+                    <a href="#entryForm" class="btn text-lg">
+                        Secure My Entry
+                    </a>
+                </div>
+            </section>
+
+            <!-- Trust Metrics -->
+            <section class="mb-16 md:mb-24 fade-in" style="animation-delay: 200ms;">
+                <div class="max-w-4xl mx-auto">
+                    <!-- Progress Bar -->
+                    <div class="mb-12">
+                        <div class="flex justify-between items-center text-sm font-medium mb-3" style="color: var(--text-secondary);">
+                            <span id="ticketsSoldCount">4,247 / 5,000 Entries Claimed</span>
+                            <span class="text-gold font-semibold" id="progressPercentage">84.9%</span>
+                        </div>
+                        <div class="bg-gray-200 rounded-full h-2.5 overflow-hidden luxury-border">
+                            <div class="gold-accent h-full rounded-full transition-all duration-700 progress-glow" style="width: 84.9%"></div>
+                        </div>
+                        <p class="text-center text-xs mt-3" style="color: var(--text-secondary);">The draw is automatically triggered once 100% of entries are sold.</p>
+                    </div>
+                    <!-- Countdown Timer -->
+                    <div class="flex justify-center space-x-8 md:space-x-12 text-center mb-12" id="countdown">
+                        <!-- Countdown will be injected by JS -->
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center hover-lift">
+                            <div class="text-4xl font-light mb-2" id="ticketsSold" style="color: var(--accent-gold);">4,247</div>
+                            <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Entries Claimed</div>
+                        </div>
+                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center hover-lift">
+                            <div class="text-4xl font-light mb-2" style="color: var(--accent-gold);">5,000</div>
+                            <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Goal</div>
+                        </div>
+                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center hover-lift">
+                            <div class="text-4xl font-light mb-2" id="ticketsRemaining" style="color: var(--accent-gold);">753</div> <!-- This will be updated by JS -->
+                            <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Available</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How it Works -->
+            <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-16 md:mb-24 fade-in" style="animation-delay: 400ms;">
+                <h2 class="text-4xl font-['Playfair_Display'] font-light text-center mb-16" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
+                    Your Path to Ownership
+                </h2>
+                <div class="grid md:grid-cols-3 gap-12">
+                    <div class="text-center group">
+                        <div class="w-20 h-20 luxury-border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-all duration-300 group-hover:scale-105">
+                            <span class="text-3xl" style="color: var(--accent-gold);">🎫</span>
+                        </div>
+                        <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">Choose Your Entry</h4>
+                        <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">Select your preferred entry package to begin.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="w-20 h-20 luxury-border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-all duration-300 group-hover:scale-105">
+                            <span class="text-3xl" style="color: var(--accent-gold);">⏰</span>
+                        </div>
+                        <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">Await the Draw</h4>
+                        <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">A winner is selected via a verified random draw once all entries are sold.</p>
+                    </div>
+                    <div class="text-center group">
+                        <div class="w-20 h-20 luxury-border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-all duration-300 group-hover:scale-105">
+                            <span class="text-3xl" style="color: var(--accent-gold);">🏆</span>
+                        </div>
+                        <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">We Deliver Luxury</h4>
+                        <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">The iconic Birkin is authenticated and delivered to your doorstep, worldwide.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Brand Story Section -->
+            <section class="text-center max-w-3xl mx-auto mb-16 md:mb-24 fade-in" style="animation-delay: 500ms;">
+                <div class="mb-12 rounded-2xl overflow-hidden card-shadow hover-lift">
+                    <img src="https://arabiandiaries.com/wp-content/uploads/2023/05/Hermes-Birkin-Bag-768x453.jpg" alt="Lifestyle with Hermes Bag" class="w-full h-auto object-cover">
+                </div>
+                <h2 class="text-4xl font-['Playfair_Display'] font-light mb-6" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
+                    The La Maison Philosophy
+                </h2>
+                <p class="text-lg leading-relaxed mb-4" style="color: var(--text-body);">
+                    We believe that true luxury is an experience, not just an acquisition. La Maison was founded on a simple premise: to make the world's most coveted items accessible through a transparent, elegant, and trustworthy process.
+                </p>
+                <p class="leading-relaxed mb-8" style="color: var(--text-secondary);">
+                    Each prize is meticulously sourced and authenticated by our in-house experts, ensuring that every winner receives a genuine piece of craftsmanship and history. We are more than a lottery; we are curators of dreams and purveyors of attainable luxury.
+                </p>
+                <a href="#" class="font-semibold tracking-wide" style="color: var(--accent-gold); border-bottom: 1px solid var(--accent-gold); padding-bottom: 2px; transition: all 0.3s ease;">
+                    Discover Our Story
+                </a>
+            </section>
+
+
+            <!-- Prize Details -->
+            <section class="mb-16 md:mb-24 fade-in" style="animation-delay: 600ms;">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-2 rounded-2xl overflow-hidden card-shadow hover-lift">
+                            <img src="https://loveluxury.co.uk/shop/wp-content/uploads/2025/10/Hermes-Birkin-25-Noir-Black-Togo-Gold-Hardware-2021-5440-2-600x400.jpg" alt="Hermès Birkin 25 Detail View" class="w-full h-auto object-cover" loading="lazy">
+                        </div>
+                        <div class="rounded-2xl overflow-hidden card-shadow hover-lift">
+                            <img src="https://loveluxury.co.uk/shop/wp-content/uploads/2025/10/Hermes-Birkin-25-Noir-Black-Togo-Gold-Hardware-2021-5440-3-600x400.jpg" alt="Hermès Birkin 25 Side View" class="w-full h-auto object-cover" loading="lazy">
+                        </div>
+                        <div class="rounded-2xl overflow-hidden card-shadow hover-lift">
+                            <img src="https://loveluxury.co.uk/shop/wp-content/uploads/2025/10/Hermes-Birkin-25-Noir-Black-Togo-Gold-Hardware-2021-5440-4-600x400.jpg" alt="Hermès Birkin 25 Hardware Detail" class="w-full h-auto object-cover" loading="lazy">
+                        </div>
+                    </div>
+                    <div class="text-left">
+                        <h2 class="text-4xl font-['Playfair_Display'] font-light mb-6" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">The Prize Details</h2>
+                        <h3 class="text-2xl font-['Playfair_Display'] font-medium mb-2" style="color: var(--text-primary); font-size: 1.75rem; line-height: 1.3;">Hermès Birkin 25 Noir</h3>
+                        <p class="font-medium mb-4" style="color: var(--text-body);">Black Togo Leather • Gold Hardware • Stamp Z (2021)</p>
+                        <div class="space-y-3 text-base mb-6" style="color: var(--text-body); border-left: 2px solid var(--accent-gold); padding-left: 1.5rem;">
+                            <p><span class="font-semibold" style="color: var(--accent-gold);">Condition:</span> Excellent Pre-Owned</p>
+                            <p><span class="font-semibold" style="color: var(--accent-gold);">Includes:</span> Box, dust bag, lock, keys, clochette, and receipt.</p>
+                            <p><span class="font-semibold" style="color: var(--accent-gold);">Authenticity:</span> Guaranteed. Verified by our luxury experts.</p>
+                            <p><span class="font-semibold" style="color: var(--accent-gold);">Retail Value:</span> Approx. $25,000 USD</p>
+                        </div>
+                        <p class="text-sm font-medium" style="color: var(--text-secondary);">🌍 Free, Insured Worldwide Shipping Included</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lottery Entry Form -->
+            <div id="entryForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-16 md:mb-24 fade-in" style="animation-delay: 800ms;">
+                <h2 class="text-4xl font-['Playfair_Display'] font-light text-center mb-4" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
+                    Enter the Draw — Your Exclusive Chance
+                </h2>
+                <p class="text-center max-w-2xl mx-auto mb-12" style="color: var(--text-secondary);">
+                    Choose your entry package below to receive lottery tickets and stand a chance to win the iconic bag.
+                </p>
                 
-                <h3>2. How to Enter</h3>
-                <p>To enter a draw, you must select an entry package, provide the required personal information (including your full name, email address, and phone number), and complete the purchase process. Each purchase grants a specific number of entries into the draw for the advertised prize. All entries are final and non-refundable.</p>
+                <div class="grid lg:grid-cols-2 gap-12">
+                    <!-- Ticket Selection -->
+                    <div class="flex flex-col">
+                        <div class="space-y-4">
+                            <!-- Package 1 -->
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 1, 5, '1 Ticket', 1)">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Buy 1 Ticket</div>
+                                    </div>
+                                    <div class="text-2xl font-bold" style="font-size: 1.25rem; color: var(--accent-gold);">$5</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Package 2 -->
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 2, 9, '2 Tickets', 2)">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Buy 2 Tickets</div>
+                                    </div>
+                                    <div class="text-2xl font-bold" style="font-size: 1.25rem; color: var(--accent-gold);">$9</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Package 3 -->
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 5, 21, '5 Tickets', 5)">
+                                <div class="absolute -top-3 right-4 bg-gold-accent text-black text-xs font-bold uppercase px-3 py-1 rounded-full">Best Value</div>
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Buy 5 Tickets</div>
+                                    </div>
+                                    <div class="text-2xl font-bold" style="font-size: 1.25rem; color: var(--accent-gold);">$21</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Selected Ticket Display -->
+                    <div class="flex flex-col text-center">
+                        <h4 class="text-xl font-medium mb-8" style="color: var(--text-primary);">Your Selection</h4>
+                        <div id="selectedTicket" class="luxury-border border-dashed rounded-2xl p-8 text-center mb-8 flex-grow flex items-center justify-center">
+                            <div style="color: var(--text-secondary);">Select a ticket package to continue</div>
+                        </div>
+                        
+                        <button id="proceedBtn" class="btn-cta w-full text-lg tracking-wide disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="showCheckout()">
+                            Enter the Draw Now
+                        </button>
+                        <p class="text-xs mt-4" style="color: var(--text-secondary);">Limited tickets available. Winners will be selected once all entries are sold.</p>
+                    </div>
+                </div>
+            </div>
 
-                <h3>3. The Draw Process</h3>
-                <p>Once all available entries for a specific prize are sold, the draw is closed and scheduled. A winner is selected using a third-party, independently verified random number generator to ensure absolute fairness and transparency. The draw process is recorded and may be made public to ensure confidence in the outcome.</p>
-
-                <h3>4. Winner Notification & Prize Claim</h3>
-                <p>The winner will be contacted via the email address and phone number provided during entry within 72 hours of the draw. The winner must respond within 7 days to claim their prize and provide valid identification and a shipping address. Failure to respond within the specified timeframe may result in disqualification, and a new winner will be drawn from the remaining entries.</p>
-
-                <h3>5. The Prize</h3>
-                <p>The prize is as described on the website. All prizes are guaranteed authentic and will be delivered with original documentation where applicable. La Maison will arrange for fully insured, worldwide shipping to the winner's provided address at no additional cost. The winner is solely responsible for any taxes, customs duties, or import fees that may be applicable in their country of residence.</p>
+            <!-- Trust & Legitimacy Section -->
+            <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-16 md:mb-24 fade-in" style="animation-delay: 1000ms;">
+                <h2 class="text-3xl font-['Playfair_Display'] font-light text-center mb-10" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
+                    Secure & Transparent Entry
+                </h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                    <div class="space-y-3">
+                        <div class="text-4xl" style="color: var(--accent-gold);">🔒</div>
+                        <h4 class="font-semibold" style="color: var(--text-body);">256-bit SSL Encryption</h4>
+                        <p class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">All payment information is fully encrypted and secure.</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="text-4xl" style="color: var(--accent-gold);">🛡️</div>
+                        <h4 class="font-semibold" style="color: var(--text-body);">Verified Fair Draw</h4>
+                        <p class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">The winner is chosen via a recorded, independent random draw.</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="text-4xl" style="color: var(--accent-gold);">📜</div>
+                        <h4 class="font-semibold" style="color: var(--text-primary);">Authenticity Guaranteed</h4>
+                        <p class="text-sm" style="color: var(--text-secondary);">The prize includes its original authenticity certificate.</p>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="text-4xl" style="color: var(--accent-gold);">🌍</div>
+                        <h4 class="font-semibold" style="color: var(--text-body);">Worldwide Insured Shipping</h4>
+                        <p class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">We deliver your prize safely to your doorstep, anywhere in the world.</p>
+                    </div>
+                </div>
             </section>
 
-            <!-- Privacy Policy -->
-            <section id="privacy" class="legal-section">
-                <h2>Privacy Policy</h2>
-                <p>La Maison ("we", "us") is committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your personal information when you use our website.</p>
+            <!-- Checkout Form (Hidden Initially) -->
+            <div id="checkoutForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 fade-in hidden">
+                <div class="bg-red-100 border border-red-200 rounded-2xl p-6 mb-8">
+                    <div class="flex items-center">
+                        <div class="text-red-500 mr-3">⚠️</div>
+                        <div class="text-red-700 font-semibold tracking-wide">DEMO CHECKOUT - NOT FUNCTIONAL</div>
+                    </div>
+                    <div class="text-red-600 text-sm mt-2">This is a demonstration only. No actual payments will be processed.</div>
+                </div>
                 
-                <h3>1. Information We Collect</h3>
-                <p>We may collect the following types of information:</p>
-                <ul>
-                    <li><strong>Personal Identification Information:</strong> Name, email address, phone number, and shipping address.</li>
-                    <li><strong>Payment Information:</strong> While we do not store your full credit card details, our third-party payment processors (e.g., Stripe) collect payment information to process your transaction securely.</li>
-                    <li><strong>Usage Data:</strong> We may collect information about how you access and use the website, such as your IP address, browser type, and pages visited, to improve our service.</li>
-                </ul>
+                <h2 class="text-3xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
+                    Complete Your Purchase
+                </h2>
+                
+                <form onsubmit="handleCheckout(event)" class="space-y-8">
+                    <!-- Personal Information -->
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">First Name</label>
+                            <input type="text" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                        </div>
+                        <div>
+                            <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Last Name</label>
+                            <input type="text" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Email Address</label>
+                        <input type="email" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                    </div>
+                    
+                    <div>
+                        <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Phone Number</label>
+                        <input type="tel" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                    </div>
 
-                <h3>2. How We Use Your Information</h3>
-                <p>Your information is used for the following purposes:</p>
-                <ul>
-                    <li>To process your entries and manage your participation in our draws.</li>
-                    <li>To contact you if you are a winner and to arrange for prize delivery.</li>
-                    <li>To send you marketing communications, if you have opted in to receive them.</li>
-                    <li>To improve our website, services, and user experience.</li>
-                </ul>
+                    <!-- Payment Information (Demo) -->
+                    <div class="border-t pt-8" style="border-color: var(--border-light);">
+                        <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Payment Information</h4>
+                        <div class="bg-gray-100 rounded-2xl p-6 mb-6">
+                            <div class="text-sm mb-2" style="color: var(--text-secondary);">Demo payment details - do not enter real information</div>
+                            <div class="text-xs" style="color: var(--text-secondary);">Card: 4242 4242 4242 4242 | Exp: 12/25 | CVV: 123</div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="md:col-span-2">
+                                <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Card Number</label>
+                                <input type="text" placeholder="4242 4242 4242 4242" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-50" readonly>
+                            </div>
+                            <div>
+                                <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Expiry Date</label>
+                                <input type="text" placeholder="12/25" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-50" readonly>
+                            </div>
+                            <div>
+                                <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">CVV</label>
+                                <input type="text" placeholder="123" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-50" readonly>
+                            </div>
+                        </div>
+                    </div>
 
-                <h3>3. Data Security</h3>
-                <p>We implement robust security measures to protect your personal information. All data is transmitted over a secure (SSL) connection, and we partner with industry-leading payment gateways to ensure your financial data is handled with the highest level of security. We do not sell or share your personal information with third parties for their marketing purposes.</p>
-            </section>
+                    <!-- Order Summary -->
+                    <div class="border-t pt-8" style="border-color: var(--border-light);">
+                        <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Order Summary</h4>
+                        <div id="orderSummary" class="bg-gray-50 rounded-2xl p-6">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
 
-            <!-- Contact Us -->
-            <section id="contact" class="legal-section">
-                <h2>Contact Us</h2>
-                <p>If you have any questions, concerns, or require assistance, please do not hesitate to reach out to our dedicated support team.</p>
-                <ul>
-                    <li><strong>Email:</strong> <a href="mailto:support@lamaison.demo">support@lamaison.demo</a></li>
-                    <li><strong>Hours:</strong> Monday - Friday, 9:00 AM - 5:00 PM (GMT)</li>
-                </ul>
-            </section>
+                    <button type="submit" class="w-full bg-gold-accent text-white font-bold py-4 px-8 rounded-md text-lg tracking-wide mt-8">
+                        Complete Purchase
+                    </button>
+                </form>
+                
+                <button onclick="backToEntry()" class="w-full mt-6 luxury-border py-4 px-8 rounded-md font-medium tracking-wide hover-lift transition-all" style="color: var(--text-body);">
+                    ← Back to Entry Selection
+                </button>
+            </div>
 
-            <!-- FAQs -->
-            <section id="faq" class="legal-section">
-                <h2>Frequently Asked Questions</h2>
-                <h3>Is this a legitimate draw?</h3>
-                <p>Yes. This is a demonstration website, but in a real-world scenario, we would be a legally registered entity operating under all applicable laws for prize competitions. All draws are conducted fairly and transparently.</p>
-                <h3>How is the winner selected?</h3>
-                <p>The winner is selected using a third-party, independently verified random number generator to ensure complete fairness. The draw is recorded and can be made available upon request.</p>
-                <h3>What if I win?</h3>
-                <p>If you are the lucky winner, our team will contact you directly via the email and phone number you provided during checkout. We will then arrange for the secure, insured delivery of your prize to your address, anywhere in the world.</p>
-            </section>
-
-            <!-- Fair Draw Info -->
-            <section id="fair-draw" class="legal-section">
-                <h2>Fair Draw Information</h2>
-                <p>We are committed to 100% transparency and fairness. Our draws are conducted under the following principles:</p>
-                <ul>
-                    <li><strong>Limited Entries:</strong> Each draw has a fixed number of entries. Once the maximum is reached, the draw is closed and scheduled.</li>
-                    <li><strong>Verified Random Selection:</strong> We use a certified third-party service (like Random.org) to generate the winning entry number. This process is automated and tamper-proof.</li>
-                    <li><strong>Public Announcement:</strong> The winner will be announced on our website and social media channels after they have been successfully contacted and have confirmed their prize.</li>
-                </ul>
-            </section>
-
+            <!-- Success Message (Hidden Initially) -->
+            <div id="successMessage" class="glass-effect rounded-3xl card-shadow p-12 text-center fade-in hidden">
+                <div class="text-8xl mb-8">🎉</div>
+                <h2 class="text-4xl font-['Playfair_Display'] font-light mb-6" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
+                    Your Entry is Confirmed!
+                </h2>
+                <p class="text-lg leading-relaxed mb-8 max-w-2xl mx-auto" style="color: var(--text-secondary);">
+                    Thank you for your purchase. You will receive a confirmation email shortly with your entry details.
+                    We will notify the winner once the draw is complete. Good luck!
+                </p>
+                <button onclick="resetForm()" class="btn py-4 px-10 tracking-wide">
+                    START NEW ENTRY
+                </button>
+            </div>
         </main>
 
         <!-- Footer -->
@@ -180,9 +502,162 @@
                     <a href="legal.html#fair-draw" class="hover:text-white transition-colors">Fair Draw Info</a>
                 </div>
                 <p class="mb-3 font-light tracking-wide text-sm text-white/90 uppercase">© 2025 La Maison. All rights reserved.</p>
+                <p class="text-sm text-white/80 mb-3">🛡️ Operated by La Maison LTD • Officially authorized to conduct promotional lotteries in the U.S.</p>
                 <p class="text-xs text-white/60">This is a demonstration website for portfolio purposes. No actual lottery or sales are conducted.</p>
             </div>
         </footer>
     </div>
-</body>
+
+    <script>
+        let selectedTickets = 0;
+        let selectedPrice = 0;
+        let selectedPackage = '';
+        let purchasedTickets = 0;
+
+        function selectTicket(element, tickets, price, packageName, purchased) {
+            selectedTickets = tickets;
+            selectedPrice = price;
+            purchasedTickets = purchased;
+            selectedPackage = packageName;
+            
+            // Remove previous selections
+            document.querySelectorAll('.ticket-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Highlight selected option
+            element.classList.add('selected');
+
+            
+            // Update selected ticket display
+            const selectedTicketDiv = document.getElementById('selectedTicket');
+            selectedTicketDiv.innerHTML = `
+                <div style="color: var(--text-body);" class="text-center">
+                    <div class="text-2xl font-semibold mb-3">${packageName}</div>
+                    <div class="text-lg font-medium mb-2">${tickets} Total Entries</div>
+                <div class="text-3xl font-bold mt-3" style="font-size: 1.75rem; color: var(--accent-gold);">$${price}</div>
+                </div>
+            `;
+            selectedTicketDiv.classList.remove('border-dashed');
+            selectedTicketDiv.style.backgroundColor = '#FDF6EC'; /* Ivory */
+            
+            // Enable proceed button
+            document.getElementById('proceedBtn').disabled = false;
+        }
+
+        function updateTicketCounters(newSold) {
+            const currentSold = parseInt(document.getElementById('ticketsSold').textContent.replace(',', ''));
+            const totalGoal = 5000;
+            const remaining = totalGoal - newSold;
+            const percentage = (newSold / totalGoal * 100).toFixed(1);
+            
+            // Update display with comma formatting
+            document.getElementById('ticketsSold').textContent = newSold.toLocaleString();
+            document.getElementById('ticketsRemaining').textContent = remaining.toLocaleString();
+            
+            // Update progress bar
+            const progressBar = document.querySelector('.progress-glow');
+            if (progressBar) {
+                progressBar.style.width = percentage + '%';
+            }
+
+            // Update progress text
+            document.getElementById('progressPercentage').textContent = percentage + '%';
+            document.getElementById('ticketsSoldCount').textContent = `${newSold.toLocaleString()} / ${totalGoal.toLocaleString()} Entries Sold`;
+        }
+
+        function showCheckout() {
+            document.getElementById('entryForm').classList.add('hidden');
+            document.getElementById('checkoutForm').classList.remove('hidden');
+            
+            // Update order summary
+            const orderSummary = document.getElementById('orderSummary');
+            orderSummary.innerHTML = `
+                <div class="flex justify-between items-center mb-2">
+                    <span>${selectedPackage}</span>
+                    <span>$${selectedPrice}</span>
+                </div>
+                <div class="flex justify-between items-center text-sm mb-3" style="color: var(--text-secondary);">
+                    <span>${purchasedTickets} x BOGO Entry Package</span>
+                    <span>${purchasedTickets} x Entry Package</span>
+                <div class="border-t pt-2" style="border-color: var(--border-light);">
+                    <div class="flex justify-between items-center font-semibold text-lg">
+                        <span>Total</span>
+                        <span>$${selectedPrice}</span>
+                    </div>
+                </div>
+            `;
+            
+            // Scroll to the form
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function backToEntry() {
+            document.getElementById('checkoutForm').classList.add('hidden');
+            document.getElementById('entryForm').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleCheckout(event) {
+            event.preventDefault();
+
+            // Simulate adding tickets to the total
+            const currentSold = parseInt(document.getElementById('ticketsSold').textContent.replace(',', ''));
+            updateTicketCounters(currentSold + selectedTickets);
+            
+            // Hide checkout form and show success message
+            document.getElementById('checkoutForm').classList.add('hidden');
+            document.getElementById('successMessage').classList.remove('hidden');
+            
+            window.scrollTo({ top: document.getElementById('successMessage').offsetTop - 100, behavior: 'smooth' });
+        }
+
+        function resetForm() {
+            // Reset all selections
+            selectedTickets = 0;
+            selectedPrice = 0;
+            selectedPackage = '';
+            purchasedTickets = 0;
+            
+            // Reset UI
+            document.querySelectorAll('.ticket-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            const selectedTicketDiv = document.getElementById('selectedTicket');
+            selectedTicketDiv.innerHTML = '<div style="color: var(--text-secondary);" class="flex items-center justify-center h-full">Select a ticket package to continue</div>';
+            selectedTicketDiv.classList.add('border-dashed');
+            selectedTicketDiv.style.backgroundColor = 'transparent';
+            
+            document.getElementById('proceedBtn').disabled = true;
+            
+            // Show entry form
+            document.getElementById('successMessage').classList.add('hidden');
+            document.getElementById('entryForm').classList.remove('hidden');
+        }
+
+        // Live ticket sales simulation
+        document.addEventListener('DOMContentLoaded', () => {
+             const totalGoal = 5000;
+             let currentSold = parseInt(document.getElementById('ticketsSold').textContent.replace(',', ''));
+ 
+             const ticketSimulationInterval = setInterval(() => {
+                 // Decrease remaining by 1 (i.e., increase sold by 1)
+                 const newTickets = 1;
+                 
+                 if (currentSold + newTickets < totalGoal) {
+                     currentSold += newTickets;
+                     updateTicketCounters(currentSold);
+                 } else {
+                     // If we reach the goal, show it's complete, then reset after a delay.
+                     updateTicketCounters(totalGoal);
+                     
+                     setTimeout(() => {
+                        currentSold = 4200;
+                        updateTicketCounters(currentSold);
+                     }, 10000); // Wait 10 seconds before resetting
+                 }
+             }, 1200000); // Run every 20 minutes (20 * 60 * 1000 ms)
+        });
+    </script>
 </html>
