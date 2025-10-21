@@ -117,6 +117,18 @@
             background-color: #333;
         }
 
+        .btn-cta {
+            background-color: #000;
+            color: #fff;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .btn-cta:hover:not(:disabled) { background-color: #d4af37; color: #000; transform: scale(1.05); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3); }
         .ticket-option.selected {
             border-color: var(--accent-gold);
             background-color: #FAF6F0; /* A softer, more elegant ivory */
@@ -297,60 +309,60 @@
 
             <!-- Lottery Entry Form -->
             <div id="entryForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-16 md:mb-24 fade-in" style="animation-delay: 800ms;">
-                <h2 class="text-4xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
-                    Secure Your Chance
+                <h2 class="text-4xl font-['Playfair_Display'] font-light text-center mb-4" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
+                    Enter the Draw — Your Exclusive Chance
                 </h2>
+                <p class="text-center max-w-2xl mx-auto mb-12" style="color: var(--text-secondary);">
+                    Choose your entry package below to receive lottery tickets and stand a chance to win the iconic bag.
+                </p>
                 
                 <div class="grid lg:grid-cols-2 gap-12">
                     <!-- Ticket Selection -->
                     <div class="flex flex-col">
-                        <h4 class="text-xl font-medium mb-8" style="color: var(--text-primary);">Select Your Entry</h4>
                         <div class="space-y-4">
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 2, 5, 'Solo Entry', 1)">
-                                <div class="absolute -top-3 left-4 bg-red-500 text-white text-xs font-bold uppercase px-3 py-1 rounded-full">BOGO</div>
+                            <!-- Package 1 -->
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 1, 5, '1 Ticket', 1)">
                                 <div class="flex justify-between items-center">
                                     <div>
-                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Solo Entry</div>
-                                        <div class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">Buy 1, Get 1 Free (2 Entries)</div>
+                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Buy 1 Ticket</div>
                                     </div>
                                     <div class="text-2xl font-bold" style="font-size: 1.25rem; color: var(--accent-gold);">$5</div>
                                 </div>
                             </div>
                             
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 4, 10, 'Double Chance', 2)">
-                                <div class="absolute -top-3 left-4 bg-red-500 text-white text-xs font-bold uppercase px-3 py-1 rounded-full">BOGO</div>
+                            <!-- Package 2 -->
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 2, 9, '2 Tickets', 2)">
                                 <div class="flex justify-between items-center">
                                     <div>
-                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Double Chance</div>
-                                        <div class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">Buy 2, Get 2 Free (4 Entries)</div>
+                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Buy 2 Tickets</div>
                                     </div>
-                                    <div class="text-2xl font-bold" style="font-size: 1.25rem; color: var(--accent-gold);">$10</div>
+                                    <div class="text-2xl font-bold" style="font-size: 1.25rem; color: var(--accent-gold);">$9</div>
                                 </div>
                             </div>
                             
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 10, 25, 'Collector’s Pack', 5)">
+                            <!-- Package 3 -->
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 5, 21, '5 Tickets', 5)">
                                 <div class="absolute -top-3 right-4 bg-gold-accent text-black text-xs font-bold uppercase px-3 py-1 rounded-full">Best Value</div>
-                                <div class="absolute -top-3 left-4 bg-red-500 text-white text-xs font-bold uppercase px-3 py-1 rounded-full">BOGO</div>
                                 <div class="flex justify-between items-center">
                                     <div>
-                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Collector’s Pack</div>
-                                        <div class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">Buy 5, Get 5 Free (10 Entries)</div>
+                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Buy 5 Tickets</div>
                                     </div>
-                                    <div class="text-2xl font-bold" style="font-size: 1.25rem; color: var(--accent-gold);">$25</div>
+                                    <div class="text-2xl font-bold" style="font-size: 1.25rem; color: var(--accent-gold);">$21</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Selected Ticket Display -->
-                    <div class="flex flex-col">
+                    <div class="flex flex-col text-center">
                         <h4 class="text-xl font-medium mb-8" style="color: var(--text-primary);">Your Selection</h4>
                         <div id="selectedTicket" class="luxury-border border-dashed rounded-2xl p-8 text-center mb-8 flex-grow flex items-center justify-center">
                             <div style="color: var(--text-secondary);">Select a ticket package to continue</div>
                         </div>
                         
-                        <button id="proceedBtn" class="btn w-full text-lg tracking-wide disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="showCheckout()">
-                            Join the Draw
+                        <button id="proceedBtn" class="btn-cta w-full text-lg tracking-wide disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="showCheckout()">
+                            Enter the Draw Now
                         </button>
+                        <p class="text-xs mt-4" style="color: var(--text-secondary);">Limited tickets available. Winners will be selected once all entries are sold.</p>
                     </div>
                 </div>
             </div>
@@ -519,9 +531,8 @@
             // Update selected ticket display
             const selectedTicketDiv = document.getElementById('selectedTicket');
             selectedTicketDiv.innerHTML = `
-                <div style="color: var(--text-body);">
-                    <div class="text-2xl font-semibold mb-3">${selectedPackage}</div>
-                    <div class="text-base mb-2">Buy ${purchasedTickets}, Get ${purchasedTickets} Free</div>
+                <div style="color: var(--text-body);" class="text-center">
+                    <div class="text-2xl font-semibold mb-3">${packageName}</div>
                     <div class="text-lg font-medium mb-2">${tickets} Total Entries</div>
                 <div class="text-3xl font-bold mt-3" style="font-size: 1.75rem; color: var(--accent-gold);">$${price}</div>
                 </div>
@@ -567,7 +578,7 @@
                 </div>
                 <div class="flex justify-between items-center text-sm mb-3" style="color: var(--text-secondary);">
                     <span>${purchasedTickets} x BOGO Entry Package</span>
-                </div>
+                    <span>${purchasedTickets} x Entry Package</span>
                 <div class="border-t pt-2" style="border-color: var(--border-light);">
                     <div class="flex justify-between items-center font-semibold text-lg">
                         <span>Total</span>
