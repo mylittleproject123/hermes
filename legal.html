@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LaMaison - Birkin Bag Luxury Lottery</title>
+    <title>Information - La Maison</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Refined Palette */
+            /* Palette from index.html */
             --bg: #F7F6F5;
             --text-primary: #111111;
             --text-body: #333333;
             --text-secondary: #6B7280;
-            --accent-gold: #B99566; /* A slightly more muted, sophisticated gold */
-            --cta-bg: var(--accent-gold);
+            --accent-gold: #B99566;
             --border-light: #E8E7E5;
-            --dark-accent-bg: #1B1B1B;
-            --bg-card: rgba(255, 255, 255, 0.6); /* Slightly less opaque for a softer glass effect */
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             box-sizing: border-box;
+            background-color: var(--bg);
+            color: var(--text-body);
+            line-height: 1.7;
+            font-family: 'Inter', sans-serif;
         }
         
         * {
@@ -30,465 +35,260 @@
         }
         
         .luxury-gradient {
-            background: #000000; /* Simple black footer */
+            background: #000000;
         }
-        
-        .gold-accent {
-            background: var(--cta-bg);
+
+        .legal-section {
+            padding-top: 5rem; /* Offset for anchor links */
+            margin-top: -4rem;
+            margin-bottom: 4rem;
         }
-        
-        .card-shadow {
-            box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+
+        .legal-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: 1rem;
+            letter-spacing: 0.05em;
         }
-        
-        .glass-effect {
-            background: var(--bg-card); /* Using the new variable */
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-light);
+
+        .legal-section h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
         }
-        
-        .ticket-shimmer {
-            background: linear-gradient(135deg, #fefcf8 0%, #f8f6f0 50%, #fefcf8 100%);
-            background-size: 200% 200%;
-            animation: shimmer 4s ease-in-out infinite;
+
+        .legal-section p, .legal-section li {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
         }
-        
-        @keyframes shimmer {
-            0% { background-position: -200% -200%; }
-            50% { background-position: 200% 200%; }
-            100% { background-position: -200% -200%; }
+
+        .legal-section ul {
+            list-style-position: inside;
+            padding-left: 1rem;
         }
-        
-        .fade-in {
-            animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(40px) scale(0.95);
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        .hover-lift {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .hover-lift:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 32px 64px rgba(0, 0, 0, 0.12);
-        }
-        
-        .progress-glow {
-            box-shadow: 0 0 15px rgba(185, 149, 102, 0.5); /* Matching the new gold */
-        }
-        
-        .luxury-border {
-            border: 1px solid var(--border-light);
-        }
-        
-        .luxury-input {
-            border: 1px solid var(--border-light);
-            background: #FFFFFF;
-            transition: all 0.3s ease;
-        }
-        
-        .luxury-input:focus {
-            border-color: var(--accent-gold);
-            box-shadow: 0 0 0 3px rgba(185, 149, 102, 0.2);
-            outline: none;
-        }
-        
-        .btn {
-            background-color: #000;
-            color: #fff;
-            padding: 12px 30px;
-            border-radius: 30px;
+
+        .legal-section a {
+            color: var(--accent-gold);
+            text-decoration: underline;
             font-weight: 500;
-            transition: background 0.3s ease;
-            display: inline-block; /* Ensure it behaves like a block for padding */
-        }
-
-        .btn:hover {
-            background-color: #333;
-        }
-
-        .btn-cta {
-            background-color: #000;
-            color: #fff;
-            padding: 16px 32px;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-block;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        .btn-cta:hover:not(:disabled) { background-color: #d4af37; color: #000; transform: scale(1.05); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3); }
-        .ticket-option.selected {
-            border-color: var(--accent-gold);
-            background-color: #FAF6F0; /* A softer, more elegant ivory */
-            transform: translateY(-4px);
         }
     </style>
-    <script>
-        // Simple countdown timer logic
-        document.addEventListener('DOMContentLoaded', () => {
-            const countdownElement = document.getElementById('countdown');
-            if (!countdownElement) return;
-
-            // Set a future date (e.g., 10 days from now)
-            const countdownDate = new Date().getTime() + 10 * 24 * 60 * 60 * 1000;
-
-            const interval = setInterval(() => {
-                const now = new Date().getTime();
-                const distance = countdownDate - now;
-
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-                countdownElement.innerHTML = `
-                    <div><span class="text-2xl md:text-3xl font-semibold">${days}</span><span class="text-xs uppercase tracking-wider">Days</span></div>
-                    <div><span class="text-2xl md:text-3xl font-semibold">${hours}</span><span class="text-xs uppercase tracking-wider">Hours</span></div>
-                    <div><span class="text-2xl md:text-3xl font-semibold">${minutes}</span><span class="text-xs uppercase tracking-wider">Mins</span></div>
-                `;
-
-                if (distance < 0) {
-                    clearInterval(interval);
-                    countdownElement.innerHTML = "DRAW CLOSED";
-                }
-            }, 1000);
-        });
-    </script>
 </head>
-<body class="min-h-full font-['Inter'] text-base" style="background-color: var(--bg); color: var(--text-body); line-height: 1.6;">
-    <div class="min-h-full font-['Inter']">
+<body>
+    <div class="min-h-screen flex flex-col">
         <header class="py-8 px-8 flex justify-center items-center">
-            <h1 class="text-3xl md:text-4xl font-['Playfair_Display'] font-light tracking-[0.25em] uppercase" style="color: var(--text-primary);">La Maison</h1>
+            <a href="index.html" class="text-3xl md:text-4xl font-['Playfair_Display'] font-light tracking-[0.25em] uppercase" style="color: var(--text-primary);">La Maison</a>
        </header>
+
         <!-- Main Content -->
-        <main class="max-w-6xl mx-auto px-4 sm:px-8">
-            <!-- REFINED Hero Section -->
-            <section class="relative text-center px-6 flex flex-col items-center justify-center rounded-2xl overflow-hidden mb-16 md:mb-24" style="background-color: var(--dark-accent-bg); min-height: 60vh;">
-                <!-- Background Image & Overlay -->
-                <div class="absolute inset-0">
-                    <img src="https://s30964.pcdn.co/introspective-magazine/wp-content/uploads/2024/09/HB_Hero-1.jpg" alt="Hermes Birkin Bag" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/40"></div>
-                </div>
-                
-                <!-- Content -->
-                <div class="relative z-10 flex flex-col items-center w-full pt-24 fade-in">
-                    <h2 class="text-4xl md:text-6xl font-['Playfair_Display'] font-semibold text-white leading-tight mb-4" style="font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; text-shadow: 0 2px 15px rgba(0,0,0,0.5);">Own a Hermès Birkin</h2>
-                    <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto uppercase tracking-widest" style="font-size: clamp(0.9rem, 2vw, 1.125rem); text-shadow: 0 1px 8px rgba(0,0,0,0.4);">One Winner. One Chance. Unlimited Luxury.</p>
-                    <a href="#entryForm" class="btn text-lg">
-                        Secure My Entry
-                    </a>
-                </div>
+        <main class="max-w-4xl mx-auto px-4 sm:px-8 flex-grow">
+            
+            <!-- Terms & Conditions -->
+            <section id="terms" class="legal-section">
+🔐 Add to Terms & Conditions
+✅ Add a new section after 1. Introduction:
+
+1.4 Regulatory Compliance
+
+La Maison LTD is a legally registered business entity in the State of Delaware, United States, and is authorized to conduct promotional games and sweepstakes in accordance with applicable laws. All lottery-style draws are operated in compliance with relevant regulations and best practices to ensure fairness, transparency, and consumer protection.
+
+🔐 Add to FAQ
+
+Q11: Is this Draw legal and authorized?
+A11:
+Yes. La Maison LTD is a registered company based in Delaware and is authorized to conduct this lottery-style draw. We follow all applicable laws and implement fair draw practices to ensure transparency and legitimacy.
+
+🔐 Add to Fair Draw Information
+
+You can place this near the top, under the Objective section:
+
+La Maison LTD is authorized to conduct promotional lottery-style draws and operates in compliance with applicable laws and regulations governing sweepstakes and games of chance. Our operations are designed to ensure fairness, legal compliance, and public trust.
+
+✅ Optional: Show it visually on your website
+
+You can also visibly display a short line on your site (e.g., under the ticket packages or at the footer):
+
+🛡️ Operated by La Maison LTD • Officially authorized to conduct promotional lotteries in the U.S.
+
+You might even consider adding a badge-style visual like:
+
+✔️ Officially Authorized Draw
+Operated by La Maison LTD – Delaware, USA                 <h2>Terms & Conditions</h2>
+                <p>La Maison LTD – “Secure Your Chance” Draw<br>Effective Date: [Insert Date]</p>
+
+                <h3>1. Introduction</h3>
+                <p>1.1 These Terms & Conditions (“Terms”) govern the entry into the lottery‑style draw (the “Draw”) conducted by La Maison LTD, a company incorporated in Delaware, United States (“we”, “us”, “our”).</p>
+                <p>1.2 By purchasing an entry package and entering the Draw, you (“Entrant”, “you”, “your”) agree to be bound by these Terms, our Privacy Policy, and any additional rules announced for the Draw.</p>
+                <p>1.3 Regulatory Compliance: La Maison LTD is a legally registered business entity in the State of Delaware, United States, and is authorized to conduct promotional games and sweepstakes in accordance with applicable laws. All lottery-style draws are operated in compliance with relevant regulations and best practices to ensure fairness, transparency, and consumer protection.</p>
+                <p>1.3 If you do not agree to these Terms, you must not participate in the Draw.</p>
+
+                <h3>2. Eligibility</h3>
+                <p>2.1 Entrants must be at least 18 years old and have the legal capacity to enter into a contract.</p>
+                <p>2.2 Entrants must comply with all applicable laws in their jurisdiction of residence. We reserve the right to refuse or cancel entries if an Entrant is ineligible under these Terms or applicable law.</p>
+                <p>2.3 Employees, officers, directors, contractors, and agents of La Maison LTD, and their immediate family members, are not eligible to enter unless otherwise stated.</p>
+
+                <h3>3. Entry Packages & Payment</h3>
+                <p>3.1 The Draw offers multiple entry packages (e.g., “Solo Entry”, “Double Chance”, “Collector’s Pack”) as described on the website. Each package corresponds to a specified number of entries (“Tickets”) into the Draw.</p>
+                <p>3.2 Payment must be made in full for the selected package. Upon payment and confirmation, you will receive the corresponding Tickets.</p>
+                <p>3.3 All sales are final. Refunds will not be issued unless we cancel the Draw, in which case refund policy applies (see Section 7).</p>
+
+                <h3>4. How the Draw Works</h3>
+                <p>4.1 The Draw will occur on or about the date publicly announced on the website (the “Draw Date”).</p>
+                <p>4.2 From all valid entries received by the closing time, one or more Winners will be chosen at random via a verifiable random method.</p>
+                <p>4.3 Odds of winning depend on the total number of valid entries received.</p>
+                <p>4.4 The Winner(s) will be notified via the contact information provided at entry. If a Winner fails to respond within [e.g., 14] days, we may select a replacement Winner.</p>
+
+                <h3>5. Prize & Awarding</h3>
+                <p>5.1 The prize (a luxury item as described on the website) will be awarded to the Winner subject to verification of eligibility and compliance with these Terms.</p>
+                <p>5.2 The Winner may be required to complete verification (including identity and age check) and sign any required release/documentation within a specified timeframe before the prize is delivered.</p>
+                <p>5.3 If the Winner cannot accept the prize (for any reason) or is disqualified, we may award the prize to an alternate Winner (if reasonably chosen).</p>
+                <p>5.4 We reserve the right to substitute the prize with one of equal or greater value if the advertised prize is unavailable.</p>
+
+                <h3>6. Limitation of Liability</h3>
+                <p>6.1 To the fullest extent permitted by law, La Maison LTD and its affiliates, directors, officers, employees, agents and representatives disclaim all liability for any loss or damage (including indirect, incidental, special or consequential) arising from or in connection with participation in the Draw or acceptance, possession, use or misuse of the prize.</p>
+                <p>6.2 Nothing in this Section excludes or limits liability for death or personal injury caused by our negligence or for any other liability which cannot be excluded or limited by law.</p>
+
+                <h3>7. Cancellation, Changes & Refunds</h3>
+                <p>7.1 We reserve the right to cancel, modify or suspend the Draw (or any part of it) at any time for reasons including but not limited to: insufficient ticket sales, fraud, technical failure or any force‑majeure event.</p>
+                <p>7.2 In the event of cancellation, we may issue refunds to Entrants in accordance with our published refund policy (or provide credit) and will not be liable beyond that.</p>
+                <p>7.3 We reserve the right to amend these Terms for legal or operational reasons. Any changes will be published on the website and Entrants’ continued participation constitutes acceptance of those changes.</p>
+
+                <h3>8. Governing Law & Jurisdiction</h3>
+                <p>These Terms shall be governed by and construed in accordance with the laws of the State of Delaware, United States. Entrants submit to the exclusive jurisdiction of the courts of Delaware for matters arising out of or in connection with the Draw.</p>
+
+                <h3>9. Miscellaneous</h3>
+                <p>9.1 If any provision of these Terms is found invalid or unenforceable, it shall be severed to the extent necessary and the remainder shall continue in full force and effect.</p>
+                <p>9.2 These Terms constitute the entire agreement between you and us regarding the Draw and supersede any prior communications or agreements.</p>
+                <p>9.3 Your personal data will be processed in accordance with our Privacy Policy.</p>
             </section>
 
-            <!-- Trust Metrics -->
-            <section class="mb-16 md:mb-24 fade-in" style="animation-delay: 200ms;">
-                <div class="max-w-4xl mx-auto">
-                    <!-- Progress Bar -->
-                    <div class="mb-12">
-                        <div class="flex justify-between items-center text-sm font-medium mb-3" style="color: var(--text-secondary);">
-                            <span id="ticketsSoldCount">4,247 / 5,000 Entries Claimed</span>
-                            <span class="text-gold font-semibold" id="progressPercentage">84.9%</span>
-                        </div>
-                        <div class="bg-gray-200 rounded-full h-2.5 overflow-hidden luxury-border">
-                            <div class="gold-accent h-full rounded-full transition-all duration-700 progress-glow" style="width: 84.9%"></div>
-                        </div>
-                        <p class="text-center text-xs mt-3" style="color: var(--text-secondary);">The draw is automatically triggered once 100% of entries are sold.</p>
-                    </div>
-                    <!-- Countdown Timer -->
-                    <div class="flex justify-center space-x-8 md:space-x-12 text-center mb-12" id="countdown">
-                        <!-- Countdown will be injected by JS -->
-                    </div>
+            <!-- Privacy Policy -->
+            <section id="privacy" class="legal-section">
+                <h2>Privacy Policy</h2>
+                <p>La Maison LTD – Privacy Policy</p>
 
-                    <!-- Stats -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center hover-lift">
-                            <div class="text-4xl font-light mb-2" id="ticketsSold" style="color: var(--accent-gold);">4,247</div>
-                            <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Entries Claimed</div>
-                        </div>
-                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center hover-lift">
-                            <div class="text-4xl font-light mb-2" style="color: var(--accent-gold);">5,000</div>
-                            <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Goal</div>
-                        </div>
-                        <div class="glass-effect rounded-2xl p-8 card-shadow text-center hover-lift">
-                            <div class="text-4xl font-light mb-2" id="ticketsRemaining" style="color: var(--accent-gold);">753</div> <!-- This will be updated by JS -->
-                            <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Available</div>
-                        </div>
-                    </div>
-                </div>
+                <h3>1. Introduction</h3>
+                <p>We are committed to protecting your personal information and being transparent about what we collect and how we use it. This Privacy Policy applies to Entrants in our Draw and visitors to our website.</p>
+
+                <h3>2. Information We Collect</h3>
+                <p>We may collect the following personal information about you:</p>
+                <ul>
+                    <li>Name, address, email address, telephone number</li>
+                    <li>Payment/billing information (when you purchase entry tickets)</li>
+                    <li>Date of birth or age verification data</li>
+                    <li>Any other information you voluntarily provide (e.g., via form fields)</li>
+                    <li>Technical information (IP address, browser type, device details) for security and fraud prevention</li>
+                </ul>
+
+                <h3>3. How We Use Your Information</h3>
+                <p>Your information is used for the following purposes:</p>
+                <ul>
+                    <li>To process your entry into the Draw and ticket purchase</li>
+                    <li>To notify Winners and verify eligibility</li>
+                    <li>To administer the Draw and prize delivery</li>
+                    <li>To comply with legal, regulatory and fraud‑prevention obligations</li>
+                    <li>To send you marketing communications (if you opt into them)</li>
+                    <li>To improve our website and services</li>
+                </ul>
+
+                <h3>4. Legal Basis for Processing</h3>
+                <p>Where applicable, our legal basis for processing your data includes:</p>
+                <ul>
+                    <li>Performance of a contract (entry purchase)</li>
+                    <li>Compliance with legal obligations</li>
+                    <li>Legitimate interests (fraud prevention, service improvement, marketing)</li>
+                    <li>Your consent (for receiving marketing communications)</li>
+                </ul>
+
+                <h3>5. Data Sharing & Disclosure</h3>
+                <p>We may share your personal information with:</p>
+                <ul>
+                    <li>Service providers who help us run the Draw (e.g., payment processors, verification providers)</li>
+                    <li>Legal and regulatory authorities as required by law</li>
+                </ul>
+                <p>We will not sell your personal data to third parties.</p>
+
+                <h3>6. Data Retention</h3>
+                <p>We will retain your personal information for as long as necessary to fulfil the purposes we collected it for, unless a longer retention period is required by law. After that, we will delete or anonymize your data.</p>
+
+                <h3>7. Your Rights</h3>
+                <p>Depending on your jurisdiction, you may have rights including: access, correction, deletion, restriction or objection to processing, and portability. To exercise any of these rights, please contact us at [insert email]. We will respond within statutory timelines.</p>
+
+                <h3>8. Security</h3>
+                <p>We implement appropriate technical and organizational measures to protect your data from unauthorized access, disclosure, alteration or destruction. However, no system is completely secure and we cannot guarantee absolute security.</p>
+
+                <h3>9. International Transfers</h3>
+                <p>If we transfer your personal data outside your jurisdiction (for example, outside the U.S.), we will ensure adequate safeguards are in place.</p>
+
+                <h3>10. Changes to this Policy</h3>
+                <p>We may update this Privacy Policy from time to time. Any changes will be posted on our website with the revised effective date.</p>
+
+                <h3>11. Contact Us</h3>
+                <p>If you have any questions about this Privacy Policy, please contact:<br>La Maison LTD<br>[Address]<br>[Email address]</p>
             </section>
 
-            <!-- How it Works -->
-            <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-16 md:mb-24 fade-in" style="animation-delay: 400ms;">
-                <h2 class="text-4xl font-['Playfair_Display'] font-light text-center mb-16" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
-                    Your Path to Ownership
-                </h2>
-                <div class="grid md:grid-cols-3 gap-12">
-                    <div class="text-center group">
-                        <div class="w-20 h-20 luxury-border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-all duration-300 group-hover:scale-105">
-                            <span class="text-3xl" style="color: var(--accent-gold);">🎫</span>
-                        </div>
-                        <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">Choose Your Entry</h4>
-                        <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">Select your preferred entry package to begin.</p>
-                    </div>
-                    <div class="text-center group">
-                        <div class="w-20 h-20 luxury-border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-all duration-300 group-hover:scale-105">
-                            <span class="text-3xl" style="color: var(--accent-gold);">⏰</span>
-                        </div>
-                        <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">Await the Draw</h4>
-                        <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">A winner is selected via a verified random draw once all entries are sold.</p>
-                    </div>
-                    <div class="text-center group">
-                        <div class="w-20 h-20 luxury-border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-all duration-300 group-hover:scale-105">
-                            <span class="text-3xl" style="color: var(--accent-gold);">🏆</span>
-                        </div>
-                        <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">We Deliver Luxury</h4>
-                        <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">The iconic Birkin is authenticated and delivered to your doorstep, worldwide.</p>
-                    </div>
-                </div>
+            <!-- Contact Us -->
+            <section id="contact" class="legal-section">
+                <h2>Contact Us</h2>
+                <p>If you have any questions, concerns, or require assistance, please do not hesitate to reach out to our dedicated support team.</p>
+                <ul>
+                    <li><strong>Email:</strong> <a href="mailto:support@lamaison.demo">support@lamaison.demo</a></li>
+                    <li><strong>Hours:</strong> Monday - Friday, 9:00 AM - 5:00 PM (GMT)</li>
+                </ul>
             </section>
 
-            <!-- Brand Story Section -->
-            <section class="text-center max-w-3xl mx-auto mb-16 md:mb-24 fade-in" style="animation-delay: 500ms;">
-                <div class="mb-12 rounded-2xl overflow-hidden card-shadow hover-lift">
-                    <img src="https://arabiandiaries.com/wp-content/uploads/2023/05/Hermes-Birkin-Bag-768x453.jpg" alt="Lifestyle with Hermes Bag" class="w-full h-auto object-cover">
-                </div>
-                <h2 class="text-4xl font-['Playfair_Display'] font-light mb-6" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
-                    The La Maison Philosophy
-                </h2>
-                <p class="text-lg leading-relaxed mb-4" style="color: var(--text-body);">
-                    We believe that true luxury is an experience, not just an acquisition. La Maison was founded on a simple premise: to make the world's most coveted items accessible through a transparent, elegant, and trustworthy process.
-                </p>
-                <p class="leading-relaxed mb-8" style="color: var(--text-secondary);">
-                    Each prize is meticulously sourced and authenticated by our in-house experts, ensuring that every winner receives a genuine piece of craftsmanship and history. We are more than a lottery; we are curators of dreams and purveyors of attainable luxury.
-                </p>
-                <a href="#" class="font-semibold tracking-wide" style="color: var(--accent-gold); border-bottom: 1px solid var(--accent-gold); padding-bottom: 2px; transition: all 0.3s ease;">
-                    Discover Our Story
-                </a>
+            <!-- FAQs -->
+            <section id="faq" class="legal-section">
+                <h2>Frequently Asked Questions</h2>
+                <h3>Q1: What is the Draw?</h3>
+                <p>A1: The Draw is a lottery‑style event where purchase of an entry package gives you “Tickets” to enter for the chance to win the prize(s) described on our website.</p>
+                <h3>Q2: How many entries can I purchase?</h3>
+                <p>A2: You may purchase any of the available packages (e.g., 2 entries for $5, 4 entries for $10, 10 entries for $25) as described. Each package corresponds to a fixed number of Tickets.</p>
+                <h3>Q3: How is the Winner selected?</h3>
+                <p>A3: The Winner is chosen randomly from all valid entries submitted by the closing time of the Draw, via a verifiable random method.</p>
+                <h3>Q4: When does the Draw close and when is it held?</h3>
+                <p>A4: The closing date and Draw Date will be publicly announced on our website. Only entries received and confirmed prior to the closing date/time will be eligible.</p>
+                <h3>Q5: Can I get a refund if I change my mind?</h3>
+                <p>A5: No. All entry purchases are final once confirmed. Refunds will only be issued in the event we cancel or materially change the Draw, in which case our refund policy applies.</p>
+                <h3>Q6: How will I know if I win?</h3>
+                <p>A6: We will notify the Winner via the email address provided at entry. If the Winner does not respond within [e.g., 14 days] we reserve the right to select a replacement Winner.</p>
+                <h3>Q7: What happens if I am under 18 or ineligible?</h3>
+                <p>A7: You must not enter if you are under 18 or otherwise ineligible. If we determine you are ineligible, your entry will be void and you will forfeit any prize.</p>
+                <h3>Q8: What happens if the prize becomes unavailable?</h3>
+                <p>A8: We reserve the right to substitute the prize with one of equal or greater value. If we cancel the Draw, our refund policy will apply.</p>
+                <h3>Q9: Will my personal information be used for marketing?</h3>
+                <p>A9: Only if you explicitly opt‑in to receive marketing communications. You may opt out at any time by contacting us.</p>
+                <h3>Q10: Who can I contact with questions?</h3>
+                <p>A10: Email us at [insert email address] for any questions or to request more details via our “Contact Us” page.</p>
+                <h3>Q11: Is this Draw legal and authorized?</h3>
+                <p>A11: Yes. La Maison LTD is a registered company based in Delaware and is authorized to conduct this lottery-style draw. We follow all applicable laws and implement fair draw practices to ensure transparency and legitimacy.</p>
             </section>
 
-
-            <!-- Prize Details -->
-            <section class="mb-16 md:mb-24 fade-in" style="animation-delay: 600ms;">
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="col-span-2 rounded-2xl overflow-hidden card-shadow hover-lift">
-                            <img src="https://loveluxury.co.uk/shop/wp-content/uploads/2025/10/Hermes-Birkin-25-Noir-Black-Togo-Gold-Hardware-2021-5440-2-600x400.jpg" alt="Hermès Birkin 25 Detail View" class="w-full h-auto object-cover" loading="lazy">
-                        </div>
-                        <div class="rounded-2xl overflow-hidden card-shadow hover-lift">
-                            <img src="https://loveluxury.co.uk/shop/wp-content/uploads/2025/10/Hermes-Birkin-25-Noir-Black-Togo-Gold-Hardware-2021-5440-3-600x400.jpg" alt="Hermès Birkin 25 Side View" class="w-full h-auto object-cover" loading="lazy">
-                        </div>
-                        <div class="rounded-2xl overflow-hidden card-shadow hover-lift">
-                            <img src="https://loveluxury.co.uk/shop/wp-content/uploads/2025/10/Hermes-Birkin-25-Noir-Black-Togo-Gold-Hardware-2021-5440-4-600x400.jpg" alt="Hermès Birkin 25 Hardware Detail" class="w-full h-auto object-cover" loading="lazy">
-                        </div>
-                    </div>
-                    <div class="text-left">
-                        <h2 class="text-4xl font-['Playfair_Display'] font-light mb-6" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">The Prize Details</h2>
-                        <h3 class="text-2xl font-['Playfair_Display'] font-medium mb-2" style="color: var(--text-primary); font-size: 1.75rem; line-height: 1.3;">Hermès Birkin 25 Noir</h3>
-                        <p class="font-medium mb-4" style="color: var(--text-body);">Black Togo Leather • Gold Hardware • Stamp Z (2021)</p>
-                        <div class="space-y-3 text-base mb-6" style="color: var(--text-body); border-left: 2px solid var(--accent-gold); padding-left: 1.5rem;">
-                            <p><span class="font-semibold" style="color: var(--accent-gold);">Condition:</span> Excellent Pre-Owned</p>
-                            <p><span class="font-semibold" style="color: var(--accent-gold);">Includes:</span> Box, dust bag, lock, keys, clochette, and receipt.</p>
-                            <p><span class="font-semibold" style="color: var(--accent-gold);">Authenticity:</span> Guaranteed. Verified by our luxury experts.</p>
-                            <p><span class="font-semibold" style="color: var(--accent-gold);">Retail Value:</span> Approx. $25,000 USD</p>
-                        </div>
-                        <p class="text-sm font-medium" style="color: var(--text-secondary);">🌍 Free, Insured Worldwide Shipping Included</p>
-                    </div>
-                </div>
+            <!-- Fair Draw Info -->
+            <section id="fair-draw" class="legal-section">
+                <h2>Fair Draw Information</h2>
+                <h3>Objective:</h3>
+                <p>La Maison LTD is committed to conducting the Draw in a fair, transparent and verifiable manner.</p>
+                <p>La Maison LTD is authorized to conduct promotional lottery-style draws and operates in compliance with applicable laws and regulations governing sweepstakes and games of chance. Our operations are designed to ensure fairness, legal compliance, and public trust.</p>
+                <h3>Random Selection Method:</h3>
+                <p>All valid entries will be pooled and one or more Winners will be selected at random using a reliable random number generator or audited manual draw process. The selection will be conducted under supervision by an impartial third‑party or internal process designed to ensure fairness.</p>
+                <h3>Timing & Publication:</h3>
+                <p>The Draw Date will be publicly announced in advance. After selection, the Winner(s) name (at minimum first name and city/state) may be published on our website or notified via email. We will maintain records of the entry pool, draw process and result for auditing purposes for at least [e.g., 12 months].</p>
+                <h3>Verification & Disqualification:</h3>
+                <p>Winners will be required to submit proof of identity, age and eligibility. We reserve the right to disqualify any entry if we reasonably suspect fraud, tampering, or breach of these Terms.</p>
+                <h3>Ticket Sale Minimum / Cancellation:</h3>
+                <p>If we have disclosed a minimum number of entries or a minimum sales threshold, and that threshold is not met by the Draw closing time, we may cancel the Draw or select a reduced prize/adjust terms. Any such possibility will be clearly stated on the website. If the Draw is cancelled, we will refund or credit Entrants in accordance with our published policy.</p>
+                <h3>Winner Notification & Prize Delivery:</h3>
+                <p>Winner(s) will be notified via email and required to respond within [14] days. Prize delivery will be coordinated promptly after eligibility verification, subject to any shipping, customs or regulatory requirements.</p>
+                <h3>Audit & Compliance:</h3>
+                <p>We may engage independent auditing or compliance verification to ensure the integrity of the draw. Entrants may request confirmation of key draw details (e.g., method used) by contacting us.</p>
             </section>
 
-            <!-- Lottery Entry Form -->
-            <div id="entryForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-16 md:mb-24 fade-in" style="animation-delay: 800ms;">
-                <h2 class="text-4xl font-['Playfair_Display'] font-light text-center mb-4" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
-                    Enter the Draw — Your Exclusive Chance
-                </h2>
-                <p class="text-center max-w-2xl mx-auto mb-12" style="color: var(--text-secondary);">
-                    Choose your entry package below to receive lottery tickets and stand a chance to win the iconic bag.
-                </p>
-                
-                <div class="grid lg:grid-cols-2 gap-12">
-                    <!-- Ticket Selection -->
-                    <div class="flex flex-col">
-                        <div class="space-y-4">
-                            <!-- Package 1 -->
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 1, 5, '1 Ticket', 1)">
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Buy 1 Ticket</div>
-                                    </div>
-                                    <div class="text-2xl font-bold" style="font-size: 1.25rem; color: var(--accent-gold);">$5</div>
-                                </div>
-                            </div>
-                            
-                            <!-- Package 2 -->
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 2, 9, '2 Tickets', 2)">
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Buy 2 Tickets</div>
-                                    </div>
-                                    <div class="text-2xl font-bold" style="font-size: 1.25rem; color: var(--accent-gold);">$9</div>
-                                </div>
-                            </div>
-                            
-                            <!-- Package 3 -->
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 5, 21, '5 Tickets', 5)">
-                                <div class="absolute -top-3 right-4 bg-gold-accent text-black text-xs font-bold uppercase px-3 py-1 rounded-full">Best Value</div>
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <div class="font-semibold text-lg mb-1" style="color: var(--text-body);">Buy 5 Tickets</div>
-                                    </div>
-                                    <div class="text-2xl font-bold" style="font-size: 1.25rem; color: var(--accent-gold);">$21</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Selected Ticket Display -->
-                    <div class="flex flex-col text-center">
-                        <h4 class="text-xl font-medium mb-8" style="color: var(--text-primary);">Your Selection</h4>
-                        <div id="selectedTicket" class="luxury-border border-dashed rounded-2xl p-8 text-center mb-8 flex-grow flex items-center justify-center">
-                            <div style="color: var(--text-secondary);">Select a ticket package to continue</div>
-                        </div>
-                        
-                        <button id="proceedBtn" class="btn-cta w-full text-lg tracking-wide disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="showCheckout()">
-                            Enter the Draw Now
-                        </button>
-                        <p class="text-xs mt-4" style="color: var(--text-secondary);">Limited tickets available. Winners will be selected once all entries are sold.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Trust & Legitimacy Section -->
-            <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-16 md:mb-24 fade-in" style="animation-delay: 1000ms;">
-                <h2 class="text-3xl font-['Playfair_Display'] font-light text-center mb-10" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
-                    Secure & Transparent Entry
-                </h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
-                    <div class="space-y-3">
-                        <div class="text-4xl" style="color: var(--accent-gold);">🔒</div>
-                        <h4 class="font-semibold" style="color: var(--text-body);">256-bit SSL Encryption</h4>
-                        <p class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">All payment information is fully encrypted and secure.</p>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="text-4xl" style="color: var(--accent-gold);">🛡️</div>
-                        <h4 class="font-semibold" style="color: var(--text-body);">Verified Fair Draw</h4>
-                        <p class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">The winner is chosen via a recorded, independent random draw.</p>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="text-4xl" style="color: var(--accent-gold);">📜</div>
-                        <h4 class="font-semibold" style="color: var(--text-primary);">Authenticity Guaranteed</h4>
-                        <p class="text-sm" style="color: var(--text-secondary);">The prize includes its original authenticity certificate.</p>
-                    </div>
-                    <div class="space-y-3">
-                        <div class="text-4xl" style="color: var(--accent-gold);">🌍</div>
-                        <h4 class="font-semibold" style="color: var(--text-body);">Worldwide Insured Shipping</h4>
-                        <p class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">We deliver your prize safely to your doorstep, anywhere in the world.</p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Checkout Form (Hidden Initially) -->
-            <div id="checkoutForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 fade-in hidden">
-                <div class="bg-red-100 border border-red-200 rounded-2xl p-6 mb-8">
-                    <div class="flex items-center">
-                        <div class="text-red-500 mr-3">⚠️</div>
-                        <div class="text-red-700 font-semibold tracking-wide">DEMO CHECKOUT - NOT FUNCTIONAL</div>
-                    </div>
-                    <div class="text-red-600 text-sm mt-2">This is a demonstration only. No actual payments will be processed.</div>
-                </div>
-                
-                <h2 class="text-3xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
-                    Complete Your Purchase
-                </h2>
-                
-                <form onsubmit="handleCheckout(event)" class="space-y-8">
-                    <!-- Personal Information -->
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">First Name</label>
-                            <input type="text" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
-                        </div>
-                        <div>
-                            <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Last Name</label>
-                            <input type="text" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Email Address</label>
-                        <input type="email" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
-                    </div>
-                    
-                    <div>
-                        <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Phone Number</label>
-                        <input type="tel" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
-                    </div>
-
-                    <!-- Payment Information (Demo) -->
-                    <div class="border-t pt-8" style="border-color: var(--border-light);">
-                        <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Payment Information</h4>
-                        <div class="bg-gray-100 rounded-2xl p-6 mb-6">
-                            <div class="text-sm mb-2" style="color: var(--text-secondary);">Demo payment details - do not enter real information</div>
-                            <div class="text-xs" style="color: var(--text-secondary);">Card: 4242 4242 4242 4242 | Exp: 12/25 | CVV: 123</div>
-                        </div>
-                        
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div class="md:col-span-2">
-                                <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Card Number</label>
-                                <input type="text" placeholder="4242 4242 4242 4242" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-50" readonly>
-                            </div>
-                            <div>
-                                <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Expiry Date</label>
-                                <input type="text" placeholder="12/25" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-50" readonly>
-                            </div>
-                            <div>
-                                <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">CVV</label>
-                                <input type="text" placeholder="123" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-50" readonly>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Order Summary -->
-                    <div class="border-t pt-8" style="border-color: var(--border-light);">
-                        <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Order Summary</h4>
-                        <div id="orderSummary" class="bg-gray-50 rounded-2xl p-6">
-                            <!-- Will be populated by JavaScript -->
-                        </div>
-                    </div>
-
-                    <button type="submit" class="w-full bg-gold-accent text-white font-bold py-4 px-8 rounded-md text-lg tracking-wide mt-8">
-                        Complete Purchase
-                    </button>
-                </form>
-                
-                <button onclick="backToEntry()" class="w-full mt-6 luxury-border py-4 px-8 rounded-md font-medium tracking-wide hover-lift transition-all" style="color: var(--text-body);">
-                    ← Back to Entry Selection
-                </button>
-            </div>
-
-            <!-- Success Message (Hidden Initially) -->
-            <div id="successMessage" class="glass-effect rounded-3xl card-shadow p-12 text-center fade-in hidden">
-                <div class="text-8xl mb-8">🎉</div>
-                <h2 class="text-4xl font-['Playfair_Display'] font-light mb-6" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
-                    Your Entry is Confirmed!
-                </h2>
-                <p class="text-lg leading-relaxed mb-8 max-w-2xl mx-auto" style="color: var(--text-secondary);">
-                    Thank you for your purchase. You will receive a confirmation email shortly with your entry details.
-                    We will notify the winner once the draw is complete. Good luck!
-                </p>
-                <button onclick="resetForm()" class="btn py-4 px-10 tracking-wide">
-                    START NEW ENTRY
-                </button>
-            </div>
         </main>
 
         <!-- Footer -->
@@ -502,162 +302,9 @@
                     <a href="legal.html#fair-draw" class="hover:text-white transition-colors">Fair Draw Info</a>
                 </div>
                 <p class="mb-3 font-light tracking-wide text-sm text-white/90 uppercase">© 2025 La Maison. All rights reserved.</p>
-                <p class="text-sm text-white/80 mb-3">🛡️ Operated by La Maison LTD • Officially authorized to conduct promotional lotteries in the U.S.</p>
                 <p class="text-xs text-white/60">This is a demonstration website for portfolio purposes. No actual lottery or sales are conducted.</p>
             </div>
         </footer>
     </div>
-
-    <script>
-        let selectedTickets = 0;
-        let selectedPrice = 0;
-        let selectedPackage = '';
-        let purchasedTickets = 0;
-
-        function selectTicket(element, tickets, price, packageName, purchased) {
-            selectedTickets = tickets;
-            selectedPrice = price;
-            purchasedTickets = purchased;
-            selectedPackage = packageName;
-            
-            // Remove previous selections
-            document.querySelectorAll('.ticket-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            
-            // Highlight selected option
-            element.classList.add('selected');
-
-            
-            // Update selected ticket display
-            const selectedTicketDiv = document.getElementById('selectedTicket');
-            selectedTicketDiv.innerHTML = `
-                <div style="color: var(--text-body);" class="text-center">
-                    <div class="text-2xl font-semibold mb-3">${packageName}</div>
-                    <div class="text-lg font-medium mb-2">${tickets} Total Entries</div>
-                <div class="text-3xl font-bold mt-3" style="font-size: 1.75rem; color: var(--accent-gold);">$${price}</div>
-                </div>
-            `;
-            selectedTicketDiv.classList.remove('border-dashed');
-            selectedTicketDiv.style.backgroundColor = '#FDF6EC'; /* Ivory */
-            
-            // Enable proceed button
-            document.getElementById('proceedBtn').disabled = false;
-        }
-
-        function updateTicketCounters(newSold) {
-            const currentSold = parseInt(document.getElementById('ticketsSold').textContent.replace(',', ''));
-            const totalGoal = 5000;
-            const remaining = totalGoal - newSold;
-            const percentage = (newSold / totalGoal * 100).toFixed(1);
-            
-            // Update display with comma formatting
-            document.getElementById('ticketsSold').textContent = newSold.toLocaleString();
-            document.getElementById('ticketsRemaining').textContent = remaining.toLocaleString();
-            
-            // Update progress bar
-            const progressBar = document.querySelector('.progress-glow');
-            if (progressBar) {
-                progressBar.style.width = percentage + '%';
-            }
-
-            // Update progress text
-            document.getElementById('progressPercentage').textContent = percentage + '%';
-            document.getElementById('ticketsSoldCount').textContent = `${newSold.toLocaleString()} / ${totalGoal.toLocaleString()} Entries Sold`;
-        }
-
-        function showCheckout() {
-            document.getElementById('entryForm').classList.add('hidden');
-            document.getElementById('checkoutForm').classList.remove('hidden');
-            
-            // Update order summary
-            const orderSummary = document.getElementById('orderSummary');
-            orderSummary.innerHTML = `
-                <div class="flex justify-between items-center mb-2">
-                    <span>${selectedPackage}</span>
-                    <span>$${selectedPrice}</span>
-                </div>
-                <div class="flex justify-between items-center text-sm mb-3" style="color: var(--text-secondary);">
-                    <span>${purchasedTickets} x BOGO Entry Package</span>
-                    <span>${purchasedTickets} x Entry Package</span>
-                <div class="border-t pt-2" style="border-color: var(--border-light);">
-                    <div class="flex justify-between items-center font-semibold text-lg">
-                        <span>Total</span>
-                        <span>$${selectedPrice}</span>
-                    </div>
-                </div>
-            `;
-            
-            // Scroll to the form
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function backToEntry() {
-            document.getElementById('checkoutForm').classList.add('hidden');
-            document.getElementById('entryForm').classList.remove('hidden');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function handleCheckout(event) {
-            event.preventDefault();
-
-            // Simulate adding tickets to the total
-            const currentSold = parseInt(document.getElementById('ticketsSold').textContent.replace(',', ''));
-            updateTicketCounters(currentSold + selectedTickets);
-            
-            // Hide checkout form and show success message
-            document.getElementById('checkoutForm').classList.add('hidden');
-            document.getElementById('successMessage').classList.remove('hidden');
-            
-            window.scrollTo({ top: document.getElementById('successMessage').offsetTop - 100, behavior: 'smooth' });
-        }
-
-        function resetForm() {
-            // Reset all selections
-            selectedTickets = 0;
-            selectedPrice = 0;
-            selectedPackage = '';
-            purchasedTickets = 0;
-            
-            // Reset UI
-            document.querySelectorAll('.ticket-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            
-            const selectedTicketDiv = document.getElementById('selectedTicket');
-            selectedTicketDiv.innerHTML = '<div style="color: var(--text-secondary);" class="flex items-center justify-center h-full">Select a ticket package to continue</div>';
-            selectedTicketDiv.classList.add('border-dashed');
-            selectedTicketDiv.style.backgroundColor = 'transparent';
-            
-            document.getElementById('proceedBtn').disabled = true;
-            
-            // Show entry form
-            document.getElementById('successMessage').classList.add('hidden');
-            document.getElementById('entryForm').classList.remove('hidden');
-        }
-
-        // Live ticket sales simulation
-        document.addEventListener('DOMContentLoaded', () => {
-             const totalGoal = 5000;
-             let currentSold = parseInt(document.getElementById('ticketsSold').textContent.replace(',', ''));
- 
-             const ticketSimulationInterval = setInterval(() => {
-                 // Decrease remaining by 1 (i.e., increase sold by 1)
-                 const newTickets = 1;
-                 
-                 if (currentSold + newTickets < totalGoal) {
-                     currentSold += newTickets;
-                     updateTicketCounters(currentSold);
-                 } else {
-                     // If we reach the goal, show it's complete, then reset after a delay.
-                     updateTicketCounters(totalGoal);
-                     
-                     setTimeout(() => {
-                        currentSold = 4200;
-                        updateTicketCounters(currentSold);
-                     }, 10000); // Wait 10 seconds before resetting
-                 }
-             }, 1200000); // Run every 20 minutes (20 * 60 * 1000 ms)
-        });
-    </script>
+</body>
 </html>
