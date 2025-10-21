@@ -134,6 +134,21 @@
             background-color: #FAF6F0; /* A softer, more elegant ivory */
             transform: translateY(-4px);
         }
+
+        .fair-draw-badge {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background-color: #F7F6F5;
+            border: 1px solid var(--border-light);
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .fair-draw-badge img {
+            width: 40px;
+            height: 40px;
+        }
     </style>
     <script>
         // Simple countdown timer logic
@@ -355,14 +370,39 @@
                     <!-- Selected Ticket Display -->
                     <div class="flex flex-col text-center">
                         <h4 class="text-xl font-medium mb-8" style="color: var(--text-primary);">Your Selection</h4>
-                        <div id="selectedTicket" class="luxury-border border-dashed rounded-2xl p-8 text-center mb-8 flex-grow flex items-center justify-center">
+                        <div id="selectedTicket" class="luxury-border border-dashed rounded-2xl p-8 text-center mb-4 flex-grow flex items-center justify-center">
                             <div style="color: var(--text-secondary);">Select a ticket package to continue</div>
                         </div>
                         
+                        <!-- Fair Draw Badge -->
+                        <div class="fair-draw-badge text-left">
+                            <div class="text-3xl">🛡️</div>
+                            <div>
+                                <p class="font-semibold text-sm" style="color: var(--text-primary);">100% Transparent Draw</p>
+                                <p class="text-xs" style="color: var(--text-secondary);">Live Streamed • Publicly Verifiable • Fair</p>
+                            </div>
+                        </div>
+
                         <button id="proceedBtn" class="btn-cta w-full text-lg tracking-wide disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="showCheckout()">
                             Enter the Draw Now
                         </button>
                         <p class="text-xs mt-4" style="color: var(--text-secondary);">Limited tickets available. Winners will be selected once all entries are sold.</p>
+                    </div>
+                </div>
+
+                <!-- Fair Draw Guarantee Section -->
+                <div class="mt-16 pt-12 border-t" style="border-color: var(--border-light);">
+                    <h3 class="text-2xl font-['Playfair_Display'] font-light text-center mb-8" style="color: var(--text-primary);">🛡️ Fair Draw Guarantee</h3>
+                    <div class="max-w-3xl mx-auto text-sm space-y-3" style="color: var(--text-secondary);">
+                        <p>We believe in complete fairness and transparency. That’s why:</p>
+                        <ul class="list-disc list-inside space-y-2 pl-4">
+                            <li>The live draw will take place as soon all tickets are sold (if not all tickets are sold, then based on the count down on the website).</li>
+                            <li>The draw is streamed live on YouTube (you will be notified and sent a link).</li>
+                            <li>Every valid ticket is logged and included in the draw.</li>
+                            <li>The winner will be selected using a public, verifiable method based on blockchain randomness (Bitcoin block hash), combined with a committed secret (published before the draw).</li>
+                            <li>All details will be published: the final ticket list, the draw script, seed values, and the result log so anyone can verify it.</li>
+                            <li>The winner will be announced live and contacted directly by email.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
