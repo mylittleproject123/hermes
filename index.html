@@ -7,20 +7,21 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        body {
-            box-sizing: border-box;
-        }
-        
         :root {
+            /* Refined Palette */
             --bg: #F7F6F5;
             --text-primary: #111111;
             --text-body: #333333;
             --text-secondary: #6B7280;
-            --accent-gold: #C59A6B;
-            --cta-bg: #C59A6B;
+            --accent-gold: #B99566; /* A slightly more muted, sophisticated gold */
+            --cta-bg: var(--accent-gold);
             --border-light: #E8E7E5;
             --dark-accent-bg: #1B1B1B;
-            --bg-card: rgba(255, 255, 255, 0.7);
+            --bg-card: rgba(255, 255, 255, 0.6); /* Slightly less opaque for a softer glass effect */
+        }
+
+        body {
+            box-sizing: border-box;
         }
         
         * {
@@ -37,11 +38,11 @@
         }
         
         .card-shadow {
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.04);
         }
         
         .glass-effect {
-            background: var(--bg-card);
+            background: var(--bg-card); /* Using the new variable */
             backdrop-filter: blur(10px);
             border: 1px solid var(--border-light);
         }
@@ -83,7 +84,7 @@
         }
         
         .progress-glow {
-            box-shadow: 0 0 20px rgba(197, 154, 107, 0.4);
+            box-shadow: 0 0 15px rgba(185, 149, 102, 0.5); /* Matching the new gold */
         }
         
         .luxury-border {
@@ -98,7 +99,7 @@
         
         .luxury-input:focus {
             border-color: var(--accent-gold);
-            box-shadow: 0 0 0 3px rgba(197, 154, 107, 0.15);
+            box-shadow: 0 0 0 3px rgba(185, 149, 102, 0.2);
             outline: none;
         }
         
@@ -112,13 +113,13 @@
         
         .elegant-button:hover {
             opacity: 0.9;
-            box-shadow: 0 10px 20px -5px rgba(197, 154, 107, 0.3);
+            box-shadow: 0 10px 20px -5px rgba(185, 149, 102, 0.3);
             transform: translateY(-2px);
         }
 
         .ticket-option.selected {
             border-color: var(--accent-gold);
-            background-color: #FDF6EC; /* Ivory accent for selection */
+            background-color: #FAF6F0; /* A softer, more elegant ivory */
             transform: translateY(-4px);
         }
     </style>
@@ -156,7 +157,7 @@
 <body class="min-h-full font-['Inter'] text-base" style="background-color: var(--bg); color: var(--text-body); line-height: 1.6;">
     <div class="min-h-full font-['Inter']">
         <header class="py-8 px-8 flex justify-center items-center">
-            <h1 class="text-4xl md:text-5xl font-['Playfair_Display'] font-light tracking-[0.2em]" style="color: var(--text-body);">La Maison</h1>
+            <h1 class="text-4xl md:text-5xl font-['Playfair_Display'] font-light tracking-[0.25em] uppercase" style="color: var(--text-primary);">La Maison</h1>
        </header>
         <!-- Main Content -->
         <main class="max-w-6xl mx-auto px-4 sm:px-8">
@@ -170,8 +171,8 @@
                 
                 <!-- Content -->
                 <div class="relative z-10 flex flex-col items-center w-full pt-24 fade-in">
-                    <h2 class="text-4xl md:text-6xl font-['Playfair_Display'] font-semibold text-white leading-tight mb-4" style="font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">Own a Hermès Birkin</h2>
-                    <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto uppercase tracking-widest" style="font-size: clamp(0.9rem, 2vw, 1.125rem); text-shadow: 0 1px 5px rgba(0,0,0,0.4);">One Winner. One Chance. Unlimited Luxury.</p>
+                    <h2 class="text-4xl md:text-6xl font-['Playfair_Display'] font-semibold text-white leading-tight mb-4" style="font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; text-shadow: 0 2px 15px rgba(0,0,0,0.5);">Own a Hermès Birkin</h2>
+                    <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto uppercase tracking-widest" style="font-size: clamp(0.9rem, 2vw, 1.125rem); text-shadow: 0 1px 8px rgba(0,0,0,0.4);">One Winner. One Chance. Unlimited Luxury.</p>
                     <a href="#entryForm" class="elegant-button inline-block py-4 px-12 rounded-md text-lg">
                         Secure My Entry
                     </a>
@@ -184,7 +185,7 @@
                     <!-- Progress Bar -->
                     <div class="mb-12">
                         <div class="flex justify-between items-center text-sm font-medium mb-3" style="color: var(--text-secondary);">
-                            <span id="ticketsSoldCount">4,247 / 5,000 Entries Sold</span>
+                            <span id="ticketsSoldCount">4,247 / 5,000 Entries Claimed</span>
                             <span class="text-gold font-semibold" id="progressPercentage">84.9%</span>
                         </div>
                         <div class="bg-gray-200 rounded-full h-2.5 overflow-hidden luxury-border">
@@ -201,15 +202,15 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div class="glass-effect rounded-2xl p-8 card-shadow text-center hover-lift">
                             <div class="text-4xl font-light mb-2" id="ticketsSold" style="color: var(--accent-gold);">4,247</div>
-                            <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Entries Sold</div>
+                            <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Entries Claimed</div>
                         </div>
                         <div class="glass-effect rounded-2xl p-8 card-shadow text-center hover-lift">
                             <div class="text-4xl font-light mb-2" style="color: var(--accent-gold);">5,000</div>
                             <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Goal</div>
                         </div>
                         <div class="glass-effect rounded-2xl p-8 card-shadow text-center hover-lift">
-                            <div class="text-4xl font-light mb-2" id="ticketsRemaining" style="color: var(--accent-gold);">753</div>
-                            <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Remaining</div>
+                            <div class="text-4xl font-light mb-2" id="ticketsRemaining" style="color: var(--accent-gold);">753</div> <!-- This will be updated by JS -->
+                            <div class="text-sm font-medium tracking-wide uppercase" style="color: var(--text-secondary);">Available</div>
                         </div>
                     </div>
                 </div>
@@ -217,26 +218,26 @@
 
             <!-- How it Works -->
             <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in" style="animation-delay: 400ms;">
-                <h2 class="text-4xl font-['Playfair_Display'] font-light text-center mb-16" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2;">
+                <h2 class="text-4xl font-['Playfair_Display'] font-light text-center mb-16" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
                     Your Path to Ownership
                 </h2>
                 <div class="grid md:grid-cols-3 gap-12">
                     <div class="text-center group">
-                        <div class="w-20 h-20 luxury-border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
+                        <div class="w-20 h-20 luxury-border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-all duration-300 group-hover:scale-105">
                             <span class="text-3xl" style="color: var(--accent-gold);">🎫</span>
                         </div>
                         <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">Choose Your Entry</h4>
                         <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">Select your preferred entry package to begin.</p>
                     </div>
                     <div class="text-center group">
-                        <div class="w-20 h-20 border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
+                        <div class="w-20 h-20 luxury-border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-all duration-300 group-hover:scale-105">
                             <span class="text-3xl" style="color: var(--accent-gold);">⏰</span>
                         </div>
                         <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">Await the Draw</h4>
                         <p class="leading-relaxed text-sm" style="color: var(--text-secondary);">A winner is selected via a verified random draw once all entries are sold.</p>
                     </div>
                     <div class="text-center group">
-                        <div class="w-20 h-20 border border-gray-200 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-colors duration-300">
+                        <div class="w-20 h-20 luxury-border rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-amber-600 transition-all duration-300 group-hover:scale-105">
                             <span class="text-3xl" style="color: var(--accent-gold);">🏆</span>
                         </div>
                         <h4 class="font-semibold mb-4 text-lg" style="color: var(--text-primary);">We Deliver Luxury</h4>
@@ -260,7 +261,7 @@
                         </div>
                     </div>
                     <div class="text-left">
-                        <h2 class="text-4xl font-['Playfair_Display'] font-light mb-6" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2;">The Prize Details</h2>
+                        <h2 class="text-4xl font-['Playfair_Display'] font-light mb-6" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">The Prize Details</h2>
                         <h3 class="text-2xl font-['Playfair_Display'] font-medium mb-2" style="color: var(--text-primary); font-size: 1.75rem; line-height: 1.3;">Hermès Birkin 25 Noir</h3>
                         <p class="font-medium mb-4" style="color: var(--text-body);">Black Togo Leather • Gold Hardware • Stamp Z (2021)</p>
                         <div class="space-y-3 text-base mb-6" style="color: var(--text-body); border-left: 2px solid var(--accent-gold); padding-left: 1.5rem;">
@@ -276,7 +277,7 @@
 
             <!-- Lottery Entry Form -->
             <div id="entryForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in" style="animation-delay: 800ms;">
-                <h2 class="text-4xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2;">
+                <h2 class="text-4xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
                     Secure Your Chance
                 </h2>
                 
@@ -285,7 +286,7 @@
                     <div class="flex flex-col">
                         <h4 class="text-xl font-medium mb-8" style="color: var(--text-primary);">Select Your Entry</h4>
                         <div class="space-y-4">
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative" onclick="selectTicket(this, 2, 5, 'Solo Entry', 1)">
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 2, 5, 'Solo Entry', 1)">
                                 <div class="absolute -top-3 left-4 bg-red-500 text-white text-xs font-bold uppercase px-3 py-1 rounded-full">BOGO</div>
                                 <div class="flex justify-between items-center">
                                     <div>
@@ -296,7 +297,7 @@
                                 </div>
                             </div>
                             
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative" onclick="selectTicket(this, 4, 10, 'Double Chance', 2)">
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 4, 10, 'Double Chance', 2)">
                                 <div class="absolute -top-3 left-4 bg-red-500 text-white text-xs font-bold uppercase px-3 py-1 rounded-full">BOGO</div>
                                 <div class="flex justify-between items-center">
                                     <div>
@@ -307,7 +308,7 @@
                                 </div>
                             </div>
                             
-                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative" onclick="selectTicket(this, 10, 25, 'Collector’s Pack', 5)">
+                            <div class="ticket-option luxury-border rounded-2xl p-6 cursor-pointer transition-all duration-300 bg-white relative hover-lift" onclick="selectTicket(this, 10, 25, 'Collector’s Pack', 5)">
                                 <div class="absolute -top-3 right-4 bg-gold-accent text-black text-xs font-bold uppercase px-3 py-1 rounded-full">Best Value</div>
                                 <div class="absolute -top-3 left-4 bg-red-500 text-white text-xs font-bold uppercase px-3 py-1 rounded-full">BOGO</div>
                                 <div class="flex justify-between items-center">
@@ -336,7 +337,7 @@
 
             <!-- Trust & Legitimacy Section -->
             <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in" style="animation-delay: 1000ms;">
-                <h2 class="text-3xl font-['Playfair_Display'] font-light text-center mb-10" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2;">
+                <h2 class="text-3xl font-['Playfair_Display'] font-light text-center mb-10" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
                     Secure & Transparent Entry
                 </h2>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
@@ -351,7 +352,7 @@
                         <p class="text-sm" style="color: var(--text-secondary); font-size: 0.875rem;">The winner is chosen via a recorded, independent random draw.</p>
                     </div>
                     <div class="space-y-3">
-                        <div class="text-4xl text-gold">📜</div>
+                        <div class="text-4xl" style="color: var(--accent-gold);">📜</div>
                         <h4 class="font-semibold" style="color: var(--text-primary);">Authenticity Guaranteed</h4>
                         <p class="text-sm" style="color: var(--text-secondary);">The prize includes its original authenticity certificate.</p>
                     </div>
@@ -373,7 +374,7 @@
                     <div class="text-red-600 text-sm mt-2">This is a demonstration only. No actual payments will be processed.</div>
                 </div>
                 
-                <h2 class="text-3xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2;">
+                <h2 class="text-3xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
                     Complete Your Purchase
                 </h2>
                 
@@ -445,7 +446,7 @@
             <!-- Success Message (Hidden Initially) -->
             <div id="successMessage" class="glass-effect rounded-3xl card-shadow p-12 text-center fade-in hidden">
                 <div class="text-8xl mb-8">🎉</div>
-                <h2 class="text-4xl font-['Playfair_Display'] font-light mb-6" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2;">
+                <h2 class="text-4xl font-['Playfair_Display'] font-light mb-6" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
                     Your Entry is Confirmed!
                 </h2>
                 <p class="text-lg leading-relaxed mb-8 max-w-2xl mx-auto" style="color: var(--text-secondary);">
@@ -461,14 +462,14 @@
         <!-- Footer -->
         <footer class="luxury-gradient text-white py-12 mt-20">
             <div class="max-w-6xl mx-auto px-8 text-center">
-                <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 text-white/70">
+                <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 text-white/70 text-sm">
                     <a href="#" class="hover:text-white transition-colors">Terms & Conditions</a>
                     <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
                     <a href="#" class="hover:text-white transition-colors">Contact Us</a>
                     <a href="#" class="hover:text-white transition-colors">FAQs</a>
                     <a href="#" class="hover:text-white transition-colors">Fair Draw Info</a>
                 </div>
-                <p class="mb-3 font-light tracking-wide text-sm text-white/90">© 2025 La Maison. All rights reserved.</p>
+                <p class="mb-3 font-light tracking-wide text-sm text-white/90 uppercase">© 2025 La Maison. All rights reserved.</p>
                 <p class="text-xs text-white/60">This is a demonstration website for portfolio purposes. No actual lottery or sales are conducted.</p>
             </div>
         </footer>
