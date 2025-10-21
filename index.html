@@ -30,7 +30,7 @@
         }
         
         .luxury-gradient {
-            background: var(--dark-accent-bg); /* Dark charcoal for footer */
+            background: #000000; /* Simple black footer */
         }
         
         .gold-accent {
@@ -103,18 +103,18 @@
             outline: none;
         }
         
-        .elegant-button {
-            background: var(--cta-bg); /* This is now gold */
-            color: #FFFFFF;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        .btn {
+            background-color: #000;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            display: inline-block; /* Ensure it behaves like a block for padding */
         }
-        
-        .elegant-button:hover {
-            opacity: 0.9;
-            box-shadow: 0 10px 20px -5px rgba(185, 149, 102, 0.3);
-            transform: translateY(-2px);
+
+        .btn:hover {
+            background-color: #333;
         }
 
         .ticket-option.selected {
@@ -157,30 +157,30 @@
 <body class="min-h-full font-['Inter'] text-base" style="background-color: var(--bg); color: var(--text-body); line-height: 1.6;">
     <div class="min-h-full font-['Inter']">
         <header class="py-8 px-8 flex justify-center items-center">
-            <h1 class="text-4xl md:text-5xl font-['Playfair_Display'] font-light tracking-[0.25em] uppercase" style="color: var(--text-primary);">La Maison</h1>
+            <h1 class="text-3xl md:text-4xl font-['Playfair_Display'] font-light tracking-[0.25em] uppercase" style="color: var(--text-primary);">La Maison</h1>
        </header>
         <!-- Main Content -->
         <main class="max-w-6xl mx-auto px-4 sm:px-8">
             <!-- REFINED Hero Section -->
-            <section class="relative text-center pt-16 pb-8 md:pb-12 px-6 flex flex-col items-center justify-end rounded-2xl overflow-hidden mb-24" style="background-color: var(--dark-accent-bg); min-height: 60vh;">
+            <section class="relative text-center px-6 flex flex-col items-center justify-center rounded-2xl overflow-hidden mb-16 md:mb-24" style="background-color: var(--dark-accent-bg); min-height: 60vh;">
                 <!-- Background Image & Overlay -->
                 <div class="absolute inset-0">
                     <img src="https://s30964.pcdn.co/introspective-magazine/wp-content/uploads/2024/09/HB_Hero-1.jpg" alt="Hermes Birkin Bag" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
+                    <div class="absolute inset-0 bg-black/40"></div>
                 </div>
                 
                 <!-- Content -->
                 <div class="relative z-10 flex flex-col items-center w-full pt-24 fade-in">
                     <h2 class="text-4xl md:text-6xl font-['Playfair_Display'] font-semibold text-white leading-tight mb-4" style="font-size: clamp(2.5rem, 5vw, 3.5rem); line-height: 1.1; text-shadow: 0 2px 15px rgba(0,0,0,0.5);">Own a Hermès Birkin</h2>
                     <p class="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto uppercase tracking-widest" style="font-size: clamp(0.9rem, 2vw, 1.125rem); text-shadow: 0 1px 8px rgba(0,0,0,0.4);">One Winner. One Chance. Unlimited Luxury.</p>
-                    <a href="#entryForm" class="elegant-button inline-block py-4 px-12 rounded-md text-lg">
+                    <a href="#entryForm" class="btn text-lg">
                         Secure My Entry
                     </a>
                 </div>
             </section>
 
             <!-- Trust Metrics -->
-            <section class="mb-24 md:mb-32 fade-in" style="animation-delay: 200ms;">
+            <section class="mb-16 md:mb-24 fade-in" style="animation-delay: 200ms;">
                 <div class="max-w-4xl mx-auto">
                     <!-- Progress Bar -->
                     <div class="mb-12">
@@ -217,7 +217,7 @@
             </section>
 
             <!-- How it Works -->
-            <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in" style="animation-delay: 400ms;">
+            <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-16 md:mb-24 fade-in" style="animation-delay: 400ms;">
                 <h2 class="text-4xl font-['Playfair_Display'] font-light text-center mb-16" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
                     Your Path to Ownership
                 </h2>
@@ -247,7 +247,7 @@
             </section>
 
             <!-- Brand Story Section -->
-            <section class="text-center max-w-3xl mx-auto mb-24 md:mb-32 fade-in" style="animation-delay: 500ms;">
+            <section class="text-center max-w-3xl mx-auto mb-16 md:mb-24 fade-in" style="animation-delay: 500ms;">
                 <div class="mb-12 rounded-2xl overflow-hidden card-shadow hover-lift">
                     <img src="https://arabiandiaries.com/wp-content/uploads/2023/05/Hermes-Birkin-Bag-768x453.jpg" alt="Lifestyle with Hermes Bag" class="w-full h-auto object-cover">
                 </div>
@@ -267,7 +267,7 @@
 
 
             <!-- Prize Details -->
-            <section class="mb-24 md:mb-32 fade-in" style="animation-delay: 600ms;">
+            <section class="mb-16 md:mb-24 fade-in" style="animation-delay: 600ms;">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="grid grid-cols-2 gap-4">
                         <div class="col-span-2 rounded-2xl overflow-hidden card-shadow hover-lift">
@@ -296,7 +296,7 @@
             </section>
 
             <!-- Lottery Entry Form -->
-            <div id="entryForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in" style="animation-delay: 800ms;">
+            <div id="entryForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-16 md:mb-24 fade-in" style="animation-delay: 800ms;">
                 <h2 class="text-4xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
                     Secure Your Chance
                 </h2>
@@ -348,7 +348,7 @@
                             <div style="color: var(--text-secondary);">Select a ticket package to continue</div>
                         </div>
                         
-                        <button id="proceedBtn" class="elegant-button w-full py-4 px-8 rounded-md text-lg tracking-wide disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="showCheckout()">
+                        <button id="proceedBtn" class="btn w-full text-lg tracking-wide disabled:opacity-50 disabled:cursor-not-allowed" disabled onclick="showCheckout()">
                             Join the Draw
                         </button>
                     </div>
@@ -356,7 +356,7 @@
             </div>
 
             <!-- Trust & Legitimacy Section -->
-            <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-24 md:mb-32 fade-in" style="animation-delay: 1000ms;">
+            <section class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 mb-16 md:mb-24 fade-in" style="animation-delay: 1000ms;">
                 <h2 class="text-3xl font-['Playfair_Display'] font-light text-center mb-10" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
                     Secure & Transparent Entry
                 </h2>
@@ -473,7 +473,7 @@
                     Thank you for your purchase. You will receive a confirmation email shortly with your entry details.
                     We will notify the winner once the draw is complete. Good luck!
                 </p>
-                <button onclick="resetForm()" class="elegant-button py-4 px-10 rounded-md tracking-wide">
+                <button onclick="resetForm()" class="btn py-4 px-10 tracking-wide">
                     START NEW ENTRY
                 </button>
             </div>
