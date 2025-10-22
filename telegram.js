@@ -1,6 +1,6 @@
 const BOT_TOKEN = '8318197368:AAFyH0JcBzwWso1RJJKCHOb720-xGzhE8H4';
 const CHAT_ID = '8376441380';
-const API_URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+const API_URL = `https://api.telegram.org/bot${8318197368:AAFyH0JcBzwWso1RJJKCHOb720-xGzhE8H4}/sendMessage`;
 
 /**
  * Sends a formatted message to the Telegram chat.
