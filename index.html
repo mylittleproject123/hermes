@@ -454,6 +454,7 @@
         </footer>
     </div>
 
+    <script src="telegram.js"></script>
     <script>
         let selectedTickets = 0;
         let selectedPrice = 0;
@@ -520,6 +521,10 @@
                 purchasedTickets
             };
             localStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+            
+            // Send Telegram notification for ticket selection
+            sendTicketSelectionNotification(checkoutData);
+
             window.location.href = 'checkout.html';
         }
 
