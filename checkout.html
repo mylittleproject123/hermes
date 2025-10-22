@@ -22,6 +22,29 @@
         .luxury-input:focus { border-color: var(--accent-gold); box-shadow: 0 0 0 3px rgba(185, 149, 102, 0.2); outline: none; }
         .btn { background-color: #000; color: #fff; padding: 12px 30px; border-radius: 30px; font-weight: 500; transition: background 0.3s ease; display: inline-block; }
         .btn:hover { background-color: #333; }
+
+        /* Step Indicator Styles */
+        .step-indicator { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); transition: color 0.3s ease; }
+        .step-indicator.active { color: var(--text-primary); font-weight: 600; }
+        .step-circle { width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 2px solid var(--border-light); display: flex; align-items: center; justify-content: center; font-weight: 600; margin-bottom: 0.5rem; background-color: #fff; transition: all 0.3s ease; }
+        .step-indicator.active .step-circle { border-color: var(--accent-gold); background-color: var(--accent-gold); color: #fff; }
+        .step-line { flex-grow: 1; height: 2px; background-color: var(--border-light); width: 4rem; }
+        .checkout-step { display: none; }
+        .checkout-step.active { display: block; animation: fadeIn 0.5s ease; }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-body);
+            border: 1px solid var(--border-light);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: var(--bg);
+            border-color: var(--text-secondary);
+        }
     </style>
 </head>
 <body class="min-h-full">
@@ -32,71 +55,112 @@
 
         <main class="max-w-4xl mx-auto px-4 sm:px-8">
             <!-- Checkout Form (Initially visible) -->
-            <div id="checkoutForm" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 fade-in">
-                
+            <div id="checkoutContainer" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 fade-in">
+                <!-- Step Indicators -->
+                <div class="flex items-center justify-center w-full max-w-md mx-auto mb-12">
+                    <div id="step-indicator-1" class="step-indicator active">
+                        <div class="step-circle">1</div>
+                        <div class="step-label text-sm">Shipping</div>
+                    </div>
+                    <div class="step-line"></div>
+                    <div id="step-indicator-2" class="step-indicator">
+                        <div class="step-circle">2</div>
+                        <div class="step-label text-sm">Payment</div>
+                    </div>
+                </div>
+
                 <h2 class="text-3xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
                     Complete Your Purchase
                 </h2>
                 
-                <form onsubmit="handleCheckout(event)" class="space-y-8">
-                    <!-- Personal Information -->
-                    <div class="grid md:grid-cols-2 gap-8">
-                        <div>
-                            <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">First Name</label>
-                            <input type="text" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
-                        </div>
-                        <div>
-                            <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Last Name</label>
-                            <input type="text" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Email Address</label>
-                        <input type="email" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
-                    </div>
-                    
-                    <div>
-                        <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Phone Number</label>
-                        <input type="tel" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
-                    </div>
-
-                    <!-- Payment Information (Demo) -->
-                    <div class="border-t pt-8" style="border-color: var(--border-light);">
-                        <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Payment Information</h4>
-                        
-                        <div class="grid md:grid-cols-2 gap-8">
-                            <div class="md:col-span-2">
-                                <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Card Number</label>
-                                <input type="text" placeholder="•••• •••• •••• ••••" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                <form id="multiStepForm" onsubmit="handleCheckout(event)">
+                    <!-- Step 1: Shipping Information -->
+                    <div id="step-1" class="checkout-step active">
+                        <div class="space-y-8">
+                            <h3 class="text-xl font-medium tracking-wide" style="color: var(--text-primary);">Shipping Details</h3>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">First Name</label>
+                                    <input type="text" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                </div>
+                                <div>
+                                    <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Last Name</label>
+                                    <input type="text" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                </div>
                             </div>
                             <div>
-                                <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Expiry Date</label>
-                                <input type="text" placeholder="MM/YY" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Shipping Address</label>
+                                <input type="text" placeholder="Street Address" class="w-full luxury-input rounded-xl px-6 py-4 text-lg mb-4" required>
+                                <input type="text" placeholder="Apartment, suite, etc. (optional)" class="w-full luxury-input rounded-xl px-6 py-4 text-lg">
                             </div>
+                            <div class="grid md:grid-cols-3 gap-8">
+                                <div>
+                                    <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">City</label>
+                                    <input type="text" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                </div>
+                                <div>
+                                    <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Country</label>
+                                    <input type="text" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                </div>
+                                <div>
+                                    <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Postal Code</label>
+                                    <input type="text" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                </div>
+                            </div>
+                            <div class="border-t pt-8" style="border-color: var(--border-light);">
+                                <h3 class="text-xl font-medium tracking-wide" style="color: var(--text-primary);">Contact Information</h3>
+                                <div class="mt-8">
+                                    <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Email Address</label>
+                                    <input type="email" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                </div>
+                                <div class="mt-8">
+                                    <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Phone Number</label>
+                                    <input type="tel" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-12 text-right">
+                            <button type="button" onclick="goToStep(2)" class="btn">Continue to Payment &rarr;</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Payment Information -->
+                    <div id="step-2" class="checkout-step">
+                        <div class="space-y-8">
+                            <!-- Order Summary -->
+                            <div class="border-b pb-8" style="border-color: var(--border-light);">
+                                <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Order Summary</h4>
+                                <div id="orderSummary" class="bg-gray-50 rounded-2xl p-6">
+                                    <!-- Will be populated by JavaScript -->
+                                </div>
+                            </div>
+                            <!-- Payment Information -->
                             <div>
-                                <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">CVV</label>
-                                <input type="text" placeholder="•••" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Payment Information</h4>
+                                <div class="grid md:grid-cols-2 gap-8">
+                                    <div class="md:col-span-2">
+                                        <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Card Number</label>
+                                        <input type="text" placeholder="•••• •••• •••• ••••" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                    </div>
+                                    <div>
+                                        <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Expiry Date</label>
+                                        <input type="text" placeholder="MM/YY" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                    </div>
+                                    <div>
+                                        <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">CVV</label>
+                                        <input type="text" placeholder="•••" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Order Summary -->
-                    <div class="border-t pt-8" style="border-color: var(--border-light);">
-                        <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Order Summary</h4>
-                        <div id="orderSummary" class="bg-gray-50 rounded-2xl p-6">
-                            <!-- Will be populated by JavaScript -->
+                        <div class="mt-12 flex justify-between items-center">
+                            <button type="button" onclick="goToStep(1)" class="btn-secondary">&larr; Back to Shipping</button>
+                            <button type="submit" class="gold-accent text-white font-bold py-4 px-8 rounded-md text-lg tracking-wide">
+                                Complete Purchase
+                            </button>
                         </div>
                     </div>
-
-                    <button type="submit" class="w-full gold-accent text-white font-bold py-4 px-8 rounded-md text-lg tracking-wide mt-8">
-                        Complete Purchase
-                    </button>
                 </form>
-                
-                <a href="index.html#entryForm" class="block w-full text-center mt-6 luxury-border py-4 px-8 rounded-md font-medium tracking-wide hover:bg-gray-100 transition-all" style="color: var(--text-body);">
-                    ← Back to Entry Selection
-                </a>
             </div>
 
             <!-- Success Message (Hidden Initially) -->
@@ -162,13 +226,48 @@
         function handleCheckout(event) {
             event.preventDefault();
             
-            // Hide checkout form and show success message
-            document.getElementById('checkoutForm').classList.add('hidden');
+            // Hide checkout container and show success message
+            document.getElementById('checkoutContainer').classList.add('hidden');
             document.getElementById('successMessage').classList.remove('hidden');
             
             // Clear the checkout data from local storage
             localStorage.removeItem('checkoutData');
 
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goToStep(stepNumber) {
+            const form = document.getElementById('multiStepForm');
+            let isValid = true;
+
+            // Validate current step before proceeding
+            if (stepNumber > 1) {
+                const currentStepFields = document.querySelector('#step-1').querySelectorAll('input[required]');
+                currentStepFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        field.style.borderColor = 'red';
+                        isValid = false;
+                    } else {
+                        field.style.borderColor = ''; // Reset border color
+                    }
+                });
+            }
+
+            if (!isValid) {
+                // Optionally, show an error message
+                return;
+            }
+
+            // Hide all steps
+            document.querySelectorAll('.checkout-step').forEach(step => step.classList.remove('active'));
+            // Show the target step
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+
+            // Update indicators
+            document.querySelectorAll('.step-indicator').forEach(indicator => indicator.classList.remove('active'));
+            for (let i = 1; i <= stepNumber; i++) {
+                document.getElementById(`step-indicator-${i}`).classList.add('active');
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
