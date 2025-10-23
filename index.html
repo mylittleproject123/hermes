@@ -154,15 +154,15 @@
         // Simple countdown timer logic
         document.addEventListener('DOMContentLoaded', () => {
             const countdownElement = document.getElementById('countdown');
-            if (!countdownElement) return;
-
-            // Set a future date (e.g., 10 days from now)
-            const countdownDate = new Date().getTime() + 10 * 24 * 60 * 60 * 1000;
-
+            if (!countdownElement) return; 
+ 
+            // Set a fixed future date for the draw. This will be the same for all users.
+            // Example: December 31, 2025
+            const countdownDate = new Date("2025-12-31T23:59:59").getTime();
+ 
             const interval = setInterval(() => {
                 const now = new Date().getTime();
                 const distance = countdownDate - now;
-
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
                 const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
@@ -174,10 +174,10 @@
                     <div><span class="text-2xl md:text-3xl font-semibold">${minutes}</span><span class="text-xs uppercase tracking-wider">Mins</span></div>
                     <div><span class="text-2xl md:text-3xl font-semibold">${seconds}</span><span class="text-xs uppercase tracking-wider">Secs</span></div>
                 `;
-
+ 
                 if (distance < 0) {
                     clearInterval(interval);
-                    countdownElement.innerHTML = "DRAW CLOSED";
+                    countdownElement.innerHTML = `<div class="text-2xl font-semibold uppercase tracking-widest">Draw Closed</div>`;
                 }
             }, 1000);
         });
@@ -553,28 +553,46 @@
             // This function is now mostly for resetting the main page UI if needed.
         }
 
-        // Live ticket sales simulation
+        // --- Persistent Ticket Sales Simulation ---
+        // This simulates fetching data from a server, so the count is persistent.
         document.addEventListener('DOMContentLoaded', () => {
-             const totalGoal = 5000;
-             let currentSold = parseInt(document.getElementById('ticketsSold').textContent.replace(',', ''));
- 
-             const ticketSimulationInterval = setInterval(() => {
-                 // Decrease remaining by 1 (i.e., increase sold by 1)
-                 const newTickets = 1;
-                 
-                 if (currentSold + newTickets < totalGoal) {
-                     currentSold += newTickets;
-                     updateTicketCounters(currentSold);
-                 } else {
-                     // If we reach the goal, show it's complete, then reset after a delay.
-                     updateTicketCounters(totalGoal);
-                     
-                     setTimeout(() => {
-                        currentSold = 4200;
-                        updateTicketCounters(currentSold);
-                     }, 10000); // Wait 10 seconds before resetting
-                 }
-             }, 1200000); // Run every 20 minutes (20 * 60 * 1000 ms)
+            const totalGoal = 5000;
+            const initialSold = 4247;
+            const startDate = new Date('2024-01-01T00:00:00Z').getTime(); // A fixed start date for the sale
+
+            // Function to get the "current" number of tickets sold based on time elapsed
+            function getLiveTicketCount() {
+                const now = new Date().getTime();
+                const timeElapsedMs = now - startDate;
+                
+                // Simulate 1 ticket sold every 20 minutes (1,200,000 ms)
+                const ticketsSoldSinceStart = Math.floor(timeElapsedMs / 1200000);
+                
+                let currentSold = initialSold + ticketsSoldSinceStart;
+
+                // If we exceed the goal, we can cap it or reset it for demo purposes
+                if (currentSold >= totalGoal) {
+                    // This logic would be on a server. Here, we'll just cap it.
+                    return totalGoal;
+                }
+                return currentSold;
+            }
+
+            // Function to update the UI
+            function refreshUI() {
+                const liveCount = getLiveTicketCount();
+                updateTicketCounters(liveCount);
+            }
+
+            // Initial update on page load
+            refreshUI();
+
+            // Periodically refresh the UI to simulate live updates
+            // In a real app, you might use WebSockets for this.
+            // Here, we'll just refresh every 7 seconds for a "live" feel.
+            setInterval(() => {
+                refreshUI();
+            }, 7000); 
         });
     </script>
 </html>
