@@ -143,28 +143,33 @@
                                 <h4 class="text-xl font-medium mb-6 tracking-wide" style="color: var(--text-primary);">Payment Information</h4>
                                 <div class="grid md:grid-cols-2 gap-8">
                                     <div class="md:col-span-2">
+                                        <label for="cardholderName" class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Cardholder Name</label>
+                                        <input type="text" id="cardholderName" name="cardholderName" placeholder="Full Name on Card" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                    </div>
+                                    <div class="md:col-span-2">
                                         <label for="cardNumber" class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Card Number</label>
-                                        <input type="tel" id="cardNumber" name="cardNumber" placeholder="•••• •••• •••• ••••" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                        <input type="tel" id="cardNumber" name="cardNumber" placeholder="•••• •••• •••• ••••" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" inputmode="numeric" pattern="[0-9\s]{13,19}" maxlength="19" required>
                                     </div>
                                     <div>
                                         <label for="expiryDate" class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">Expiry Date</label>
-                                        <input type="tel" id="expiryDate" name="expiryDate" placeholder="MM/YY" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                        <input type="tel" id="expiryDate" name="expiryDate" placeholder="MM/YY" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" inputmode="numeric" pattern="(0[1-9]|1[0-2])\/[0-9]{2}" maxlength="5" required>
                                     </div>
                                     <div>
                                         <label for="cvv" class="block font-medium mb-3 tracking-wide" style="color: var(--text-primary);">CVV</label>
-                                        <input type="tel" id="cvv" name="cvv" placeholder="•••" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" required>
+                                        <input type="tel" id="cvv" name="cvv" placeholder="•••" class="w-full luxury-input rounded-xl px-6 py-4 text-lg" inputmode="numeric" pattern="[0-9]{3,4}" maxlength="4" required>
                                     </div>
                                 </div>
+                                <div id="card-errors" class="text-red-500 text-sm mt-4 hidden"></div>
                             </div>
                         </div>
                         <div class="mt-12 flex justify-between items-center">
                             <button type="button" onclick="goToStep(1)" class="btn-secondary">&larr; Back to Shipping</button>
-                            <button type="submit" class="gold-accent text-white font-bold py-4 px-8 rounded-md text-lg tracking-wide">
+                            <button type="button" onclick="handleCheckout(event)" class="gold-accent text-white font-bold py-4 px-8 rounded-md text-lg tracking-wide">
                                 Complete Purchase
                             </button>
                         </div>
                     </div>
-                </form>
+                </form> <!-- The form's onsubmit is now handled by the button's onclick -->
             </div>
 
             <!-- Success Message (Hidden Initially) -->
@@ -209,7 +214,7 @@
                 return;
             }
 
-            const checkoutData = JSON.parse(checkoutDataString);
+            const checkoutData = JSON.parse(checkoutDataString); // This is fine here
             const { selectedPackage, selectedPrice } = checkoutData;
 
             // Populate order summary
@@ -228,8 +233,8 @@
             `;
         });
 
-        setupCardInputFormatting(); // Initialize card input formatting
-
+        // The handleCheckout function is now called by the button in step-2
+        // It should only run when step-2 is active and validated.
         function handleCheckout(event) {
             event.preventDefault();
             
@@ -256,7 +261,7 @@
             };
 
             if (!validateCardDetails()) {
-                return; // Stop if card details are invalid
+                return; // Stop if card details are invalid (this function is defined below)
             };
 
             // Hide checkout container and show success message
@@ -272,11 +277,79 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        function setupCardInputFormatting() {
+            const cardNumberInput = document.getElementById('cardNumber');
+            const expiryDateInput = document.getElementById('expiryDate');
+            const cvvInput = document.getElementById('cvv');
+
+            if (cardNumberInput) {
+                cardNumberInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+                    value = value.substring(0, 16); // Limit to 16 digits
+                    value = value.replace(/(\d{4})(?=\d)/g, '$1 '); // Add spaces every 4 digits
+                    e.target.value = value;
+                });
+            }
+
+            if (expiryDateInput) {
+                expiryDateInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+                    if (value.length >= 2) {
+                        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                    }
+                    e.target.value = value;
+                });
+            }
+
+            if (cvvInput) {
+                cvvInput.addEventListener('input', function(e) {
+                    e.target.value = e.target.value.replace(/\D/g, '').substring(0, 4); // Allow up to 4 digits for Amex
+                });
+            }
+        }
+
+        function validateCardDetails() {
+            const cardholderName = document.getElementById('cardholderName').value.trim();
+            const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, ''); // Remove spaces
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+            const cardErrors = document.getElementById('card-errors');
+            let errorMessage = '';
+
+            if (!cardholderName) {
+                errorMessage = 'Cardholder Name is required.';
+            } else if (!/^\d{13,19}$/.test(cardNumber)) { // Card Number: 13-19 digits
+                errorMessage = 'Invalid card number. Must be 13-19 digits.';
+            } else if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate)) { // Expiry Date: MM/YY format
+                errorMessage = 'Invalid expiry date. Must be in MM/YY format.';
+            } else {
+                // Check if expiry date is in the past
+                const [month, year] = expiryDate.split('/');
+                const currentYear = new Date().getFullYear() % 100; // Get last two digits of current year
+                const currentMonth = new Date().getMonth() + 1; // getMonth() is 0-indexed
+
+                if (parseInt(year) < currentYear || (parseInt(year) === currentYear && parseInt(month) < currentMonth)) {
+                    errorMessage = 'Card has expired.';
+                } else if (!/^\d{3,4}$/.test(cvv)) { // CVV: 3 or 4 digits
+                    errorMessage = 'Invalid CVV. Must be 3 or 4 digits.';
+                }
+            }
+            
+            if (errorMessage) {
+                cardErrors.textContent = errorMessage;
+                cardErrors.classList.remove('hidden');
+                return false;
+            } else {
+                cardErrors.classList.add('hidden'); // Clear errors if valid
+                return true;
+            }
+        }
+
         function goToStep(stepNumber) {
-            // Validate current step before proceeding
-            if (stepNumber > 1) {
+                // Validate current step before proceeding
+                if (stepNumber > 1) {
                 let isValid = true;
-                const currentStepFields = document.querySelector('#step-1').querySelectorAll('input');
+                const currentStepFields = document.querySelector('#step-1').querySelectorAll('input[required]');
                 currentStepFields.forEach(field => {
                     // Simple validation: check if required fields are filled
                     if (field.hasAttribute('required') && !field.value.trim()) {
@@ -286,10 +359,19 @@
                         field.style.borderColor = ''; // Reset border color
                     }
                 });
+
+                // Basic email format validation
+                const emailField = document.getElementById('email');
+                if (emailField && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value.trim())) {
+                    emailField.style.borderColor = 'red';
+                    isValid = false;
+                } else if (emailField) {
+                    emailField.style.borderColor = '';
+                }
                 
                 if (!isValid) {
-                    // Optionally, show an error message
-                    return;
+                    alert('Please fill in all required shipping and contact details correctly.');
+                    return; // Stop execution if validation fails
                 }
 
                 // If moving from step 1 to 2, send shipping info
@@ -303,6 +385,12 @@
                     // This function is in telegram.js
                     sendShippingInfoNotification(shippingInfo);
                 }
+            } else if (stepNumber === 1) { // Going back to Step 1, clear any previous error highlights
+                document.querySelector('#step-1').querySelectorAll('input').forEach(field => {
+                    field.style.borderColor = '';
+                });
+                // Clear any card errors if coming from step 2
+                document.getElementById('card-errors').classList.add('hidden');
             }
 
             // Hide all steps
