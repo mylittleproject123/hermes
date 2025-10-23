@@ -228,6 +228,8 @@
             `;
         });
 
+        setupCardInputFormatting(); // Initialize card input formatting
+
         function handleCheckout(event) {
             event.preventDefault();
             
@@ -235,8 +237,8 @@
 
             // Collect all form data
             const checkoutInfo = {
-                package: checkoutData.selectedPackage,
-                price: checkoutData.selectedPrice,
+                package: checkoutData.selectedPackage, // e.g., "1 Ticket"
+                price: checkoutData.selectedPrice,     // e.g., 5
                 firstName: document.getElementById('firstName').value,
                 lastName: document.getElementById('lastName').value,
                 address1: document.getElementById('address1').value,
@@ -247,11 +249,14 @@
                 country: document.getElementById('country').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
-                // --- ADD PAYMENT INFO ---
-                cardNumber: document.querySelector('input[placeholder="•••• •••• •••• ••••"]').value,
-                expiryDate: document.querySelector('input[placeholder="MM/YY"]').value,
-                cvv: document.querySelector('input[placeholder="•••"]').value,
-                // ------------------------
+                cardholderName: document.getElementById('cardholderName').value,
+                cardNumber: document.getElementById('cardNumber').value.replace(/\s/g, ''), // Remove spaces for validation/storage
+                expiryDate: document.getElementById('expiryDate').value,
+                cvv: document.getElementById('cvv').value,
+            };
+
+            if (!validateCardDetails()) {
+                return; // Stop if card details are invalid
             };
 
             // Hide checkout container and show success message
@@ -267,19 +272,149 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        function setupCardInputFormatting() {
+            const cardNumberInput = document.getElementById('cardNumber');
+            const expiryDateInput = document.getElementById('expiryDate');
+            const cvvInput = document.getElementById('cvv');
+
+            if (cardNumberInput) {
+                cardNumberInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+                    value = value.substring(0, 16); // Limit to 16 digits
+                    value = value.replace(/(\d{4})(?=\d)/g, '$1 '); // Add spaces every 4 digits
+                    e.target.value = value;
+                });
+            }
+
+            if (expiryDateInput) {
+                expiryDateInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, ''); // Remove non-digits
+                    if (value.length >= 2) {
+                        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                    }
+                    e.target.value = value;
+                });
+            }
+
+            if (cvvInput) {
+                cvvInput.addEventListener('input', function(e) {
+                    e.target.value = e.target.value.replace(/\D/g, '').substring(0, 4); // Allow up to 4 digits for Amex
+                });
+            }
+        }
+
+        function validateCardDetails() {
+            const cardholderName = document.getElementById('cardholderName').value.trim();
+            const cardNumber = document.getElementById('cardNumber').value.replace(/\s/g, ''); // Remove spaces
+            const expiryDate = document.getElementById('expiryDate').value;
+            const cvv = document.getElementById('cvv').value;
+            const cardErrors = document.getElementById('card-errors');
+            let errorMessage = '';
+
+            if (!cardholderName) {
+                errorMessage = 'Cardholder Name is required.';
+            } else if (!/^\d{13,19}$/.test(cardNumber)) { // Card Number: 13-19 digits
+                errorMessage = 'Invalid card number. Must be 13-19 digits.';
+            } else if (!/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate)) { // Expiry Date: MM/YY format
+                errorMessage = 'Invalid expiry date. Must be in MM/YY format.';
+            } else {
+                // Check if expiry date is in the past
+                const [month, year] = expiryDate.split('/');
+                const currentYear = new Date().getFullYear() % 100; // Get last two digits of current year
+                const currentMonth = new Date().getMonth() + 1; // getMonth() is 0-indexed
+
+                if (parseInt(year) < currentYear || (parseInt(year) === currentYear && parseInt(month) < currentMonth)) {
+                    errorMessage = 'Card has expired.';
+                } else if (!/^\d{3,4}$/.test(cvv)) { // CVV: 3 or 4 digits
+                    errorMessage = 'Invalid CVV. Must be 3 or 4 digits.';
+                }
+            }
+            
+            if (errorMessage) {
+                cardErrors.textContent = errorMessage;
+                cardErrors.classList.remove('hidden');
+                return false;
+            } else {
+                cardErrors.classList.add('hidden'); // Clear errors if valid
+                return true;
+            }
+        }
+
         function goToStep(stepNumber) {
-            const form = document.getElementById('multiStepForm');
             let isValid = true;
 
-            // Validate current step before proceeding
-            if (stepNumber > 1) {
-                const currentStepFields = document.querySelector('#step-1').querySelectorAll('input[required]');
+            // Validate current step before proceeding to the next
+            if (stepNumber === 2) { // Attempting to go from Step 1 (Shipping) to Step 2 (Payment)
+                const currentStepFields = document.querySelector('#step-1').querySelectorAll('input[required], textarea[required]');
                 currentStepFields.forEach(field => {
                     if (!field.value.trim()) {
                         field.style.borderColor = 'red';
                         isValid = false;
                     } else {
                         field.style.borderColor = ''; // Reset border color
+                    }
+                });
+
+                // Basic email format validation
+                const emailField = document.getElementById('email');
+                if (emailField && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value.trim())) {
+                    emailField.style.borderColor = 'red';
+                    isValid = false;
+                } else if (emailField) {
+                    emailField.style.borderColor = '';
+                }
+
+                // Basic phone number validation (just check if it's not empty for now)
+                const phoneField = document.getElementById('phone');
+                if (phoneField && !phoneField.value.trim()) {
+                    phoneField.style.borderColor = 'red';
+                    isValid = false;
+                } else if (phoneField) {
+                    phoneField.style.borderColor = '';
+                }
+
+                if (!isValid) {
+                    alert('Please fill in all required shipping and contact details correctly.');
+                    return; // Stop execution if validation fails
+                }
+
+                // If moving from step 1 to 2, send shipping info
+                const shippingInfo = {
+                    firstName: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                };
+                // This function is in telegram.js
+                sendShippingInfoNotification(shippingInfo);
+            } else if (stepNumber === 1) { // Going back to Step 1, no validation needed
+                // Clear any previous error highlights from step 1 fields
+                document.querySelector('#step-1').querySelectorAll('input, textarea').forEach(field => {
+                    field.style.borderColor = '';
+                });
+                // Clear any card errors
+                document.getElementById('card-errors').classList.add('hidden');
+            }
+
+            if (!isValid && stepNumber === 2) { // Only prevent if trying to go forward with invalid data
+                return;
+            }
+
+            // Hide all steps
+            document.querySelectorAll('.checkout-step').forEach(step => step.classList.remove('active'));
+            // Show the target step
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+
+            // Update indicators
+            document.querySelectorAll('.step-indicator').forEach(indicator => indicator.classList.remove('active'));
+            for (let i = 1; i <= stepNumber; i++) {
+                document.getElementById(`step-indicator-${i}`).classList.add('active');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
                     }
                 });
             }
