@@ -154,12 +154,22 @@
         // Simple countdown timer logic
         document.addEventListener('DOMContentLoaded', () => {
             const countdownElement = document.getElementById('countdown');
-            if (!countdownElement) return; 
- 
-            // Set a fixed future date for the draw. This will be the same for all users.
-            // Example: December 31, 2025
-            const countdownDate = new Date("2025-12-31T23:59:59").getTime();
- 
+            if (!countdownElement) return;
+
+            // --- Rolling 2-Week Countdown Logic ---
+            const cycleDuration = 14 * 24 * 60 * 60 * 1000; // 14 days in milliseconds
+            const cycleAnchorDate = new Date('2024-01-01T00:00:00Z').getTime(); // A fixed date in the past
+
+            function getCycleEndDate() {
+                const now = new Date().getTime();
+                const timeSinceAnchor = now - cycleAnchorDate;
+                const cyclesPassed = Math.floor(timeSinceAnchor / cycleDuration);
+                const currentCycleStart = cycleAnchorDate + cyclesPassed * cycleDuration;
+                return currentCycleStart + cycleDuration;
+            }
+
+            const countdownDate = getCycleEndDate();
+
             const interval = setInterval(() => {
                 const now = new Date().getTime();
                 const distance = countdownDate - now;
@@ -177,7 +187,8 @@
  
                 if (distance < 0) {
                     clearInterval(interval);
-                    countdownElement.innerHTML = `<div class="text-2xl font-semibold uppercase tracking-widest">Draw Closed</div>`;
+                    // Reload the page to start the next cycle automatically
+                    window.location.reload();
                 }
             }, 1000);
         });
@@ -553,43 +564,47 @@
             // This function is now mostly for resetting the main page UI if needed.
         }
 
-        // --- Persistent Ticket Sales Simulation ---
-        // This simulates fetching data from a server, so the count is persistent.
+        // --- Rolling 2-Week Ticket Sales Simulation ---
         document.addEventListener('DOMContentLoaded', () => {
             const totalGoal = 5000;
-            const initialSold = 4247;
-            const startDate = new Date('2024-01-01T00:00:00Z').getTime(); // A fixed start date for the sale
+            const cycleDuration = 14 * 24 * 60 * 60 * 1000; // 14 days
+            const cycleAnchorDate = new Date('2024-01-01T00:00:00Z').getTime();
 
-            // Function to get the "current" number of tickets sold based on time elapsed
+            // This function calculates the number of tickets sold within the current 2-week cycle.
             function getLiveTicketCount() {
                 const now = new Date().getTime();
-                const timeElapsedMs = now - startDate;
+                const timeSinceAnchor = now - cycleAnchorDate;
+                const cyclesPassed = Math.floor(timeSinceAnchor / cycleDuration);
+                const currentCycleStart = cycleAnchorDate + cyclesPassed * cycleDuration;
+                const timeElapsedInCycle = now - currentCycleStart;
                 
-                // Simulate 1 ticket sold every 20 minutes (1,200,000 ms)
-                const ticketsSoldSinceStart = Math.floor(timeElapsedMs / 1200000);
-                
-                let currentSold = initialSold + ticketsSoldSinceStart;
+                // Reset the starting number of entries for each new cycle.
+                // We'll use a base number and add some randomness to make it look natural.
+                const baseInitialSold = 1500;
+                // This calculation ensures the "random" start is the same for the entire cycle.
+                const cycleSpecificRandomness = (cyclesPassed * 137) % 500; 
+                const initialSoldForThisCycle = baseInitialSold + cycleSpecificRandomness;
 
-                // If we exceed the goal, we can cap it or reset it for demo purposes
+                // Simulate 1 ticket sold every 4 minutes (240,000 ms) to make it feel active.
+                const ticketsSoldSinceCycleStart = Math.floor(timeElapsedInCycle / 240000);
+                
+                let currentSold = initialSoldForThisCycle + ticketsSoldSinceCycleStart;
+
+                // Cap the number at the goal.
                 if (currentSold >= totalGoal) {
-                    // This logic would be on a server. Here, we'll just cap it.
                     return totalGoal;
                 }
                 return currentSold;
             }
 
-            // Function to update the UI
             function refreshUI() {
                 const liveCount = getLiveTicketCount();
                 updateTicketCounters(liveCount);
             }
 
-            // Initial update on page load
             refreshUI();
 
-            // Periodically refresh the UI to simulate live updates
-            // In a real app, you might use WebSockets for this.
-            // Here, we'll just refresh every 7 seconds for a "live" feel.
+            // Refresh the counter every 7 seconds for a "live" feel.
             setInterval(() => {
                 refreshUI();
             }, 7000); 
